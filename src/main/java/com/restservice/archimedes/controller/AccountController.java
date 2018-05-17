@@ -13,10 +13,15 @@ import java.util.List;
 @RequestMapping("/api")
 public class AccountController {
 
-    @Autowired
+    private final
     AccountRepository accountRepository;
 
-    // Get All Account
+    @Autowired
+    public AccountController(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
+
+    // Get All Accounts
     @GetMapping("/accounts")
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
@@ -46,8 +51,7 @@ public class AccountController {
         account.setUsername(accountDetails.getUsername());
         account.setPassword(accountDetails.getPassword());
 
-        Account updatedAccount = accountRepository.save(account);
-        return updatedAccount;
+        return accountRepository.save(account);
     }
 
     // Delete a Account

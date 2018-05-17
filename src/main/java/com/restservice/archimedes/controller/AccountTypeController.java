@@ -14,29 +14,34 @@ import java.util.List;
 @RequestMapping("/api")
 public class AccountTypeController {
 
-    @Autowired
+    private final
     AccountTypeRepository accountTypeRepository;
 
-    // Get All Account
+    @Autowired
+    public AccountTypeController(AccountTypeRepository accountTypeRepository) {
+        this.accountTypeRepository = accountTypeRepository;
+    }
+
+    // Get All AccountTypes
     @GetMapping("/accountTypes")
     public List<AccountType> getAllAccountTypes() {
         return accountTypeRepository.findAll();
     }
 
-    // Create a new Account
+    // Create a new AccountType
     @PostMapping("/accountTypes")
     public AccountType createAccountType(@Valid @RequestBody AccountType accountType) {
         return accountTypeRepository.save(accountType);
     }
 
-    // Get a Single Account
+    // Get a Single AccountType
     @GetMapping("/accountTypes/{id}")
     public AccountType getAccountById(@PathVariable(value = "id") Long accountTypeId) {
         return accountTypeRepository.findById(accountTypeId)
                 .orElseThrow(() -> new ResourceNotFoundException("AccountType", "id", accountTypeId));
     }
 
-    // Update a Account
+    // Update a AccountType
     @PutMapping("/accountTypes/{id}")
     public AccountType updateAccountType(@PathVariable(value = "id") Long accountTypeId,
                                  @Valid @RequestBody AccountType accountTypeDetails) {
@@ -50,11 +55,10 @@ public class AccountTypeController {
         accountType.setPrice(accountTypeDetails.getPrice());
         accountType.setDataLimit(accountTypeDetails.getDataLimit());
 
-        AccountType updatedAccountType = accountTypeRepository.save(accountType);
-        return updatedAccountType;
+        return accountTypeRepository.save(accountType);
     }
 
-    // Delete a Account
+    // Delete a AccountType
     @DeleteMapping("/accountTypes/{id}")
     public ResponseEntity<?> deleteAccountType(@PathVariable(value = "id") Long accountTypeId) {
         AccountType accountType = accountTypeRepository.findById(accountTypeId)
