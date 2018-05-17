@@ -4,27 +4,32 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.util.Date;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "games")
+@Table(name = "account_types")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Games implements Serializable {
+public class AccountType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String name;
+    private String type;
 
     @NotBlank
-    private String time;
+    private int maxArrangements;
 
     @NotBlank
-    private String game;
+    private int maxGames;
+
+    @NotBlank
+    private double price;
+
+    @NotBlank
+    private long dataLimit;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)

@@ -11,20 +11,17 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "rules")
+@Table(name = "roles")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Rules implements Serializable {
+public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private long id;
 
     @NotBlank
-    private String maxCards;
-
-    @NotBlank
-    private String minCards;
+    private String role;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
