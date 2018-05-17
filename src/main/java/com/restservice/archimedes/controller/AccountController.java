@@ -51,7 +51,7 @@ public class AccountController {
     }
 
     // Delete a Account
-    @DeleteMapping("/notes/{id}")
+    @DeleteMapping("/accounts/{id}")
     public ResponseEntity<?> deleteAccount(@PathVariable(value = "id") Long accountId) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", "id", accountId));
