@@ -71,10 +71,6 @@ public class Game implements Serializable {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public long getId() {
         return id;
     }
