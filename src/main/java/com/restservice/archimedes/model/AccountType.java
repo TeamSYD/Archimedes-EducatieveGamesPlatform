@@ -41,5 +41,59 @@ public class AccountType implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
 
-    // Getters and Setters ... (Omitted for brevity)
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getMaxArrangements() {
+        return maxArrangements;
+    }
+
+    public void setMaxArrangements(int maxArrangements) {
+        this.maxArrangements = maxArrangements;
+    }
+
+    public int getMaxGames() {
+        return maxGames;
+    }
+
+    public void setMaxGames(int maxGames) {
+        this.maxGames = maxGames;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public long getDataLimit() {
+        return dataLimit;
+    }
+
+    public void setDataLimit(long dataLimit) {
+        this.dataLimit = dataLimit;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

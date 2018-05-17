@@ -36,5 +36,43 @@ public class Rule implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
 
-    // Getters and Setters ... (Omitted for brevity)
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getMaxCards() {
+        return maxCards;
+    }
+
+    public void setMaxCards(String maxCards) {
+        this.maxCards = maxCards;
+    }
+
+    public String getMinCards() {
+        return minCards;
+    }
+
+    public void setMinCards(String minCards) {
+        this.minCards = minCards;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

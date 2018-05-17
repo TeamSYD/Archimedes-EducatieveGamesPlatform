@@ -39,5 +39,51 @@ public class Memory implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
 
-    // Getters and Setters ... (Omitted for brevity)
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getSetSize() {
+        return setSize;
+    }
+
+    public void setSetSize(int setSize) {
+        this.setSize = setSize;
+    }
+
+    public Boolean getDuplicates() {
+        return duplicates;
+    }
+
+    public void setDuplicates(Boolean duplicates) {
+        this.duplicates = duplicates;
+    }
+
+    public Boolean getInverted() {
+        return inverted;
+    }
+
+    public void setInverted(Boolean inverted) {
+        this.inverted = inverted;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
