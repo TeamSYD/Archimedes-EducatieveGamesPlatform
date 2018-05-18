@@ -17,10 +17,24 @@ import java.io.Serializable;
 public class Account implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @NotBlank
     private String username;
 
     @NotBlank
     private String password;
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
+
+    @NotBlank
+    private AccountType accountType;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -32,7 +46,6 @@ public class Account implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
 
-    // Getters and Setters ... (Omitted for brevity)
     public String getUsername() {
         return username;
     }
@@ -56,4 +69,6 @@ public class Account implements Serializable {
     public Date getUpdatedAt() {
         return updatedAt;
     }
+
+    public long getId() { return id;}
 }
