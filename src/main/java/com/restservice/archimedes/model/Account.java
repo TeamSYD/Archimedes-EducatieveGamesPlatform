@@ -17,6 +17,9 @@ import java.io.Serializable;
 public class Account implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @NotBlank
     private String username;
 
     @NotBlank
