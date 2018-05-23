@@ -4,37 +4,27 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "sessions")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Account implements Serializable {
+public class Session implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @NotBlank
-    private String username;
+    private int PIN;
 
     @NotBlank
-    private String password;
-
-    public AccountType getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
-    }
-
-    @NotBlank
-    private AccountType accountType;
+    private int lifeTime;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -46,20 +36,28 @@ public class Account implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
 
-    public String getUsername() {
-        return username;
+    public long getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getPassword() {
-        return password;
+    public int getPIN() {
+        return PIN;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPIN(int PIN) {
+        this.PIN = PIN;
+    }
+
+    public int getLifeTime() {
+        return lifeTime;
+    }
+
+    public void setLifeTime(int lifeTime) {
+        this.lifeTime = lifeTime;
     }
 
     public Date getCreatedAt() {
@@ -69,6 +67,4 @@ public class Account implements Serializable {
     public Date getUpdatedAt() {
         return updatedAt;
     }
-
-    public long getId() { return id;}
 }
