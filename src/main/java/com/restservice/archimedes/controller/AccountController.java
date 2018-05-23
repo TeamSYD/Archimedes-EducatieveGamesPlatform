@@ -18,7 +18,6 @@ import java.util.List;
 public class AccountController {
 
     private final AccountRepository accountRepository;
-
     private final AccountTypeRepository accountTypeRepository;
 
     @Autowired
@@ -27,7 +26,7 @@ public class AccountController {
         this.accountTypeRepository = accountTypeRepository;
     }
 
-    // Get All Accounts
+    // Get All Accounts with {accountType}
     @GetMapping("/accounttypes/{accountTypeId}/accounts")
     public Page<Account> getAllAccountsByAccountType(@PathVariable (value = "accountTypeId") Long accountTypeId, Pageable pageable) {
         return accountRepository.findByAccountTypeId(accountTypeId, pageable);
