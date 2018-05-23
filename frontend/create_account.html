@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Account aanmaken</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/personal-style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Source+Sans+Pro" rel="stylesheet">
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="login.html" class="navbar-brand">Home</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container main-margin-container">
+    <form id="create_account" action="#">
+        <h3>Registratie formulier</h3>
+        <div class="form-group">
+            <label>Voornaam</label>
+            <input type="text" placeholder="Vul hier uw voornaam in" id="voornaam" required="required" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Achternaam</label>
+            <input type="text" placeholder="Vul hier uw achternaam in" id="achternaam" required="required" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>E-mailadres</label>
+            <input type="email" placeholder="Vul hier een geldig e-mailadres in" id="email" required="required" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Wachtwoord</label>
+            <input type="password" placeholder="Vul hier uw wachtwoord in" id="wachtwoord" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}" title="Het wachtwoord moet minimaal 7 tekens, een hoofdletter, een kleine letter en een cijfer bevatten." required="required" class="form-control">
+        </div>
+        <input type="submit" id="submit" value="Account aanmaken" required="required" class="btn btn-primary">
+    </form>
+</div>
+
+</body>
+
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script>
+    $("#create_account :input").tooltip({});
+</script>
+</html>
