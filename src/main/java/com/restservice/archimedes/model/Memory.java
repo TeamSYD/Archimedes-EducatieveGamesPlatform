@@ -15,7 +15,6 @@ import java.util.Date;
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Memory extends Rule implements Serializable {
-
     @NotBlank
     private int setSize;
 
@@ -24,7 +23,6 @@ public class Memory extends Rule implements Serializable {
 
     @NotBlank
     private Boolean inverted;
-
 
     public int getSetSize() {
         return setSize;

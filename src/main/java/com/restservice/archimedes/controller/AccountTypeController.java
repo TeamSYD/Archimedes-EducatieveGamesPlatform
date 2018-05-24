@@ -26,10 +26,6 @@ public class AccountTypeController {
         this.accountTypeRepository = accountTypeRepository;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="account_id", nullable=false)
-    private Account account;
-
     // Get All AccountTypes
     @GetMapping("/accounttypes")
     public List<AccountType> getAllAccountTypes() {

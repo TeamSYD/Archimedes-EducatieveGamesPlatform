@@ -12,12 +12,9 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "account_types")
-@EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class AccountType implements Serializable {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -36,16 +33,6 @@ public class AccountType implements Serializable {
 
     @NotBlank
     private long dataLimit;
-
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdAt;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedAt;
 
     public String getType() {
         return type;
@@ -85,14 +72,6 @@ public class AccountType implements Serializable {
 
     public void setDataLimit(long dataLimit) {
         this.dataLimit = dataLimit;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
     }
 
     public long getId() {

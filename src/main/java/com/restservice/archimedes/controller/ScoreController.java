@@ -2,14 +2,20 @@ package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
 import com.restservice.archimedes.model.Score;
+import com.restservice.archimedes.model.Scoreboard;
 import com.restservice.archimedes.repository.ScoreRepository;
 import com.restservice.archimedes.repository.ScoreboardRepository;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import java.util.List;
 

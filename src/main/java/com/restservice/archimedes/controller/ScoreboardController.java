@@ -5,6 +5,8 @@ import com.restservice.archimedes.model.Score;
 import com.restservice.archimedes.model.Scoreboard;
 import com.restservice.archimedes.repository.ScoreboardRepository;
 import com.restservice.archimedes.repository.SessionRepository;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,10 +33,6 @@ public class ScoreboardController {
         this.scoreboardRepository = scoreboardRepository;
         this.sessionRepository = sessionRepository;
     }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="score_id", nullable=false)
-    private Score score;
 
     // Get All Scoreboards
     @GetMapping("/scoreboards")

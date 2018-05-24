@@ -1,6 +1,9 @@
 package com.restservice.archimedes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -12,23 +15,18 @@ import java.util.Date;
 
 @Entity
 @Table(name = "scoreboards")
-@EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Scoreboard implements Serializable {
+public class Scoreboard extends AuditModel implements Serializable {
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Session session;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdAt;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedAt;
 
     public long getId() {
         return id;
@@ -38,11 +36,12 @@ public class Scoreboard implements Serializable {
         this.id = id;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public Session getSession() {
+        return session;
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
+    public void setSession(Session session) {
+        this.session = session;
     }
+
 }
