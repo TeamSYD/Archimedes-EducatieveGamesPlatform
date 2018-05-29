@@ -33,7 +33,7 @@ body {
 .main-margin-container {
     background-color:#fff;
     padding:51px 30px 30px;
-    max-width:960px;
+    width:960px;
 }
 
 @media screen and (min-width: 480px) {
@@ -59,20 +59,21 @@ form {
     display: grid;
     grid-template: 400px / auto auto;
     grid-gap: 20px;
-    background-color: #fff;
+    background-color: #eee;
 }
 
 .grid-container>div {
-    background-color: #fff;
+    background-color: #eee;
     text-align: left;
-    padding:20px 0;
-    width: 440px;
+    padding:20px 20px;
+    width: 400px;
     height: 400px;
 }
 
 footer{
   bottom: 0;
   font-family: 'Roboto Slab', serif;
+  z-index:-1
 }
 
 .footer-distributed{
@@ -81,7 +82,7 @@ footer{
   box-sizing: border-box;
   width: 100%;
   text-align: left;
-
+  position: absolute;
   padding: 10px 10px;
   margin-top: 1px;
 }
@@ -213,6 +214,8 @@ footer{
   .footer-distributed .footer-center i{
     margin-left: 0;
   }
+
+
 
 }
 
