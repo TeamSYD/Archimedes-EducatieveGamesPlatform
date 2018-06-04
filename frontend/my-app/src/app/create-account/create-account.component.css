@@ -1,0 +1,9 @@
+.tooltip-inner {
+  background-color:white;
+  color:black;
+  border:1px solid black;
+}
+
+.tooltip.top .tooltip-arrow {
+  border-top-color:black;
+}
