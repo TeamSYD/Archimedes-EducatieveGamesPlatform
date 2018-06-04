@@ -9,6 +9,7 @@ import {CreateAccountComponent} from './create-account/create-account.component'
 import {ArrangementsComponent} from './arrangements/arrangements.component';
 import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {AppRoutingModule} from './app-routing.module';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {AppRoutingModule} from './app-routing.module';
     LoginComponent,
     DashboardComponent,
     CreateAccountComponent,
-    ArrangementsComponent
+    ArrangementsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
