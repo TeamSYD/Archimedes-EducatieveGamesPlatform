@@ -1,12 +1,16 @@
 package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
+import com.restservice.archimedes.model.Account;
 import com.restservice.archimedes.model.AccountType;
 import com.restservice.archimedes.repository.AccountTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -14,30 +18,35 @@ import java.util.List;
 @RequestMapping("/api")
 public class AccountTypeController {
 
-    @Autowired
+    private final
     AccountTypeRepository accountTypeRepository;
 
-    // Get All Account
-    @GetMapping("/accountTypes")
+    @Autowired
+    public AccountTypeController(AccountTypeRepository accountTypeRepository) {
+        this.accountTypeRepository = accountTypeRepository;
+    }
+
+    // Get All AccountTypes
+    @GetMapping("/accounttypes")
     public List<AccountType> getAllAccountTypes() {
         return accountTypeRepository.findAll();
     }
 
-    // Create a new Account
-    @PostMapping("/accountTypes")
+    // Create a new AccountType
+    @PostMapping("/accounttypes")
     public AccountType createAccountType(@Valid @RequestBody AccountType accountType) {
         return accountTypeRepository.save(accountType);
     }
 
-    // Get a Single Account
-    @GetMapping("/accountTypes/{id}")
+    // Get a Single AccountType
+    @GetMapping("/accounttypes/{id}")
     public AccountType getAccountById(@PathVariable(value = "id") Long accountTypeId) {
         return accountTypeRepository.findById(accountTypeId)
                 .orElseThrow(() -> new ResourceNotFoundException("AccountType", "id", accountTypeId));
     }
 
-    // Update a Account
-    @PutMapping("/accountTypes/{id}")
+    // Update a AccountType
+    @PutMapping("/accounttypes/{id}")
     public AccountType updateAccountType(@PathVariable(value = "id") Long accountTypeId,
                                  @Valid @RequestBody AccountType accountTypeDetails) {
 
@@ -50,12 +59,11 @@ public class AccountTypeController {
         accountType.setPrice(accountTypeDetails.getPrice());
         accountType.setDataLimit(accountTypeDetails.getDataLimit());
 
-        AccountType updatedAccountType = accountTypeRepository.save(accountType);
-        return updatedAccountType;
+        return accountTypeRepository.save(accountType);
     }
 
-    // Delete a Account
-    @DeleteMapping("/accountTypes/{id}")
+    // Delete a AccountType
+    @DeleteMapping("/accounttypes/{id}")
     public ResponseEntity<?> deleteAccountType(@PathVariable(value = "id") Long accountTypeId) {
         AccountType accountType = accountTypeRepository.findById(accountTypeId)
                 .orElseThrow(() -> new ResourceNotFoundException("AccountType", "id", accountTypeId));
