@@ -1,0 +1,16 @@
+<h2>My Cards</h2>
+
+<div>
+  <label>Card name:
+    <input #cardName />
+  </label>
+  <button>
+    TEMP-ADD
+  </button>
+</div>
+
+<h3>Cards</h3>
+<div class="grid grid-pad">
+  <li *ngFor="let card of cards$ | async" >
+</div>
+
