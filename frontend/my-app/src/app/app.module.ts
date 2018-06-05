@@ -10,6 +10,8 @@ import {ArrangementsComponent} from './arrangements/arrangements.component';
 import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {AppRoutingModule} from './app-routing.module';
 import { FooterComponent } from './footer/footer.component';
+import { CardEditorComponent } from './card-editor/card-editor.component';
+import { CardEditorDetailComponent } from './card-editor-detail/card-editor-detail.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { FooterComponent } from './footer/footer.component';
     DashboardComponent,
     CreateAccountComponent,
     ArrangementsComponent,
-    FooterComponent
+    FooterComponent,
+    CardEditorComponent,
+    CardEditorDetailComponent
   ],
   imports: [
     BrowserModule,
