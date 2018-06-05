@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Card } from './card';
 import { CardService } from '../card.service';
 
@@ -9,7 +8,7 @@ import { CardService } from '../card.service';
   styleUrls: ['./cards.component.css']
 })
 export class CardsComponent implements OnInit {
-  cards: Card[];
+  cards: Card[] = [];
 
   constructor(private cardService: CardService) { }
 
@@ -35,5 +34,4 @@ export class CardsComponent implements OnInit {
     this.cards = this.cards.filter(c => c !== card);
     this.cardService.deleteCard(card).subscribe();
   }
-
 }

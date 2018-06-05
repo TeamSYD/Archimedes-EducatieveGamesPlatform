@@ -1,16 +1,56 @@
-<h2>My Cards</h2>
+
+<script src="./cards/carousel.js"></script>
+
+<div class="container">
+  <div class="row">
+    <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+      <div class="MultiCarousel-inner">
+        <div class="item" *ngFor="let card of cards">
+          <div class="pad15" >
+            <p class="lead">{{card.name}}</p>
+            <p>{{card.id}}</p>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary leftLst"><</button>
+      <button class="btn btn-primary rightLst">></button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <br/><br/><br/>
+      <hr/>
+      <p>Settings</p>
+      <p>Change data items for xs,sm,md and lg display items respectively. Ex:data-items="1,3,5,6"</p>
+      <p>Change data slide for slides per click Ex:data-slide="1"</p>
+    </div>
+  </div>
+</div>
+
+<ul class="cards">
+  <!-- <li *ngFor="let card of cards$ | async"> -->
+  <li *ngFor="let card of cards">
+    <span class="badge">{{card.id}}</span> {{card.name}}
+  </li>
+</ul>
 
 <div>
   <label>Card name:
     <input #cardName />
   </label>
-  <button>
-    TEMP-ADD
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(cardName.value); cardName.value=''">
+    add
   </button>
 </div>
-
-<h3>Cards</h3>
-<div class="grid grid-pad">
+<div>
+  getHeroes()
+<ul class="cards">
   <li *ngFor="let card of cards$ | async" >
+    <p>
+      {{card.name}}
+    </p>
+  </li>
+</ul>
 </div>
-
+<app-card-search></app-card-search>

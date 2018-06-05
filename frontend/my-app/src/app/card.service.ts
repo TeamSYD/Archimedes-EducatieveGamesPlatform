@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Card } from './cards/card';
-
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+
+import { Card } from './cards/card';
 import { MessageService } from './message.service';
 
 const httpOptions = {
@@ -23,8 +23,7 @@ export class CardService {
   /** GET cards from the server */
   getCards (): Observable<Card[]> {
     return this.http.get<Card[]>(this.cardsUrl)
-      .pipe(
-        tap(cards => this.log(`fetched cards`)),
+      .pipe(tap(cards => this.log(`fetched cards`)),
         catchError(this.handleError('getCards', []))
       );
   }
