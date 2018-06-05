@@ -19,6 +19,7 @@ import { CardEditorDetailComponent } from './card-editor-detail/card-editor-deta
 import { CardsComponent } from './cards/cards.component';
 import { MessagesComponent }    from './messages/messages.component';
 import { CardSearchComponent } from './card-search/card-search.component';
+import { ResourcesComponent } from './resources/resources.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CardSearchComponent } from './card-search/card-search.component';
     CardEditorDetailComponent,
     CardsComponent,
     MessagesComponent,
-    CardSearchComponent
+    CardSearchComponent,
+    ResourcesComponent
   ],
   imports: [
     BrowserModule,
@@ -44,10 +46,8 @@ import { CardSearchComponent } from './card-search/card-search.component';
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
-    // dataEncapsulation:
-    // InMemoryDataService ,{dataEncapsulation: false}
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, {dataEncapsulation: false}
+      InMemoryDataService, { dataEncapsulation: false }
     )
   ],
   providers: [],
