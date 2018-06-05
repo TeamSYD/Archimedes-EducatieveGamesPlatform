@@ -1,20 +1,17 @@
 package com.restservice.archimedes.model;
 
-        import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-        import org.springframework.data.annotation.CreatedDate;
-        import org.springframework.data.annotation.LastModifiedDate;
-        import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-        import javax.persistence.*;
-        import javax.validation.constraints.NotBlank;
-        import java.io.Serializable;
-        import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "puzzle")
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Puzzle extends Rule implements Serializable{
+public class Puzzle extends Rule implements Serializable {
 
     @NotBlank
     private Boolean cardOrder;

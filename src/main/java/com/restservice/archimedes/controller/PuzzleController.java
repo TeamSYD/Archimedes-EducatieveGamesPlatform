@@ -1,9 +1,7 @@
 package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
-import com.restservice.archimedes.model.Memory;
 import com.restservice.archimedes.model.Puzzle;
-import com.restservice.archimedes.repository.MemoryRepository;
 import com.restservice.archimedes.repository.PuzzleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

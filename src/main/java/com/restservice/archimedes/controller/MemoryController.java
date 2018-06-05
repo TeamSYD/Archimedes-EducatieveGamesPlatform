@@ -44,7 +44,7 @@ public class MemoryController {
     // Update a Memory
     @PutMapping("/memory/{id}")
     public Memory updateMemory(@PathVariable(value = "id") Long memoryId,
-                            @Valid @RequestBody Memory memoryDetails) {
+                               @Valid @RequestBody Memory memoryDetails) {
 
         Memory memory = memoryRepository.findById(memoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Memory", "id", memoryId));

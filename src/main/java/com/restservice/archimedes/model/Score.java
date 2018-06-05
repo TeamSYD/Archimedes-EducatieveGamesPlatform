@@ -4,14 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Table(name = "scores")
@@ -19,7 +15,7 @@ import java.util.Date;
         allowGetters = true)
 public class Score extends AuditModel implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="scoreboard_id", nullable=false)
+    @JoinColumn(name = "scoreboard_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Scoreboard scoreboard;

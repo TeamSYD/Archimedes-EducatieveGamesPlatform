@@ -1,9 +1,13 @@
 package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
+import com.restservice.archimedes.model.Card;
 import com.restservice.archimedes.model.Game;
+import com.restservice.archimedes.repository.CardRepository;
 import com.restservice.archimedes.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +20,12 @@ public class GameController {
 
     private final
     GameRepository gameRepository;
+    CardRepository cardRepository;
 
     @Autowired
-    public GameController(GameRepository gameRepository) {
+    public GameController(GameRepository gameRepository, CardRepository cardRepository) {
         this.gameRepository = gameRepository;
+        this.cardRepository = cardRepository;
     }
 
     // Get All Games
@@ -41,10 +47,16 @@ public class GameController {
                 .orElseThrow(() -> new ResourceNotFoundException("Game", "id", gameId));
     }
 
+    // Get a all cards by gameid
+    @GetMapping("/games/{id}/cards")
+    public Page<Card> getCardsByGameId(@PathVariable(value = "id") Long gameId, Pageable pageable) {
+        return cardRepository.findByGameId(gameId, pageable);
+    }
+
     // Update a Game
     @PutMapping("/games/{id}")
     public Game updateGame(@PathVariable(value = "id") Long gameId,
-                                 @Valid @RequestBody Game gameDetails) {
+                           @Valid @RequestBody Game gameDetails) {
 
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new ResourceNotFoundException("Game", "id", gameId));

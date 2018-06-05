@@ -1,16 +1,12 @@
 package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
-import com.restservice.archimedes.model.Account;
 import com.restservice.archimedes.model.AccountType;
 import com.restservice.archimedes.repository.AccountTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -48,7 +44,7 @@ public class AccountTypeController {
     // Update a AccountType
     @PutMapping("/accounttypes/{id}")
     public AccountType updateAccountType(@PathVariable(value = "id") Long accountTypeId,
-                                 @Valid @RequestBody AccountType accountTypeDetails) {
+                                         @Valid @RequestBody AccountType accountTypeDetails) {
 
         AccountType accountType = accountTypeRepository.findById(accountTypeId)
                 .orElseThrow(() -> new ResourceNotFoundException("AccountType", "id", accountTypeId));

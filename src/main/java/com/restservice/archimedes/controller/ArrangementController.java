@@ -44,7 +44,7 @@ public class ArrangementController {
     // Update a Arrangement
     @PutMapping("/arrangements/{id}")
     public Arrangement updateArrangement(@PathVariable(value = "id") Long arrangementId,
-                                 @Valid @RequestBody Arrangement arrangementDetails) {
+                                         @Valid @RequestBody Arrangement arrangementDetails) {
 
         Arrangement arrangement = arrangementRepository.findById(arrangementId)
                 .orElseThrow(() -> new ResourceNotFoundException("Arrangement", "id", arrangementId));
