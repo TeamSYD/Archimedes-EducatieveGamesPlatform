@@ -24,6 +24,7 @@
     "angular-animate": "^1.7.0",
     "angular-aria": "^1.7.0",
     "angular-font-awesome": "^3.1.2",
+    "angular-in-memory-web-api": "^0.6.0",
     "angular-material": "^1.1.9",
     "angular-messages": "^1.7.0",
     "bootstrap": "^4.1.1",
