@@ -6,6 +6,8 @@ import {CreateAccountComponent} from './create-account/create-account.component'
 import {ArrangementsComponent} from './arrangements/arrangements.component';
 import {CardsComponent} from './cards/cards.component';
 import {ResourcesComponent} from './resources/resources.component';
+import {CardEditorComponent} from "./card-editor/card-editor.component";
+
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -14,6 +16,7 @@ const routes: Routes = [
   {path: 'arrangements', component: ArrangementsComponent},
   {path: 'cards', component: CardsComponent},
   {path: 'resource', component: ResourcesComponent},
+  {path: 'card-editor', component: CardEditorComponent},
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 ];
 
