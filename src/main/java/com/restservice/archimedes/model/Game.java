@@ -1,6 +1,8 @@
 package com.restservice.archimedes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -15,7 +17,7 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Game implements Serializable {
+public class Game extends AuditModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -29,15 +31,13 @@ public class Game implements Serializable {
     @NotBlank
     private String game;
 
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdAt;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedAt;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Account account;
+
+
 
     public String getName() {
         return name;
@@ -63,14 +63,6 @@ public class Game implements Serializable {
         this.game = game;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
     public long getId() {
         return id;
     }
@@ -78,4 +70,14 @@ public class Game implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+
 }

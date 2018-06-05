@@ -1,6 +1,8 @@
 package com.restservice.archimedes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -23,6 +25,7 @@ public class Rule extends AuditModel implements Serializable {
 
     @NotBlank
     private String minCards;
+
 
 
     public long getId() {

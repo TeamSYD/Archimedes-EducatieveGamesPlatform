@@ -27,7 +27,7 @@ public class Category extends AuditModel implements Serializable  {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_username", nullable = false)
+    @JoinColumn(name = "account_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Account account;
 

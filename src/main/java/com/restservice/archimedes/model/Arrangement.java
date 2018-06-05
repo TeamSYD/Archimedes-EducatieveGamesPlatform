@@ -15,20 +15,12 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Arrangement implements Serializable {
+public class Arrangement extends AuditModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdAt;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedAt;
 
     public long getId() {
         return id;
@@ -38,11 +30,5 @@ public class Arrangement implements Serializable {
         this.id = id;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
 }
