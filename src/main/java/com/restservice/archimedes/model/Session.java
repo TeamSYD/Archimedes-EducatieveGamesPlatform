@@ -14,10 +14,16 @@ import java.util.Date;
 @Table(name = "sessions")
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Arrangement extends AuditModel implements Serializable {
+public class Session extends AuditModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotBlank
+    private int PIN;
+
+    @NotBlank
+    private int lifeTime;
 
     public long getId() {
         return id;
@@ -25,5 +31,21 @@ public class Arrangement extends AuditModel implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public int getPIN() {
+        return PIN;
+    }
+
+    public void setPIN(int PIN) {
+        this.PIN = PIN;
+    }
+
+    public int getLifeTime() {
+        return lifeTime;
+    }
+
+    public void setLifeTime(int lifeTime) {
+        this.lifeTime = lifeTime;
     }
 }

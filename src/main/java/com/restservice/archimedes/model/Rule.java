@@ -26,8 +26,6 @@ public class Rule extends AuditModel implements Serializable {
     @NotBlank
     private String minCards;
 
-
-
     public long getId() {
         return id;
     }
@@ -51,6 +49,4 @@ public class Rule extends AuditModel implements Serializable {
     public void setMinCards(String minCards) {
         this.minCards = minCards;
     }
-
-
 }

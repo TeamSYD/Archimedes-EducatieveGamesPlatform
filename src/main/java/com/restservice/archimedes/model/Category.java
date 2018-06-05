@@ -13,11 +13,9 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "category")
-@EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Category extends AuditModel implements Serializable  {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +28,6 @@ public class Category extends AuditModel implements Serializable  {
     @JoinColumn(name = "account_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Account account;
-
 
     public long getId() {
         return id;

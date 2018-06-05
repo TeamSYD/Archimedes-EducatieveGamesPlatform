@@ -11,13 +11,16 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "sessions")
+@Table(name = "roles")
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Arrangement extends AuditModel implements Serializable {
+public class Role extends AuditModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotBlank
+    private String role;
 
     public long getId() {
         return id;
@@ -25,5 +28,13 @@ public class Arrangement extends AuditModel implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

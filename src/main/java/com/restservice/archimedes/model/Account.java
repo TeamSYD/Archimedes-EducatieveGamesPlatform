@@ -1,5 +1,6 @@
 package com.restservice.archimedes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -16,10 +17,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "accounts")
-@EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Account extends AuditModel implements Serializable {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="accounttype_id", nullable=false)
+    @JsonIgnore
+    private AccountType accountType;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -58,6 +63,4 @@ public class Account extends AuditModel implements Serializable {
     }
 
     public long getId() { return id;}
-
-
 }

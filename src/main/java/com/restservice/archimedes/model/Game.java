@@ -14,7 +14,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "games")
-@EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Game extends AuditModel implements Serializable {
@@ -31,11 +30,11 @@ public class Game extends AuditModel implements Serializable {
     @NotBlank
     private String game;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Account account;
+
 
 
 
