@@ -17,7 +17,8 @@ import { FooterComponent } from './footer/footer.component';
 import { CardEditorComponent } from './card-editor/card-editor.component';
 import { CardEditorDetailComponent } from './card-editor-detail/card-editor-detail.component';
 import { CardsComponent } from './cards/cards.component';
-import { MessagesComponent }    from './messages/messages.component';
+import { MessagesComponent } from './messages/messages.component';
+import { ResourcesComponent } from './resources/resources.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MessagesComponent }    from './messages/messages.component';
     CardEditorComponent,
     CardEditorDetailComponent,
     CardsComponent,
-    MessagesComponent
+    MessagesComponent,
+    ResourcesComponent
   ],
   imports: [
     BrowserModule,
