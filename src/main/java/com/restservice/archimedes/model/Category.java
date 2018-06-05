@@ -1,20 +1,22 @@
 package com.restservice.archimedes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.Date;
+
 
 @Entity
-@Table(name = "resources")
+@Table(name = "category")
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Resource extends AuditModel implements Serializable {
+public class Category extends AuditModel implements Serializable  {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -22,11 +24,10 @@ public class Resource extends AuditModel implements Serializable {
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String type;
-
-    @NotBlank
-    private String category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_username", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Account account;
 
     public long getId() {
         return id;
@@ -44,19 +45,11 @@ public class Resource extends AuditModel implements Serializable {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

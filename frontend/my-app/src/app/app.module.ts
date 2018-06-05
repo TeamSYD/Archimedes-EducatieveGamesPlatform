@@ -14,6 +14,8 @@ import {ArrangementsComponent} from './arrangements/arrangements.component';
 import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {AppRoutingModule} from './app-routing.module';
 import { FooterComponent } from './footer/footer.component';
+import { CardEditorComponent } from './card-editor/card-editor.component';
+import { CardEditorDetailComponent } from './card-editor-detail/card-editor-detail.component';
 import { CardsComponent } from './cards/cards.component';
 import { MessagesComponent }    from './messages/messages.component';
 
@@ -25,10 +27,11 @@ import { MessagesComponent }    from './messages/messages.component';
     CreateAccountComponent,
     ArrangementsComponent,
     FooterComponent,
+    CardEditorComponent,
+    CardEditorDetailComponent,
     CardsComponent,
     MessagesComponent
   ],
-
   imports: [
     BrowserModule,
     FormsModule,

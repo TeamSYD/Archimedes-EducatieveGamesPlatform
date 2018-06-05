@@ -11,46 +11,19 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "games")
+@Table(name = "sessions")
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Game extends AuditModel implements Serializable {
+public class Session extends AuditModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotBlank
-    private String name;
+    private int PIN;
 
     @NotBlank
-    private String time;
-
-    @NotBlank
-    private String game;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getGame() {
-        return game;
-    }
-
-    public void setGame(String game) {
-        this.game = game;
-    }
+    private int lifeTime;
 
     public long getId() {
         return id;
@@ -58,5 +31,21 @@ public class Game extends AuditModel implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public int getPIN() {
+        return PIN;
+    }
+
+    public void setPIN(int PIN) {
+        this.PIN = PIN;
+    }
+
+    public int getLifeTime() {
+        return lifeTime;
+    }
+
+    public void setLifeTime(int lifeTime) {
+        this.lifeTime = lifeTime;
     }
 }

@@ -1,5 +1,6 @@
 package com.restservice.archimedes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -11,28 +12,32 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "accounts")
-@EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Account implements Serializable {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="accounttype_id", nullable=false)
+    @JsonIgnore
+    private AccountType accountType;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank
     private String username;
 
     @NotBlank
     private String password;
 
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdAt;
+    public AccountType getAccountType() {
+        return accountType;
+    }
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedAt;
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
 
-    // Getters and Setters ... (Omitted for brevity)
     public String getUsername() {
         return username;
     }
@@ -49,19 +54,5 @@ public class Account implements Serializable {
         this.password = password;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    public long getId() { return id;}
 }

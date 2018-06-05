@@ -2,8 +2,12 @@ package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
 import com.restservice.archimedes.model.Account;
+import com.restservice.archimedes.model.AccountType;
 import com.restservice.archimedes.repository.AccountRepository;
+import com.restservice.archimedes.repository.AccountTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -13,10 +17,21 @@ import java.util.List;
 @RequestMapping("/api")
 public class AccountController {
 
-    @Autowired
-    AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
+    private final AccountTypeRepository accountTypeRepository;
 
-    // Get All Account
+    @Autowired
+    public AccountController(AccountRepository accountRepository, AccountTypeRepository accountTypeRepository) {
+        this.accountRepository = accountRepository;
+        this.accountTypeRepository = accountTypeRepository;
+    }
+
+    // Get All Accounts with {accountType}
+    @GetMapping("/accounttypes/{accountTypeId}/accounts")
+    public Page<Account> getAllAccountsByAccountType(@PathVariable (value = "accountTypeId") Long accountTypeId, Pageable pageable) {
+        return accountRepository.findByAccountTypeId(accountTypeId, pageable);
+    }
+
     @GetMapping("/accounts")
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
@@ -36,18 +51,19 @@ public class AccountController {
     }
 
     // Update a Account
-    @PutMapping("/accounts/{id}")
-    public Account updateAccount(@PathVariable(value = "id") Long accountId,
+    @PutMapping("/accounttypes/{accountTypeId}/accounts/{id}")
+    public Account updateAccount(@PathVariable(value = "accountTypeId") Long accountTypeId,
+                                 @PathVariable(value = "id") Long accountId,
                                  @Valid @RequestBody Account accountDetails) {
 
-        Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new ResourceNotFoundException("Account", "id", accountId));
-
-        account.setUsername(accountDetails.getUsername());
-        account.setPassword(accountDetails.getPassword());
-
-        Account updatedAccount = accountRepository.save(account);
-        return updatedAccount;
+        if (!accountTypeRepository.existsById(accountTypeId)) {
+            throw new ResourceNotFoundException("AccountType", "id", accountTypeId);
+        }
+        return accountRepository.findById(accountId).map(account -> {
+            account.setUsername(accountDetails.getUsername());
+            account.setPassword(accountDetails.getPassword());
+            return accountRepository.save(account);
+        }).orElseThrow(() -> new ResourceNotFoundException("Account", "id", accountId));
     }
 
     // Delete a Account
@@ -59,5 +75,15 @@ public class AccountController {
         accountRepository.delete(account);
 
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/accounttypes/{accountTypeId}/accounts")
+    public Account createAccount(@PathVariable(value = "accountTypeId") Long accountTypeId,
+                                 @Valid @RequestBody Account account) {
+
+        return accountTypeRepository.findById(accountTypeId).map(accountType -> {
+            account.setAccountType(accountType);
+            return accountRepository.save(account);
+        }).orElseThrow(() -> new ResourceNotFoundException("Account", "id", accountTypeId));
     }
 }
