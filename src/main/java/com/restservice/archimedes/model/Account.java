@@ -43,8 +43,6 @@ public class Account extends AuditModel implements Serializable {
         this.accountType = accountType;
     }
 
-    @NotBlank
-    private AccountType accountType;
 
     public String getUsername() {
         return username;

@@ -28,6 +28,13 @@ public class Resource extends AuditModel implements Serializable {
     @NotBlank
     private String category;
 
+
+    @Column(name = "IMAGE_NAME", unique = false, nullable = false, length = 100)
+    private String imageName;
+
+    @Column(name = "DATA", unique = false, nullable = false, length = 100000)
+    private byte[] data;
+
     public long getId() {
         return id;
     }
@@ -58,5 +65,21 @@ public class Resource extends AuditModel implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
     }
 }
