@@ -27,7 +27,7 @@ public class ResourceController {
         this.resourceRepository = resourceRepository;
     }
 
-    @Autowired
+
     private FileStorageService fileStorageService;
 
     // Get All Resource

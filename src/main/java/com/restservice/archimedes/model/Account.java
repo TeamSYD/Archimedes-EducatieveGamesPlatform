@@ -13,6 +13,7 @@ import java.io.Serializable;
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Account extends AuditModel implements Serializable {
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accounttype_id", nullable = false)
     @JsonIgnore
@@ -20,7 +21,7 @@ public class Account extends AuditModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @NotBlank
     private String username;
@@ -55,5 +56,9 @@ public class Account extends AuditModel implements Serializable {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
