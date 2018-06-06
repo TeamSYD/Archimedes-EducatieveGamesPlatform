@@ -20,6 +20,7 @@ import { CardsComponent } from './cards/cards.component';
 import { MessagesComponent }    from './messages/messages.component';
 import { CardSearchComponent } from './card-search/card-search.component';
 import { ResourcesComponent } from './resources/resources.component';
+import { CategorySearchComponent } from './category-search/category-search.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ResourcesComponent } from './resources/resources.component';
     CardsComponent,
     MessagesComponent,
     CardSearchComponent,
-    ResourcesComponent
+    ResourcesComponent,
+    CategorySearchComponent
   ],
   imports: [
     BrowserModule,
