@@ -13,15 +13,16 @@ import java.io.Serializable;
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Scoreboard extends AuditModel implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    private long id;
+
     @OneToOne
     @PrimaryKeyJoinColumn
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Session session;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
 
     public long getId() {
         return id;

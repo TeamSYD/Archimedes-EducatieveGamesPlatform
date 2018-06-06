@@ -49,7 +49,7 @@ public class ResourceController {
         newUpload.setName(fileName);
         newUpload.setType("Image");
         newUpload.setCategory("Unsorted");
-        newUpload.setData(file.getBytes());
+        newUpload.setImage_Data(file.getBytes());
         resourceRepository.save(newUpload);
         System.out.println("File succesfully uploaded and saved...............");
         return new UploadFileResponse(fileName, fileDownloadUri,
@@ -58,14 +58,14 @@ public class ResourceController {
 
     // Get a Single Resource
     @GetMapping("/resources/{id}")
-    public Resource getResourceById(@PathVariable(value = "id") Long resourceId) {
+    public Resource getResourceById(@PathVariable(value = "id") long resourceId) {
         return resourceRepository.findById(resourceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Resource", "id", resourceId));
     }
 
     // Update a Resource
     @PutMapping("/resources/{id}")
-    public Resource updateResource(@PathVariable(value = "id") Long resourceId,
+    public Resource updateResource(@PathVariable(value = "id") long resourceId,
                                    @Valid @RequestBody Resource resourceDetails) {
 
         Resource resource = resourceRepository.findById(resourceId)
@@ -81,7 +81,7 @@ public class ResourceController {
 
     // Delete a Resource
     @DeleteMapping("/resources/{id}")
-    public ResponseEntity<?> deleteResource(@PathVariable(value = "id") Long resourceId) {
+    public ResponseEntity<?> deleteResource(@PathVariable(value = "id") long resourceId) {
         Resource resource = resourceRepository.findById(resourceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Resource", "id", resourceId));
 

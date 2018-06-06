@@ -36,14 +36,14 @@ public class MemoryController {
 
     // Get a Single Memory
     @GetMapping("/memory/{id}")
-    public Memory getMemoryById(@PathVariable(value = "id") Long memoryId) {
+    public Memory getMemoryById(@PathVariable(value = "id") long memoryId) {
         return memoryRepository.findById(memoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Memory", "id", memoryId));
     }
 
     // Update a Memory
     @PutMapping("/memory/{id}")
-    public Memory updateMemory(@PathVariable(value = "id") Long memoryId,
+    public Memory updateMemory(@PathVariable(value = "id") long memoryId,
                                @Valid @RequestBody Memory memoryDetails) {
 
         Memory memory = memoryRepository.findById(memoryId)
@@ -61,7 +61,7 @@ public class MemoryController {
 
     // Delete a Memory
     @DeleteMapping("/memory/{id}")
-    public ResponseEntity<?> deleteMemory(@PathVariable(value = "id") Long memoryId) {
+    public ResponseEntity<?> deleteMemory(@PathVariable(value = "id") long memoryId) {
         Memory memory = memoryRepository.findById(memoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Memory", "id", memoryId));
 

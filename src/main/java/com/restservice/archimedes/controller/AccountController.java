@@ -29,7 +29,7 @@ public class AccountController {
 
     // Get All Accounts with {accountType}
     @GetMapping("/accounttypes/{accountTypeId}/account")
-    public Page<Account> getAllAccountsByAccountType(@PathVariable(value = "accountTypeId") Long accountTypeId, Pageable pageable) {
+    public Page<Account> getAllAccountsByAccountType(@PathVariable(value = "accountTypeId") long accountTypeId, Pageable pageable) {
         return accountRepository.findByAccountTypeId(accountTypeId, pageable);
     }
 
@@ -50,15 +50,15 @@ public class AccountController {
 
     // Get a Single Account
     @GetMapping("/account/{id}")
-    public Account getAccountById(@PathVariable(value = "id") Long accountId) {
+    public Account getAccountById(@PathVariable(value = "id") long accountId) {
         return accountRepository.findById(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", "id", accountId));
     }
 
     // Update a Account
     @PutMapping("/accounttypes/{accountTypeId}/account/{id}")
-    public Account updateAccount(@PathVariable(value = "accountTypeId") Long accountTypeId,
-                                 @PathVariable(value = "id") Long accountId,
+    public Account updateAccount(@PathVariable(value = "accountTypeId") long accountTypeId,
+                                 @PathVariable(value = "id") long accountId,
                                  @Valid @RequestBody Account accountDetails) {
 
         if (!accountTypeRepository.existsById(accountTypeId)) {
@@ -73,7 +73,7 @@ public class AccountController {
 
     // Delete a Account
     @DeleteMapping("/account/{id}")
-    public ResponseEntity<?> deleteAccount(@PathVariable(value = "id") Long accountId) {
+    public ResponseEntity<?> deleteAccount(@PathVariable(value = "id") long accountId) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", "id", accountId));
 
@@ -83,7 +83,7 @@ public class AccountController {
     }
 
     @PostMapping("/accounttypes/{accountTypeId}/account")
-    public Account createAccount(@PathVariable(value = "accountTypeId") Long accountTypeId,
+    public Account createAccount(@PathVariable(value = "accountTypeId") long accountTypeId,
                                  @Valid @RequestBody Account account) {
 
         return accountTypeRepository.findById(accountTypeId).map(accountType -> {

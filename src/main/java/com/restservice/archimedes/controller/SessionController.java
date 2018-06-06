@@ -36,14 +36,14 @@ public class SessionController {
 
     // Get a Single Session
     @GetMapping("/sessions/{id}")
-    public Session getSessionById(@PathVariable(value = "id") Long sessionId) {
+    public Session getSessionById(@PathVariable(value = "id") long sessionId) {
         return sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Session", "id", sessionId));
     }
 
     // Update a Session
     @PutMapping("/sessions/{id}")
-    public Session updateSession(@PathVariable(value = "id") Long sessionId,
+    public Session updateSession(@PathVariable(value = "id") long sessionId,
                                  @Valid @RequestBody Session sessionDetails) {
 
         Session session = sessionRepository.findById(sessionId)
@@ -58,7 +58,7 @@ public class SessionController {
 
     // Delete a Session
     @DeleteMapping("/sessions/{id}")
-    public ResponseEntity<?> deleteSession(@PathVariable(value = "id") Long sessionId) {
+    public ResponseEntity<?> deleteSession(@PathVariable(value = "id") long sessionId) {
         Session session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Session", "id", sessionId));
 

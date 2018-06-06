@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
-    Page<Card> findByGameId(Long gameId, Pageable pageable);
+    Page<Card> findByGameId(long gameId, Pageable pageable);
 
 }

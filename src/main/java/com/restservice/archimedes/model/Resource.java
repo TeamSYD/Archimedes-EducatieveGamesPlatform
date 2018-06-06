@@ -22,9 +22,12 @@ public class Resource extends AuditModel implements Serializable {
     private String type;
 
     @NotBlank
+    private String text_resource;
+
+    @NotBlank
     private String category;
 
-    @Column(name = "IMAGE_DATA", unique = false, nullable = false, length = 100000)
+    @Column(name = "IMAGE_DATA", unique = false, nullable = true, length = 100000)
     private byte[] image_data;
 
     public long getId() {
@@ -59,11 +62,20 @@ public class Resource extends AuditModel implements Serializable {
         this.category = category;
     }
 
-    public byte[] getData() {
+    public byte[] getImage_data() {
         return image_data;
     }
 
-    public void setData(byte[] data) {
+    public void setImage_Data(byte[] data) {
         this.image_data = data;
     }
+
+    public String getText_resource() {
+        return text_resource;
+    }
+
+    public void setText_resource(String text_resource) {
+        this.text_resource = text_resource;
+    }
+
 }

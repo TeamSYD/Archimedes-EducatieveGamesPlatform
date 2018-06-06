@@ -10,27 +10,22 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name = "cards")
+@Table(name = "sets")
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Card extends AuditModel implements Serializable {
+public class Set extends AuditModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotBlank
-    private String name;
+    private int set_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "openface_side_id", nullable = false)
+    @JoinColumn(name = "card_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Resource openface_side;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "closedface_side_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Resource closedface_side;
+    private Card card;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id", nullable = false)
@@ -45,28 +40,20 @@ public class Card extends AuditModel implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getSet_id() {
+        return set_id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSet_id(int set_id) {
+        this.set_id = set_id;
     }
 
-    public Resource getOpenface_side() {
-        return openface_side;
+    public Card getCard() {
+        return card;
     }
 
-    public void setOpenface_side(Resource openface_side) {
-        this.openface_side = openface_side;
-    }
-
-    public Resource getClosedface_side() {
-        return closedface_side;
-    }
-
-    public void setClosedface_side(Resource closedface_side) {
-        this.closedface_side = closedface_side;
+    public void setCard(Card card) {
+        this.card = card;
     }
 
     public Game getGame() {

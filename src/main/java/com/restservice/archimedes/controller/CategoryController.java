@@ -36,7 +36,7 @@ public class CategoryController {
 
     //Get all categories by accountid
     @GetMapping("/account/{accountId}/categories")
-    public Page<Category> getAllCategoriesByAccountId(@PathVariable(value = "accountId") Long accountId, Pageable pageable) {
+    public Page<Category> getAllCategoriesByAccountId(@PathVariable(value = "accountId") long accountId, Pageable pageable) {
         return categoryRepository.findByAccountId(accountId, pageable);
     }
 
@@ -52,15 +52,15 @@ public class CategoryController {
 
     // Get a Single category
     @GetMapping("/category/{id}")
-    public Category getCategoryById(@PathVariable(value = "id") Long categoryId) {
+    public Category getCategoryById(@PathVariable(value = "id") long categoryId) {
         return categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "id", categoryId));
     }
 
     // Update a category
     @PutMapping("/account/{accountId}/category/{categoryId}")
-    public Category updateCategory(@PathVariable(value = "accountId") Long accoundId,
-                                   @PathVariable(value = "id") Long categoryId,
+    public Category updateCategory(@PathVariable(value = "accountId") long accoundId,
+                                   @PathVariable(value = "id") long categoryId,
                                    @Valid @RequestBody Category categoryDetails) {
 
         if (!accountRepository.existsById(accoundId)) {
@@ -74,7 +74,7 @@ public class CategoryController {
 
     // Delete a category
     @DeleteMapping("/category/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable(value = "id") Long categoryId) {
+    public ResponseEntity<?> deleteCategory(@PathVariable(value = "id") long categoryId) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "id", categoryId));
 

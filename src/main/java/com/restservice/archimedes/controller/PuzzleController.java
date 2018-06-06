@@ -36,14 +36,14 @@ public class PuzzleController {
 
     // Get a Single puzzle
     @GetMapping("/puzzle/{id}")
-    public Puzzle getPuzzleById(@PathVariable(value = "id") Long puzzleId) {
+    public Puzzle getPuzzleById(@PathVariable(value = "id") long puzzleId) {
         return puzzleRepository.findById(puzzleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Puzzle", "id", puzzleId));
     }
 
     // Update a puzzle
     @PutMapping("/puzzle/{id}")
-    public Puzzle updatePuzzle(@PathVariable(value = "id") Long puzzleId,
+    public Puzzle updatePuzzle(@PathVariable(value = "id") long puzzleId,
                                @Valid @RequestBody Puzzle puzzleDetails) {
         Puzzle puzzle = puzzleRepository.findById(puzzleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Puzzle", "id", puzzleId));
@@ -59,7 +59,7 @@ public class PuzzleController {
 
     // Delete a Puzzle
     @DeleteMapping("/puzzle/{id}")
-    public ResponseEntity<?> deletePuzzle(@PathVariable(value = "id") Long puzzleId) {
+    public ResponseEntity<?> deletePuzzle(@PathVariable(value = "id") long puzzleId) {
         Puzzle puzzle = puzzleRepository.findById(puzzleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Puzzle", "id", puzzleId));
 

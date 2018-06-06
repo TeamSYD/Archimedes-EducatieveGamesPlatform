@@ -36,14 +36,14 @@ public class AccountTypeController {
 
     // Get a Single AccountType
     @GetMapping("/accounttypes/{id}")
-    public AccountType getAccountById(@PathVariable(value = "id") Long accountTypeId) {
+    public AccountType getAccountById(@PathVariable(value = "id") long accountTypeId) {
         return accountTypeRepository.findById(accountTypeId)
                 .orElseThrow(() -> new ResourceNotFoundException("AccountType", "id", accountTypeId));
     }
 
     // Update a AccountType
     @PutMapping("/accounttypes/{id}")
-    public AccountType updateAccountType(@PathVariable(value = "id") Long accountTypeId,
+    public AccountType updateAccountType(@PathVariable(value = "id") long accountTypeId,
                                          @Valid @RequestBody AccountType accountTypeDetails) {
 
         AccountType accountType = accountTypeRepository.findById(accountTypeId)
@@ -60,7 +60,7 @@ public class AccountTypeController {
 
     // Delete a AccountType
     @DeleteMapping("/accounttypes/{id}")
-    public ResponseEntity<?> deleteAccountType(@PathVariable(value = "id") Long accountTypeId) {
+    public ResponseEntity<?> deleteAccountType(@PathVariable(value = "id") long accountTypeId) {
         AccountType accountType = accountTypeRepository.findById(accountTypeId)
                 .orElseThrow(() -> new ResourceNotFoundException("AccountType", "id", accountTypeId));
 

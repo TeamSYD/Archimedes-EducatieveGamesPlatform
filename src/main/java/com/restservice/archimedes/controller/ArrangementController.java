@@ -36,14 +36,14 @@ public class ArrangementController {
 
     // Get a Single Arrangement
     @GetMapping("/arrangements/{id}")
-    public Arrangement getArrangementById(@PathVariable(value = "id") Long arrangementId) {
+    public Arrangement getArrangementById(@PathVariable(value = "id") long arrangementId) {
         return arrangementRepository.findById(arrangementId)
                 .orElseThrow(() -> new ResourceNotFoundException("Arrangement", "id", arrangementId));
     }
 
     // Update a Arrangement
     @PutMapping("/arrangements/{id}")
-    public Arrangement updateArrangement(@PathVariable(value = "id") Long arrangementId,
+    public Arrangement updateArrangement(@PathVariable(value = "id") long arrangementId,
                                          @Valid @RequestBody Arrangement arrangementDetails) {
 
         Arrangement arrangement = arrangementRepository.findById(arrangementId)
@@ -56,7 +56,7 @@ public class ArrangementController {
 
     // Delete a Arrangement
     @DeleteMapping("/arrangements/{id}")
-    public ResponseEntity<?> deleteArrangement(@PathVariable(value = "id") Long arrangementId) {
+    public ResponseEntity<?> deleteArrangement(@PathVariable(value = "id") long arrangementId) {
         Arrangement arrangement = arrangementRepository.findById(arrangementId)
                 .orElseThrow(() -> new ResourceNotFoundException("Arrangement", "id", arrangementId));
 
