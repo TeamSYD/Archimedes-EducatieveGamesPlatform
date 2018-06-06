@@ -2,6 +2,7 @@ package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
 import com.restservice.archimedes.model.Account;
+import com.restservice.archimedes.model.AccountType;
 import com.restservice.archimedes.repository.AccountRepository;
 import com.restservice.archimedes.repository.AccountTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,10 @@ public class AccountController {
     // Create a new Account
     @PostMapping("/account")
     public Account createAccount(@Valid @RequestBody Account account) {
+        long x = 1;
+        AccountType accounttype_id = accountTypeRepository.findById(x)
+                .orElseThrow(() -> new ResourceNotFoundException("Account", "id", account.getId()));
+        account.setAccountType(accounttype_id);
         return accountRepository.save(account);
     }
 

@@ -13,20 +13,20 @@ import java.io.Serializable;
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Account extends AuditModel implements Serializable {
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "accounttype_id", nullable = false)
-    @JsonIgnore
-    private AccountType accountType;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @NotBlank
     private String username;
 
     @NotBlank
     private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="accounttype_id", nullable=false)
+    @JsonIgnore
+    private AccountType accountType;
 
     public AccountType getAccountType() {
         return accountType;
@@ -53,7 +53,9 @@ public class Account extends AuditModel implements Serializable {
         this.password = password;
     }
 
-    public long getId() {
-        return id;
+    public long getId() { return id;}
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
