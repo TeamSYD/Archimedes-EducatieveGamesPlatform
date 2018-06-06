@@ -73,6 +73,15 @@ export class CardService {
     );
   }
 
+  saveCard (card: Card): Observable<Card> {
+    return this.http.post<Card>(this.cardsUrl, card, httpOptions).pipe(
+      tap((card: Card) => this.log(`added card w/ id=${card.id}`)),
+      catchError(this.handleError<Card>('addCard'))
+    );
+  }
+
+
+
   /** DELETE: delete the card from the server */
   deleteCard (card: Card | number): Observable<Card> {
     const id = typeof card === 'number' ? card : card.id;

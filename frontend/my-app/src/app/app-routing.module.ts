@@ -7,6 +7,7 @@ import {ArrangementsComponent} from './arrangements/arrangements.component';
 import {CardsComponent} from './cards/cards.component';
 import {ResourcesComponent} from './resources/resources.component';
 import {CardEditorComponent} from "./card-editor/card-editor.component";
+import {CardEditorDetailComponent} from "./card-editor-detail/card-editor-detail.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'cards', component: CardsComponent},
   {path: 'resource', component: ResourcesComponent},
   {path: 'card-editor', component: CardEditorComponent},
+  {path: 'card-editor-detail', component: CardEditorDetailComponent},
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 ];
 
