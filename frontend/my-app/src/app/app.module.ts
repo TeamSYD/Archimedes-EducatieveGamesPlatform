@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from '@angular/common/http';
 
+
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 
@@ -21,6 +22,8 @@ import { MessagesComponent }    from './messages/messages.component';
 import { CardSearchComponent } from './card-search/card-search.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { CategorySearchComponent } from './category-search/category-search.component';
+import { NgDragDropModule } from 'ng-drag-drop';
+import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,7 @@ import { CategorySearchComponent } from './category-search/category-search.compo
     CardSearchComponent,
     ResourcesComponent,
     CategorySearchComponent
+
   ],
   imports: [
     BrowserModule,
@@ -44,6 +48,11 @@ import { CategorySearchComponent } from './category-search/category-search.compo
     TooltipModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    NgDragDropModule.forRoot(),
+
+
+
+
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
