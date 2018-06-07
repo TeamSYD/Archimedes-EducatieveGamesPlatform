@@ -7,6 +7,7 @@ import { NgDragDropModule } from 'ng-drag-drop';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import { ResourceService} from './resource.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -47,6 +48,7 @@ import { CategorySearchComponent } from './category-search/category-search.compo
     CarouselItemElement,
 
     MessagesComponent,
+    CardSearchComponent,
     ResourcesComponent,
     CategorySearchComponent
   ],
@@ -58,11 +60,12 @@ import { CategorySearchComponent } from './category-search/category-search.compo
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, {dataEncapsulation: false}
+      InMemoryDataService, { dataEncapsulation: false }
     )
   ],
   providers: [],
