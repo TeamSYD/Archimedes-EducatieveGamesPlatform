@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
+import { NgDragDropModule } from 'ng-drag-drop';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
@@ -26,7 +27,6 @@ import { CarouselItemDirective } from './carousel/carousel-item.directive';
 import { MessagesComponent } from './messages/messages.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { CategorySearchComponent } from './category-search/category-search.component';
-
 
 @NgModule({
   declarations: [
@@ -52,6 +52,7 @@ import { CategorySearchComponent } from './category-search/category-search.compo
   ],
   imports: [
     BrowserModule,
+    NgDragDropModule.forRoot(),
     FormsModule,
     TooltipModule.forRoot(),
     BrowserAnimationsModule,

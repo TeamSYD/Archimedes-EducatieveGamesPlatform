@@ -2,23 +2,94 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  width: 6000px;
 }
 
 .carousel-wrapper {
   overflow: hidden;
-  width: 500px;
+  margin: auto;
+  width:88%;
+  height:100%;
+  background-color: red;
+  padding: 0px;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: black;
+  display: flex;
+}
+
+.btn-container{
+  background-color: red;
+  height: 100%;
+  width: 16%;
+  padding: 0px;
+  display: flex;
+}
+
+.btn{
+  width: 4em;
+  height: 4em;
+  display: block;
+  position: relative;
+  margin: auto;
+}
+
+.btn-light{
+
+}
+
+.card-div{
+  background-color: red;
+  width:  150px;
+  height: 200px;
+}
+
+.carousel-inner {
+  padding: 2px 12px 2px 12px;
+  height: 100%;
+  width: 6000px;
+  background-color:pink;
+  margin: auto;
+}
+
+.carousel-item{
+  display: inline-block;
+  height: 100%;
+  width: 100px;
+  background-color: black;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: cyan;
+  padding: 8px;
+}
+
+.asd{
+  width: 150px;
+  height: 150px;
 }
 
 .test{
   width: 100px;
 }
 
-.card-div{
-  width:  200px;
-  height: 200px;
+.carousel-container{
+  display:block;
+  height: 95%;
+  width: 100%;
+  background-color: yellow;
+  margin: auto;
 }
 
-.carousel-inner {
-  display: flex;
+.carousel-outer{
+
+  height: 8em;
+  background-color: green;
+}
+
+
+
+.ding {
+  width: 80%;
+  height: 80%;
 }

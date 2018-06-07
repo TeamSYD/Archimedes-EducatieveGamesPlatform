@@ -29,14 +29,15 @@ export class CarouselComponent implements AfterViewInit {
   private itemWidth : number;
   private currentSlide = 0;
   carouselWrapperStyle = {}
-  private arraySize = this.cards.length;
+  private arraySize = null;
+  private carouselSize= 3
 
   setArraySize(){
-    this.arraySize = this.cards.length;
+    this.arraySize = this.cards.length-this.carouselSize;
   }
 
   next() {
-    if(!this.arraySize){
+    if(this.arraySize != this.cards.length-this.carouselSize){
       this.setArraySize();
     }
     if( this.currentSlide + 1 === this.arraySize ) return;
@@ -58,7 +59,7 @@ export class CarouselComponent implements AfterViewInit {
   }
 
   prev() {
-    if(!this.arraySize){
+    if(this.arraySize != this.cards.length-this.carouselSize){
       this.setArraySize();
     }
     if( this.currentSlide === 0 ) return;
@@ -84,9 +85,10 @@ export class CarouselComponent implements AfterViewInit {
     // For some reason only here I need to add setTimeout, in my local env it's working without this.
     this.getCards()
     setTimeout(() => {
-    this.itemWidth = 100;
+    this.itemWidth = 150;
     // TODO: GET items.length dynamicly from the DOM
-    this.setArraySize()
+    this.setArraySize();
+      this.carouselWrapperStyle = {width: '80%'};
       //this.carouselWrapperStyle = {
       //  width: `${this.itemWidth}px`
     //};
