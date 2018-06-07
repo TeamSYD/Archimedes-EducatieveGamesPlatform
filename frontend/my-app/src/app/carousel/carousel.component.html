@@ -1,0 +1,24 @@
+<section class="carousel-wrapper"> <!--[ngStyle]="carouselWrapperStyle"-->
+  <ul class="carousel-inner" #carousel>
+    <li *ngFor="let card of cards" class="carouselItem">
+      <ng-container [ngTemplateOutlet]="card.tpl">
+        <div class="card-div">
+        <p class="test">{{card.name}}</p>
+        </div>
+      </ng-container>
+    </li>
+  </ul>
+</section>
+
+<!--
+<ul>
+<li *ngFor="let card of cards" class="carousel-item">
+  <h2>{{card.name}}</h2>
+</li>
+</ul>
+-->
+
+<div *ngIf="showControls" style="margin-top: 1em">
+  <button (click)="next()" class="btn btn-default">Next</button>
+  <button (click)="prev()" class="btn btn-default">Prev</button>
+</div>
