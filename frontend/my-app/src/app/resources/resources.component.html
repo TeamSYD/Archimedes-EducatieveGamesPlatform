@@ -19,17 +19,26 @@
       <app-category-search></app-category-search>
     </div>
   </div>
-  <div class="row" style="height:82%; background-color: #8f9296">
-    <div class="col-md-12"><ul>
-      <li draggable>Coffee</li>
-      <li draggable>Tea</li>
-      <li draggable>Milk</li>
-    </ul>  </div>
+  <div class="row" style="height:86%; background-color: rgba(143,146,150,0)">
+    <div class="col-md-12" id="testdiv" style="overflow-y:scroll; padding:0px;">
+
+      <img draggable *ngFor="let item of items" [dragData]="item" src={{item.imgUrl}} class="rounded img-thumbnail imageStylingResourceBar">
+
+
+        </div>
   </div>
-  <div class="row">
-    <div class="col-md-6">sadasd</div>
-    <div class="col-md-6"><div droppable>
-      <p>Drop items here</p>
-    </div>   </div>
+  <div class="row" style="margin: 5px;">
+    <div class="col-md-6" style="padding: 0px;"> <button type="button" class="btn btn-primary btn-sm category-bar-height" style="padding-right:15px; padding-left:15px; margin:1px;">Add Resource</button></div>
+    <div class="col-md-6" style="left:20px;">
+      <div class="card card-inverse card-primary mb-3 text-center" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-danger'"
+            (onDrop)="onItemDrop($event)">
+        <div class="card-block" style="height: 100%; align-content: center">
+          <blockquote class="card-blockquote">
+            <p class="card-text"><i class="fa fa-trash" aria-hidden="true"></i> Drop to Delete</p>
+
+          </blockquote>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

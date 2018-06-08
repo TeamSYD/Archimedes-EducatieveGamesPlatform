@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
-import { NgDragDropModule } from 'ng-drag-drop';
+
 
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -25,6 +25,7 @@ import { CardEditorComponent } from './card-editor/card-editor.component';
 import { CardEditorDetailComponent } from './card-editor-detail/card-editor-detail.component';
 import { CarouselComponent, CarouselItemElement } from './carousel/carousel.component';
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
+import {MatDialogModule} from '@angular/material';
 
 import { MessagesComponent } from './messages/messages.component';
 import { ResourcesComponent } from './resources/resources.component';
@@ -65,6 +66,8 @@ import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
     AppRoutingModule,
     HttpClientModule,
     NgDragDropModule.forRoot(),
+    MatDialogModule,
+
 
 
 
