@@ -1,39 +1,55 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {FormsModule} from "@angular/forms";
-import {HttpClientModule} from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './in-memory-data.service';
+import { InMemoryDataService } from './in-memory-data.service';
+import { ResourceService} from './resource.service';
 
-import {AppComponent} from './app.component';
-import {LoginComponent} from './login/login.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {CreateAccountComponent} from './create-account/create-account.component';
-import {ArrangementsComponent} from './arrangements/arrangements.component';
-import {TooltipModule} from 'ngx-bootstrap/tooltip';
-import {AppRoutingModule} from './app-routing.module';
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { AppRoutingModule } from './app-routing.module';
 import { FooterComponent } from './footer/footer.component';
+import { CreateAccountComponent } from './create-account/create-account.component';
+import { ArrangementsComponent } from './arrangements/arrangements.component';
+
+import { CardsComponent } from './cards/cards.component';
+import { CardSearchComponent } from './card-search/card-search.component';
 import { CardEditorComponent } from './card-editor/card-editor.component';
 import { CardEditorDetailComponent } from './card-editor-detail/card-editor-detail.component';
-import { CardsComponent } from './cards/cards.component';
-import { MessagesComponent }    from './messages/messages.component';
-import { CardSearchComponent } from './card-search/card-search.component';
+import { CarouselComponent, CarouselItemElement } from './carousel/carousel.component';
+import { CarouselItemDirective } from './carousel/carousel-item.directive';
+import {MatDialogModule} from '@angular/material';
+
+import { MessagesComponent } from './messages/messages.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { CategorySearchComponent } from './category-search/category-search.component';
 import { AddResourceComponent } from './add-resource/add-resource.component';
+import { NgDragDropModule } from 'ng-drag-drop';
+import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
+    FooterComponent,
     CreateAccountComponent,
     ArrangementsComponent,
-    FooterComponent,
+
+    CardsComponent,
+    CardSearchComponent,
     CardEditorComponent,
     CardEditorDetailComponent,
-    CardsComponent,
+
+    CarouselItemDirective,
+    CarouselComponent,
+    CarouselItemElement,
+
     MessagesComponent,
     CardSearchComponent,
     ResourcesComponent,
@@ -42,10 +58,14 @@ import { AddResourceComponent } from './add-resource/add-resource.component';
   ],
   imports: [
     BrowserModule,
+    NgDragDropModule.forRoot(),
     FormsModule,
     TooltipModule.forRoot(),
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    NgDragDropModule.forRoot(),
+    MatDialogModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.

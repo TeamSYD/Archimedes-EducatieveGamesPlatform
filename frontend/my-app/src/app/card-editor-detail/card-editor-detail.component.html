@@ -1,43 +1,41 @@
-<div class="container-fluid container-fluid-padding">
+<div class="container-fluid container-fluid-styles">
 
-  <div class="row">
+  <div class="row row-height">
 
-    <div class="col-md-3"></div>
+    <div class="col-md-3 col-md-3-height"></div>
 
-    <div class="col-md-3">
+    <div class="col-md-3 col-md-3-height">
       <div class="text-style">
         <p><b>Voorkant</b></p>
       </div>
 
-      <div class="col-md-12 front-card">
-        hoi
+      <div class="col-md-12 front-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'">
+
       </div>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3 col-md-3-height">
       <div class="text-style">
         <p><b>Achterkant</b></p>
       </div>
-
-      <div class="col-md-12 back-card">
+      <div class="col-md-12 back-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'">
 
       </div>
-
-      <div class="col-md-3"></div>
-
     </div>
+
+    <div class="col-md-3 col-md-3-height"></div>
 
   </div>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid" style="height: 20%">
 
   <div class="row">
 
     <div class="col-md-1"></div>
 
     <div class="col-md-2 button-padding">
-      <input type="submit" id="back" value="Terug naar game editor" class="btn btn-primary">
+      <input type="button" id="back" (click)="goBack()" value="Terug naar game editor" class="btn btn-primary">
     </div>
 
     <div class="col-md-6"></div>

@@ -1,0 +1,42 @@
+<div class="row carousel-outer">
+  <div *ngIf="showControls" class="col-md-2 btn-container">
+    <button (click)="prev()" class="btn btn-light rounded-circle"><span class="glyphicon glyphicon-chevron-left"></span></button>
+  </div>
+<section class="col-md-8 carousel-wrapper"> <!--[ngStyle]="carouselWrapperStyle"-->
+
+  <div class="carousel-container">
+  <ul class="carousel-inner" #carousel>
+    <li *ngFor="let card of cards" class="carousel-item">
+      <ng-container [ngTemplateOutlet]="card.tpl" class="asd">
+
+        <!--<div class="card-div">-->
+        <p class="test">{{card.name}}</p>
+        <p class="test">{{card.id}}</p>
+        <!--</div>-->
+
+      </ng-container>
+    </li>
+  </ul>
+  </div>
+
+</section>
+  <div *ngIf="showControls" class="col-md-2 btn-container">
+    <button (click)="next()" class="btn btn-light rounded-circle"><span class="glyphicon glyphicon-chevron-right ding"></span></button>
+  </div>
+</div>
+
+<!--
+<ul>
+<li *ngFor="let card of cards" class="carousel-item">
+  <h2>{{card.name}}</h2>
+</li>
+</ul>
+-->
+
+<!--
+<div *ngIf="showControls" style="margin-top: 1em">
+  <button (click)="prev()" class="btn btn-dark rounded-circle"><span class="glyphicon glyphicon-chevron-left"></span></button>
+  <button (click)="next()" class="btn btn-dark rounded-circle"><span class="glyphicon glyphicon-chevron-right"></span></button>
+
+</div>
+-->
