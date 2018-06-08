@@ -4,16 +4,16 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 
-
-
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatInputModule} from '@angular/material';
 import { ResourceService} from './resource.service';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgDragDropModule } from 'ng-drag-drop';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AppRoutingModule } from './app-routing.module';
 import { FooterComponent } from './footer/footer.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
@@ -25,13 +25,12 @@ import { CardEditorComponent } from './card-editor/card-editor.component';
 import { CardEditorDetailComponent } from './card-editor-detail/card-editor-detail.component';
 import { CarouselComponent, CarouselItemElement } from './carousel/carousel.component';
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
-import {MatDialogModule} from '@angular/material';
 
 import { MessagesComponent } from './messages/messages.component';
-import { ResourcesComponent } from './resources/resources.component';
+import { ResourcesComponent, AddCategoryComponent } from './resources/resources.component';
 import { CategorySearchComponent } from './category-search/category-search.component';
-import { NgDragDropModule } from 'ng-drag-drop';
 import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
+
 
 @NgModule({
   declarations: [
@@ -54,7 +53,10 @@ import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
     MessagesComponent,
     CardSearchComponent,
     ResourcesComponent,
-    CategorySearchComponent
+    CategorySearchComponent,
+    AddCategoryComponent
+
+
 
   ],
   imports: [
@@ -67,6 +69,7 @@ import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
     HttpClientModule,
     NgDragDropModule.forRoot(),
     MatDialogModule,
+    MatInputModule,
 
 
 
@@ -81,6 +84,7 @@ import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
     )
   ],
   providers: [],
+  entryComponents:[ResourcesComponent,AddCategoryComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {
