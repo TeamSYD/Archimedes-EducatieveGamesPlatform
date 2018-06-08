@@ -30,6 +30,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { ResourcesComponent, AddCategoryComponent } from './resources/resources.component';
 import { CategorySearchComponent } from './category-search/category-search.component';
 import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
+import {AddResourceComponent} from "./add-resource/add-resource.component";
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
     CardSearchComponent,
     ResourcesComponent,
     CategorySearchComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    AddResourceComponent
 
 
 
