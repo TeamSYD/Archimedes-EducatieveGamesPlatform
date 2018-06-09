@@ -1,1 +1,9 @@
-<input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+<div id="search-component">
+  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+
+  <ul class="search-result">
+    <li *ngFor="let category of categories$ | async" >
+      <a>{{category.name}}</a>
+    </li>
+  </ul>
+</div>

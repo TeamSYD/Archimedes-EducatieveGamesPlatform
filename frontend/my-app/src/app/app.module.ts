@@ -8,7 +8,10 @@ import { NgDragDropModule } from 'ng-drag-drop';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatInputModule} from '@angular/material';
 import { ResourceService} from './resource.service';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgDragDropModule } from 'ng-drag-drop';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -29,6 +32,8 @@ import { CarouselItemDirective } from './carousel/carousel-item.directive';
 import { MessagesComponent } from './messages/messages.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { CategorySearchComponent } from './category-search/category-search.component';
+import {AddResourceComponent} from "./add-resource/add-resource.component";
+
 
 @NgModule({
   declarations: [
@@ -51,7 +56,11 @@ import { CategorySearchComponent } from './category-search/category-search.compo
     MessagesComponent,
     CardSearchComponent,
     ResourcesComponent,
-    CategorySearchComponent
+    CategorySearchComponent,
+    AddCategoryComponent,
+    AddResourceComponent
+
+
 
   ],
   imports: [
@@ -63,6 +72,14 @@ import { CategorySearchComponent } from './category-search/category-search.compo
     AppRoutingModule,
     HttpClientModule,
     NgDragDropModule.forRoot(),
+    MatDialogModule,
+    MatInputModule,
+
+
+
+
+
+
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
@@ -71,6 +88,7 @@ import { CategorySearchComponent } from './category-search/category-search.compo
     )
   ],
   providers: [],
+  entryComponents:[ResourcesComponent,AddCategoryComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

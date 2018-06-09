@@ -9,6 +9,17 @@
   height: 10%;
 }
 
+.drag-hint-scale {
+// border: #ffc100 dashed 2px;
+  transition: all .1s ease-in-out;
+  transform: scale(1.05);
+}
+
+.bg-apply{
+  background-color:green !important;
+}
+
+
 .container-fluid-styles{
   padding-top: 50px;
   height: 80%;
