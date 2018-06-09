@@ -12,20 +12,32 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export class ResourcesComponent implements OnInit {
   categories: Category[];
 
+  data1: string;
   constructor(private resourceService: ResourceService,
               private categoryService: CategoryService,
-              public dialog: MatDialog) { }
-  animal: string;
-  name: string;
+              public dialog: MatDialog) {}
 
-  openDialog(): void {
-    let dialogRef = this.dialog.open(AddResourceComponent, {
+  openCategoryDialog(): void {
+    console.log('data na aanroepen functie:  ' + this.data1);
+    let dialogRef = this.dialog.open(AddCategoryComponent, {
       width: '250px',
+      data:{data: this.data1}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
+      this.data1 = result;
+    });
+  }
+
+  openResourceDialog(): void {
+    let dialogRef = this.dialog.open(AddResourceComponent, {
+      width: '250px',
+      //data:{data: this.data1}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
   ngOnInit() {
@@ -54,7 +66,7 @@ export class ResourcesComponent implements OnInit {
       .subscribe(categories => this.categories = categories);
   }
 
-  static onItemDrop(e: any) {
+  onItemDrop(e: any) {
     // Get the dropped data here
     console.log(e.dragData.id);
   }
@@ -69,6 +81,22 @@ export class AddResourceComponent {
 
   constructor(
     public dialogRef: MatDialogRef<AddResourceComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
+
+@Component({
+  selector: 'add-category.component',
+  templateUrl: 'add-category.component.html',
+})
+export class AddCategoryComponent{
+
+  constructor(
+    public dialogRef: MatDialogRef<AddCategoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   onNoClick(): void {

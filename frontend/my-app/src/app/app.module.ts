@@ -3,10 +3,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
+import { NgDragDropModule } from 'ng-drag-drop';
+
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatInputModule} from '@angular/material';
 import { ResourceService} from './resource.service';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgDragDropModule } from 'ng-drag-drop';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -23,13 +28,10 @@ import { CardEditorComponent } from './card-editor/card-editor.component';
 import { CardEditorDetailComponent } from './card-editor-detail/card-editor-detail.component';
 import { CarouselComponent, CarouselItemElement } from './carousel/carousel.component';
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
-import {MatDialogModule,MatInputModule} from '@angular/material';
 
 import { MessagesComponent } from './messages/messages.component';
 import { ResourcesComponent, AddResourceComponent } from './resources/resources.component';
 import { CategorySearchComponent } from './category-search/category-search.component';
-import { NgDragDropModule } from 'ng-drag-drop';
-import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
     CardSearchComponent,
     ResourcesComponent,
     CategorySearchComponent,
+    AddCategoryComponent,
     AddResourceComponent
   ],
   imports: [
@@ -75,7 +78,7 @@ import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
     )
   ],
   providers: [],
-  entryComponents: [ResourcesComponent, AddResourceComponent],
+  entryComponents: [ResourcesComponent, AddResourceComponent,AddCategoryComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {
