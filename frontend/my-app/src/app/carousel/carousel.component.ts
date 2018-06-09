@@ -3,7 +3,6 @@ import { CarouselItemDirective } from './carousel-item.directive';
 import { animate, AnimationBuilder, AnimationFactory, AnimationPlayer, style } from '@angular/animations';
 import {Card} from '../cards/card'
 import {CardService} from "../card.service";
-import {forEach} from "@angular/router/src/utils/collection";
 
 @Directive({
   selector: '.carousel-item'
@@ -23,29 +22,64 @@ export class CarouselComponent implements AfterViewInit {
   @ContentChildren(CarouselItemDirective) items : QueryList<CarouselItemDirective>;
   @ViewChildren(CarouselItemElement, { read: ElementRef }) private itemsElements : QueryList<ElementRef>;
   @ViewChild('carousel') private carousel : ElementRef;
+  @ViewChild('cardcontainer') private cardcontainer : ElementRef;
   @Input() timing = '250ms ease-in';
   @Input() showControls = true;
   private player : AnimationPlayer;
-  private itemWidth : number;
   private currentSlide = 0;
-  carouselWrapperStyle = {}
-  private arraySize = null;
-  private carouselSize= 3
+  carouselWrapperStyle = {};
 
-  setArraySize(){
-    this.arraySize = this.cards.length-this.carouselSize;
+  private carouselCap = 3;
+  private carouselWidth;
+
+  private arraySize = null;
+  private listWidth;
+  private cardWidthPercentage : number;
+  private itemWidth : number;
+
+  constructor( private builder : AnimationBuilder, private cardService : CardService ) {
+  }
+
+  getCards(): void {
+    this.cardService.getCards()
+      .subscribe(cards => this.cards = cards);
+  }
+  updateArraySize(){
+    this.arraySize = this.cards.length-this.carouselCap;
+  }
+
+  updateCardWidthPercentage(){
+    this.cardWidthPercentage = 100/ this.arraySize;
+  }
+
+  updateCarouselCap(){
+    this.carouselCap = this.carouselWidth / this.itemWidth;
+  }
+
+  updateItemWidth(){
+    this.itemWidth = this.cardcontainer.nativeElement.attributes['width'].value();
+  }
+
+  fetchCarouselWidth(){
+    //this.carouselWidth = this.carousel.nativeElement.attributes['width'].value();
+  };
+
+  log(){
+    // Log all variables for debug purposes
+    console.log("Carousel Width: "+this.carouselWidth);
+    console.log("Current Slide: "+this.currentSlide);
+    console.log("Array Size: "+this.arraySize);
+    console.log("Card Width Percentage: "+this.cardWidthPercentage);
+    console.log("Item Width: "+this.itemWidth);
   }
 
   next() {
-    if(this.arraySize != this.cards.length-this.carouselSize){
-      this.setArraySize();
+    if(this.arraySize != this.cards.length-this.carouselCap){
+      this.updateArraySize();
     }
     if( this.currentSlide + 1 === this.arraySize ) return;
     this.currentSlide = (this.currentSlide + 1) % this.arraySize;
-
-
-    console.log(this.currentSlide);
-    console.log(this.arraySize);
+    this.log();
     const offset = this.currentSlide * this.itemWidth;
     const myAnimation : AnimationFactory = this.buildAnimation(offset);
     this.player = myAnimation.create(this.carousel.nativeElement);
@@ -59,39 +93,44 @@ export class CarouselComponent implements AfterViewInit {
   }
 
   prev() {
-    if(this.arraySize != this.cards.length-this.carouselSize){
-      this.setArraySize();
+    if(this.arraySize != this.cards.length-this.carouselCap){
+      this.updateArraySize();
     }
     if( this.currentSlide === 0 ) return;
     this.currentSlide = ((this.currentSlide - 1) + this.arraySize) % this.arraySize;
-
-    console.log(this.currentSlide);
-    console.log(this.arraySize);
+    this.log();
     const offset = this.currentSlide * this.itemWidth;
-
     const myAnimation : AnimationFactory = this.buildAnimation(offset);
     this.player = myAnimation.create(this.carousel.nativeElement);
     this.player.play();
   }
 
-  constructor( private builder : AnimationBuilder, private cardService : CardService ) {
-  }
 
-  getCards(): void {
-    this.cardService.getCards()
-      .subscribe(cards => this.cards = cards);
-  }
   ngAfterViewInit() {
     // For some reason only here I need to add setTimeout, in my local env it's working without this.
     this.getCards()
+
     setTimeout(() => {
-    this.itemWidth = 150;
     // TODO: GET items.length dynamicly from the DOM
-    this.setArraySize();
-      this.carouselWrapperStyle = {width: '80%'};
-      //this.carouselWrapperStyle = {
-      //  width: `${this.itemWidth}px`
-    //};
+    console.log('AfterView Reached');
+    this.updateArraySize();
+    this.fetchCarouselWidth();
+    this.cardWidthPercentage = 100 / this.cards.length;
+    this.updateItemWidth();
+    this.updateCarouselCap();
+
+    /*
+    this.listWidth = this.itemWidth * this.arraySize;
+    this.carouselWrapperStyle = {width: '80%'};
+    this.carouselCap = this.carouselWidth / this.itemWidth;
+    this.cardWidthPercentage = 100/ this.arraySize;
+    this.carousel.nativeElement.attribute('Width').value;
+
+    this.carouselWrapperStyle = {
+       width: `${this.itemWidth}px`
+    };
+    */
+
     });
   }
 

@@ -29,8 +29,6 @@ import { CarouselItemDirective } from './carousel/carousel-item.directive';
 import { MessagesComponent } from './messages/messages.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { CategorySearchComponent } from './category-search/category-search.component';
-import { NgDragDropModule } from 'ng-drag-drop';
-import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -65,11 +63,6 @@ import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
     AppRoutingModule,
     HttpClientModule,
     NgDragDropModule.forRoot(),
-
-
-
-
-
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
