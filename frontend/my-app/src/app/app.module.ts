@@ -11,12 +11,10 @@ import { InMemoryDataService } from './in-memory-data.service';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatInputModule} from '@angular/material';
 import { ResourceService} from './resource.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { NgDragDropModule } from 'ng-drag-drop';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AppRoutingModule } from './app-routing.module';
 import { FooterComponent } from './footer/footer.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
@@ -30,7 +28,7 @@ import { CarouselComponent, CarouselItemElement } from './carousel/carousel.comp
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
 
 import { MessagesComponent } from './messages/messages.component';
-import { ResourcesComponent, AddResourceComponent } from './resources/resources.component';
+import {ResourcesComponent, AddResourceComponent, AddCategoryComponent} from './resources/resources.component';
 import { CategorySearchComponent } from './category-search/category-search.component';
 
 @NgModule({
@@ -66,7 +64,6 @@ import { CategorySearchComponent } from './category-search/category-search.compo
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    NgDragDropModule.forRoot(),
     MatDialogModule,
     MatInputModule,
 
