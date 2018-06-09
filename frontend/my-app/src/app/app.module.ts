@@ -23,12 +23,11 @@ import { CardEditorComponent } from './card-editor/card-editor.component';
 import { CardEditorDetailComponent } from './card-editor-detail/card-editor-detail.component';
 import { CarouselComponent, CarouselItemElement } from './carousel/carousel.component';
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
-import {MatDialogModule} from '@angular/material';
+import {MatDialogModule,MatInputModule} from '@angular/material';
 
 import { MessagesComponent } from './messages/messages.component';
-import { ResourcesComponent } from './resources/resources.component';
+import { ResourcesComponent, AddResourceComponent } from './resources/resources.component';
 import { CategorySearchComponent } from './category-search/category-search.component';
-import { AddResourceComponent } from './add-resource/add-resource.component';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
 
@@ -66,6 +65,7 @@ import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
     HttpClientModule,
     NgDragDropModule.forRoot(),
     MatDialogModule,
+    MatInputModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
@@ -75,6 +75,7 @@ import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
     )
   ],
   providers: [],
+  entryComponents: [ResourcesComponent, AddResourceComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

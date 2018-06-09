@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ResourceService } from '../resource.service';
 import { CategoryService } from '../category.service';
 import { Category } from '../category';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-resources',
@@ -12,8 +13,21 @@ export class ResourcesComponent implements OnInit {
   categories: Category[];
 
   constructor(private resourceService: ResourceService,
-              private categoryService: CategoryService) { }
+              private categoryService: CategoryService,
+              public dialog: MatDialog) { }
+  animal: string;
+  name: string;
 
+  openDialog(): void {
+    let dialogRef = this.dialog.open(AddResourceComponent, {
+      width: '250px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
   ngOnInit() {
     this.getCategories();
   }
@@ -33,17 +47,32 @@ export class ResourcesComponent implements OnInit {
     {id:12, imgUrl:"../../assets/angular-logo.png"},
 
 
-  ]
+  ];
 
   getCategories(): void {
     this.categoryService.getCategories()
       .subscribe(categories => this.categories = categories);
   }
 
-  onItemDrop(e: any) {
+  static onItemDrop(e: any) {
     // Get the dropped data here
     console.log(e.dragData.id);
   }
 
+
+}
+@Component({
+  selector: 'add-resource.component',
+  templateUrl: 'add-resource.component.html',
+})
+export class AddResourceComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<AddResourceComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }
