@@ -36,15 +36,15 @@ public class RoleController {
 
     // Get a Single Role
     @GetMapping("/roles/{id}")
-    public Role getRoleById(@PathVariable(value = "id") Long roleId) {
+    public Role getRoleById(@PathVariable(value = "id") long roleId) {
         return roleRepository.findById(roleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Role", "id", roleId));
     }
 
     // Update a Role
     @PutMapping("/roles/{id}")
-    public Role updateRole(@PathVariable(value = "id") Long roleId,
-                            @Valid @RequestBody Role roleDetails) {
+    public Role updateRole(@PathVariable(value = "id") long roleId,
+                           @Valid @RequestBody Role roleDetails) {
 
         Role role = roleRepository.findById(roleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Role", "id", roleId));
@@ -57,7 +57,7 @@ public class RoleController {
 
     // Delete a Role
     @DeleteMapping("/roles/{id}")
-    public ResponseEntity<?> deleteRole(@PathVariable(value = "id") Long roleId) {
+    public ResponseEntity<?> deleteRole(@PathVariable(value = "id") long roleId) {
         Role role = roleRepository.findById(roleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Role", "id", roleId));
 

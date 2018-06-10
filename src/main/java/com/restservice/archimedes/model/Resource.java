@@ -1,14 +1,10 @@
 package com.restservice.archimedes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Table(name = "resources")
@@ -19,14 +15,20 @@ public class Resource extends AuditModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
+    @Column(name = "name", unique = false, nullable = false, length = 255)
     private String name;
 
     @NotBlank
     private String type;
 
     @NotBlank
+    private String text_resource;
+
+    @NotBlank
     private String category;
+
+    @Column(name = "IMAGE_DATA", unique = false, nullable = true, length = 100000)
+    private byte[] image_data;
 
     public long getId() {
         return id;
@@ -59,4 +61,21 @@ public class Resource extends AuditModel implements Serializable {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public byte[] getImage_data() {
+        return image_data;
+    }
+
+    public void setImage_Data(byte[] data) {
+        this.image_data = data;
+    }
+
+    public String getText_resource() {
+        return text_resource;
+    }
+
+    public void setText_resource(String text_resource) {
+        this.text_resource = text_resource;
+    }
+
 }

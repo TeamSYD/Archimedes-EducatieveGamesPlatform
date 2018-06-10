@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ScoreboardRepository extends JpaRepository<Scoreboard, Long> {
-    Page<Scoreboard> findBySessionId(Long sessionId, Pageable pageable);
+    Page<Scoreboard> findBySessionId(long sessionId, Pageable pageable);
 }

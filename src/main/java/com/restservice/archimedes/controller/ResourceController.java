@@ -2,12 +2,17 @@ package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
 import com.restservice.archimedes.model.Resource;
+import com.restservice.archimedes.model.UploadFileResponse;
 import com.restservice.archimedes.repository.ResourceRepository;
+import com.restservice.archimedes.service.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,6 +27,9 @@ public class ResourceController {
         this.resourceRepository = resourceRepository;
     }
 
+
+    private FileStorageService fileStorageService;
+
     // Get All Resource
     @GetMapping("/resources")
     public List<Resource> getAllResource() {
@@ -29,22 +37,36 @@ public class ResourceController {
     }
 
     // Create a new Resource
-    @PostMapping("/resources")
-    public Resource createResource(@Valid @RequestBody Resource resource) {
-        return resourceRepository.save(resource);
+    @PostMapping("/uploadFile")
+    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+        String fileName = fileStorageService.storeFile(file);
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+        Resource newUpload = new Resource();
+        newUpload.setName(fileName);
+        newUpload.setType("Image");
+        newUpload.setCategory("Unsorted");
+        newUpload.setImage_Data(file.getBytes());
+        resourceRepository.save(newUpload);
+        System.out.println("File succesfully uploaded and saved...............");
+        return new UploadFileResponse(fileName, fileDownloadUri,
+                file.getContentType(), file.getSize());
     }
 
     // Get a Single Resource
     @GetMapping("/resources/{id}")
-    public Resource getResourceById(@PathVariable(value = "id") Long resourceId) {
+    public Resource getResourceById(@PathVariable(value = "id") long resourceId) {
         return resourceRepository.findById(resourceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Resource", "id", resourceId));
     }
 
     // Update a Resource
     @PutMapping("/resources/{id}")
-    public Resource updateResource(@PathVariable(value = "id") Long resourceId,
-                                 @Valid @RequestBody Resource resourceDetails) {
+    public Resource updateResource(@PathVariable(value = "id") long resourceId,
+                                   @Valid @RequestBody Resource resourceDetails) {
 
         Resource resource = resourceRepository.findById(resourceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Resource", "id", resourceId));
@@ -59,7 +81,7 @@ public class ResourceController {
 
     // Delete a Resource
     @DeleteMapping("/resources/{id}")
-    public ResponseEntity<?> deleteResource(@PathVariable(value = "id") Long resourceId) {
+    public ResponseEntity<?> deleteResource(@PathVariable(value = "id") long resourceId) {
         Resource resource = resourceRepository.findById(resourceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Resource", "id", resourceId));
 

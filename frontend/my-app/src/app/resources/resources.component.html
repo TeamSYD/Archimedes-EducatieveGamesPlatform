@@ -1,31 +1,16 @@
 <div class="container-fluid" style="height: 100%">
-  <div class="mat-app-background basic-container">
-    <ol>
-      <li>
-        <mat-form-field>
-          <input matInput [(ngModel)]="name" placeholder="What's your name?">
-        </mat-form-field>
-      </li>
-      <li>
-        <button mat-raised-button (click)="openDialog()">Pick one</button>
-      </li>
-      <li *ngIf="animal">
-        You chose: <i>{{animal}}</i>
-      </li>
-    </ol>
-  </div>
+
   <div class="row" style="background-color: aliceblue; padding: 0px;">
     <div class="col-md-1 style-for-divs">
-      <button mat-raised-button (click)="openDialog()" type="button" class="btn btn-primary btn-sm category-bar-height" style="padding-right:15px; padding-left:15px; margin:1px;">+</button>
+      <button mat-raised-button (click)="openCategoryDialog()" type="button" class="btn btn-primary btn-sm category-bar-height" style="padding-right:15px; padding-left:15px; margin:1px;">+</button>
     </div>
     <div class="col-md-5 style-for-divs">
       <div class="form-group" style="margin: 0px; padding-left: 20px;">
-        <select class="form-control category-bar-height" id="category">
+        <select class="form-control category-bar-height" ng-change="change()"  id="category">
           <option value="" selected disabled>Category</option>
-          <option>Category1</option>
-          <option>Category2</option>
-          <option>Category3</option>
-          <option>Category4</option>
+          <option [ngValue]="Cx">optie1</option>
+          <option *ngFor="let category of categories">{{category.name}}</option>
+
         </select>
       </div>
     </div>

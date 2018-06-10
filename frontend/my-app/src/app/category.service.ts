@@ -21,8 +21,8 @@ export class CategoryService {
   getCategories(): Observable<Category[]> {
     // TODO: send the message _after_ fetching the heroes
     this.log("Fetched categories.")
-    return this.http.get<Category[]>(this.categoryUrl) .pipe(
-      tap(heroes => this.log(`fetched categories`)),
+    return this.http.get<Category[]>('http://localhost:8080/api/account/1/categories') .pipe(
+      tap(categories => this.log(`fetched categories`)),
       catchError(this.handleError('getCategories', []))
     );
   }

@@ -66,6 +66,16 @@ export class ResourcesComponent implements OnInit {
       .subscribe(categories => this.categories = categories);
   }
 
+  // getResourcesByCategoryId(id: number): void {
+  //   this.resourceService.getResourceById()
+  //     .subscribe()
+  // }
+
+ mySelectHandler($scope): void {
+    console.log('Cx123');
+ }
+
+
   onItemDrop(e: any) {
     // Get the dropped data here
     console.log(e.dragData.id);
