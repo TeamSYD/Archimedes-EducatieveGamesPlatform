@@ -22,6 +22,8 @@ import { FooterComponent } from './footer/footer.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ArrangementsComponent } from './arrangements/arrangements.component';
 
+import {ngFileUpload} from 'ng-file-upload';
+
 import { CardsComponent } from './cards/cards.component';
 import { CardEditorComponent } from './card-editor/card-editor.component';
 import { CardEditorDetailComponent } from './card-editor-detail/card-editor-detail.component';

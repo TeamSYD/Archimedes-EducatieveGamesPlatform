@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ResourceService } from '../resource.service';
 import { CategoryService } from '../category.service';
 import { Category } from '../category';
@@ -13,15 +13,11 @@ export class ResourcesComponent implements OnInit {
   categories: Category[];
 
   data1: string;
-
-
-
-
   constructor(private resourceService: ResourceService,
               private categoryService: CategoryService,
               public dialog: MatDialog) {}
 
-  openDialog(): void {
+  openCategoryDialog(): void {
     console.log('data na aanroepen functie:  ' + this.data1);
     let dialogRef = this.dialog.open(AddCategoryComponent, {
       width: '250px',
@@ -34,6 +30,16 @@ export class ResourcesComponent implements OnInit {
     });
   }
 
+  openResourceDialog(): void {
+    let dialogRef = this.dialog.open(AddResourceComponent, {
+      width: '50%',
+      //data:{data: this.data1}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
   ngOnInit() {
     this.getCategories();
   }
@@ -53,7 +59,7 @@ export class ResourcesComponent implements OnInit {
     {id:12, imgUrl:"../../assets/angular-logo.png"},
 
 
-  ]
+  ];
 
   getCategories(): void {
     this.categoryService.getCategories()
@@ -65,6 +71,21 @@ export class ResourcesComponent implements OnInit {
     console.log(e.dragData.id);
   }
 
+
+}
+@Component({
+  selector: 'add-resource.component',
+  templateUrl: 'add-resource.component.html',
+})
+export class AddResourceComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<AddResourceComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }
 
