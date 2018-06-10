@@ -11,6 +11,7 @@ import { InMemoryDataService } from './in-memory-data.service';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatInputModule} from '@angular/material';
 import { ResourceService} from './resource.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import {ngFileUpload} from 'ng-file-upload';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -66,6 +67,7 @@ import { CategorySearchComponent } from './category-search/category-search.compo
     HttpClientModule,
     MatDialogModule,
     MatInputModule,
+
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.

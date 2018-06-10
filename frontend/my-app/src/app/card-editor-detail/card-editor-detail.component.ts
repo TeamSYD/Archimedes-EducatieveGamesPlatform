@@ -1,11 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { DropEvent } from 'ng-drag-drop';
 
 import { ResourceService } from '../resource.service';
 import { Resource } from '../resource';
 import { CardService } from '../card.service';
 import { Card } from '../cards/card';
+import { ResourcesComponent } from "../resources/resources.component";
 
 @Component({
   selector: 'app-card-editor-detail',
@@ -16,6 +18,11 @@ import { Card } from '../cards/card';
 export class CardEditorDetailComponent implements OnInit {
   resource: Resource[] = [];
   card: Card;
+
+  droppedBackcard = [];
+  droppedFrontcard = [];
+
+
 
   constructor(private resourceService: ResourceService,
               private cardService: CardService,
@@ -41,10 +48,17 @@ export class CardEditorDetailComponent implements OnInit {
     this.location.back();
   }
 
-  onItemDrop(e: any) {
-    // Get the dropped data here
-    console.log(e.dragData.imgUrl);
+  onBackDrop(e: DropEvent) {
+    this.droppedBackcard.push(e.dragData);
+    console.log(e.dragData.id);
   }
+
+  onFrontDrop(e: DropEvent) {
+    this.droppedFrontcard.push(e.dragData);
+    console.log(e.dragData.id);
+  }
+
+
 
 }
 

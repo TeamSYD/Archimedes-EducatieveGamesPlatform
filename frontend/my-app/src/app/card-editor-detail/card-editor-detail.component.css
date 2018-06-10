@@ -19,6 +19,10 @@
   background-color:green !important;
 }
 
+.imageStylingResourceBar{
+  max-width: 50%;
+  height: 100%;
+}
 
 .container-fluid-styles{
   padding-top: 50px;
@@ -45,6 +49,11 @@
   background-color: white;
 }
 
+.back-card-image {
+  height: 100%;
+  width: 100%;
+}
+
 .row-height {
   height: 80%;
 }
@@ -52,4 +61,6 @@
 .col-md-3-height {
   height: 100%;
 }
+
+
 

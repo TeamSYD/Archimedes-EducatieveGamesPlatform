@@ -32,7 +32,7 @@ export class ResourcesComponent implements OnInit {
 
   openResourceDialog(): void {
     let dialogRef = this.dialog.open(AddResourceComponent, {
-      width: '250px',
+      width: '50%',
       //data:{data: this.data1}
     });
 
