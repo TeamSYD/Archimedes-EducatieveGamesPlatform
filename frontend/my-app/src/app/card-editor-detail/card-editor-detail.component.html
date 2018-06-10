@@ -9,7 +9,7 @@
         <p><b>Voorkant</b></p>
       </div>
 
-      <div class="col-md-12 front-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'">
+      <div class="col-md-12 front-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'" (onDrop)="onItemDrop($event)">
 
       </div>
     </div>

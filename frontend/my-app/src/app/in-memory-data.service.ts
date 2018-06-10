@@ -23,6 +23,30 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 139, name: 'Bombasto' }
 
     ];
-    return {categories};
+    const category = [
+      { id: 11, name: 'Wiskunde' },
+      { id: 14, name: 'Japan' },
+      { id: 15, name: 'Nazi-Duitsland' },
+    ];
+
+
+    const wiskunde = [
+      {id:1, imgUrl:"../../assets/angular-logo.png"},
+      {id:2, imgUrl:"../../assets/angular-logo.png"},
+      {id:3, imgUrl:"../../assets/angular-logo.png"},
+      {id:4, imgUrl:"../../assets/angular-logo.png"},
+      {id:5, imgUrl:"../../assets/angular-logo.png"},
+      {id:6, imgUrl:"../../assets/angular-logo.png"},
+      {id:7, imgUrl:"../../assets/angular-logo.png"},
+      {id:8, imgUrl:"../../assets/angular-logo.png"},
+      {id:9, imgUrl:"../../assets/angular-logo.png"},
+      {id:10, imgUrl:"../../assets/angular-logo.png"},
+      {id:11, imgUrl:"../../assets/angular-logo.png"},
+      {id:12, imgUrl:"../../assets/angular-logo.png"},
+    ];
+
+    const japan =[];
+    const naziDuitsland = [];
+    return {category, categories, wiskunde};
   }
 }

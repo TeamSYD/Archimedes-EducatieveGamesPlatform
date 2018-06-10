@@ -41,5 +41,10 @@ export class CardEditorDetailComponent implements OnInit {
     this.location.back();
   }
 
+  onItemDrop(e: any) {
+    // Get the dropped data here
+    console.log(e.dragData.imgUrl);
+  }
+
 }
 
