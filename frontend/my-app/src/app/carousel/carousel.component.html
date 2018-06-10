@@ -4,11 +4,11 @@
   </div>
 <section class="col-md-8 carousel-wrapper"> <!--[ngStyle]="carouselWrapperStyle"-->
 
-  <div [style.width.px]="carouselWidth" class="carousel-container">
+  <div class="carousel-container" #carouselcontainer>
   <ul class="carousel-inner" #carousel>
 
-    <li *ngFor="let card of cards" class="carousel-item" ng-init="getCards()">
-      <div [style.width.%]="itemWidth" class="card-container" #cardcontainer>
+    <li *ngFor="let card of cards" class="carousel-item" ng-init="getCards()" #cardcontainer>
+      <div class="card-container">
       <ng-container [ngTemplateOutlet]="card.tpl">
         <p class="test">{{card.name}}</p>
         <p class="test">{{card.id}}</p>

@@ -73,7 +73,7 @@ import { CarouselItemDirective } from './carousel/carousel-item.directive';
     AddResourceComponent,
 
     // SERVICES
-    ResourceService,
+    // ResourceService,
 
     // DIRECTIVES
     CarouselItemDirective,

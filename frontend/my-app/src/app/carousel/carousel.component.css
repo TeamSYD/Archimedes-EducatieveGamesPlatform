@@ -10,7 +10,7 @@ ul {
   width: 92%;
   height:100%;
   background-color: red;
-  padding: 0px;
+  padding: 0;
   border-style: solid;
   border-width: 2px;
   border-radius: 10px;
@@ -22,7 +22,7 @@ ul {
   background-color: red;
   height: 100%;
   width: 4%;
-  padding: 0px;
+  padding: 0;
   display: flex;
 }
 
@@ -45,7 +45,7 @@ ul {
 }
 
 .carousel-inner {
-  padding: 0px 0px 0px 0px;
+  padding: 0 0 0 0;
   height: 100%;
   width: 6000px;
   background-color: pink;
@@ -63,12 +63,10 @@ ul {
 .card-container{
   margin: auto;
   height: 100%;
-  width: 100px;
+  width: 90%;
   background-color: brown;
-  border-style: solid;
-  border-width: 2px;
   border-radius: 10px;
-  border-color: cyan;
+  border: 2px solid cyan;
 }
 
 .test{
