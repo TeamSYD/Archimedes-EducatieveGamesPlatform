@@ -1,0 +1,10 @@
+<div mat-dialog-content>
+  <p>Maak een nieuwe categorie aan:</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.data1">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">terug</button>
+  <button class="btn btn-primary btn-sm category-bar-height" style="right: 70px" mat-button [mat-dialog-close]="data.data1" cdkFocusInitial>Opslaan</button>
+</div>

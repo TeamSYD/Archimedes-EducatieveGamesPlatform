@@ -1,0 +1,53 @@
+<div class="container-fluid container-fluid-styles">
+
+  <div class="row row-height">
+
+    <div class="col-md-3 col-md-3-height"></div>
+
+    <div class="col-md-3 col-md-3-height">
+      <div class="text-style">
+        <p><b>Voorkant</b></p>
+      </div>
+
+      <div class="col-md-12 front-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'">
+
+      </div>
+    </div>
+
+    <div class="col-md-3 col-md-3-height">
+      <div class="text-style">
+        <p><b>Achterkant</b></p>
+      </div>
+      <div class="col-md-12 back-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'">
+
+      </div>
+    </div>
+
+    <div class="col-md-3 col-md-3-height"></div>
+
+  </div>
+</div>
+
+<div class="container-fluid" style="height: 20%">
+
+  <div class="row">
+
+    <div class="col-md-1"></div>
+
+    <div class="col-md-2 button-padding">
+      <input type="button" id="back" (click)="goBack()" value="Terug naar game editor" class="btn btn-primary">
+    </div>
+
+    <div class="col-md-6"></div>
+
+    <div class="col-md-2 button-padding">
+      <input type="submit" id="submitCard" value="Opslaan en nieuwe kaart" class="btn btn-primary">
+    </div>
+
+    <div class="col-md-1"></div>
+
+  </div>
+
+</div>
+
+

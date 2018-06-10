@@ -1,0 +1,55 @@
+#submitCard {
+}
+
+#back {
+}
+
+.text-style {
+  text-align: center;
+  height: 10%;
+}
+
+.drag-hint-scale {
+// border: #ffc100 dashed 2px;
+  transition: all .1s ease-in-out;
+  transform: scale(1.05);
+}
+
+.bg-apply{
+  background-color:green !important;
+}
+
+
+.container-fluid-styles{
+  padding-top: 50px;
+  height: 80%;
+}
+
+.button-padding {
+  padding-top: 50px;
+}
+
+.front-card {
+  border: solid;
+  border-width: 3px;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+.back-card {
+  border: solid;
+  border-width: 3px;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+
+.row-height {
+  height: 80%;
+}
+
+.col-md-3-height {
+  height: 100%;
+}
+
