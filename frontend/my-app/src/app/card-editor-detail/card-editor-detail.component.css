@@ -49,9 +49,12 @@
   background-color: white;
 }
 
-.back-card-image {
+.card-image {
   height: 100%;
   width: 100%;
+  padding-top: 45%;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 
 .row-height {

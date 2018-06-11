@@ -7,7 +7,7 @@ import { ResourceService } from '../resource.service';
 import { Resource } from '../resource';
 import { CardService } from '../card.service';
 import { Card } from '../cards/card';
-import { ResourcesComponent } from "../resources/resources.component";
+import {variable} from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: 'app-card-editor-detail',
@@ -21,8 +21,8 @@ export class CardEditorDetailComponent implements OnInit {
 
   droppedBackcard = [];
   droppedFrontcard = [];
-
-
+  textBackCard: string;
+  textFrontCard: string;
 
   constructor(private resourceService: ResourceService,
               private cardService: CardService,
@@ -49,16 +49,22 @@ export class CardEditorDetailComponent implements OnInit {
   }
 
   onBackDrop(e: DropEvent) {
+    this.droppedBackcard.splice(0,1);
     this.droppedBackcard.push(e.dragData);
-    console.log(e.dragData.id);
   }
 
   onFrontDrop(e: DropEvent) {
+    this.droppedFrontcard.splice(0,1);
     this.droppedFrontcard.push(e.dragData);
-    console.log(e.dragData.id);
   }
 
+  onFrontText(){
+    this.droppedFrontcard.splice(0,1);
+  }
 
+  onBackText(){
+    this.droppedBackcard.splice(0,1);
+  }
 
 }
 

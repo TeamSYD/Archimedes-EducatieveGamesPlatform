@@ -46,7 +46,7 @@ export class ResourcesComponent implements OnInit {
 
   items = [
     {id:1, imgUrl:"../../assets/angular-logo.png"},
-    {id:2, imgUrl:"../../assets/angular-logo.png"},
+    {id:2, imgUrl:"../../assets/4.jpg"},
     {id:3, imgUrl:"../../assets/angular-logo.png"},
     {id:4, imgUrl:"../../assets/angular-logo.png"},
     {id:5, imgUrl:"../../assets/angular-logo.png"},
@@ -57,7 +57,6 @@ export class ResourcesComponent implements OnInit {
     {id:10, imgUrl:"../../assets/angular-logo.png"},
     {id:11, imgUrl:"../../assets/angular-logo.png"},
     {id:12, imgUrl:"../../assets/angular-logo.png"},
-
 
   ];
 
