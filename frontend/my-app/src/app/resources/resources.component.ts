@@ -68,7 +68,14 @@ export class ResourcesComponent implements OnInit {
 
   onItemDrop(e: any) {
     // Get the dropped data here
-    console.log(e.dragData.id);
+    console.log(e.dragData.imgUrl);
+  }
+
+  changed(e){
+    //event comes as parameter, you'll have to find selectedData manually
+    //by using e.target.data
+    console.log(e.target.data);
+
   }
 
 

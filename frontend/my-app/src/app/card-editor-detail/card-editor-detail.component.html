@@ -9,8 +9,10 @@
         <p><b>Voorkant</b></p>
       </div>
 
-      <div class="col-md-12 front-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'">
-
+      <div class="col-md-12 front-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'" (onDrop)="onFrontDrop($event)">
+        <div class="col-md-12 back-card-image">
+          <img *ngFor="let item of droppedFrontcard" src="{{droppedFrontcard.imgURL}}" class="rounded img-thumbnail">
+        </div>
       </div>
     </div>
 
@@ -18,8 +20,10 @@
       <div class="text-style">
         <p><b>Achterkant</b></p>
       </div>
-      <div class="col-md-12 back-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'">
-
+      <div class="col-md-12 back-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'" (onDrop)="onBackDrop($event)">
+        <div class="col-md-12 back-card-image">
+          <img *ngFor="let item of droppedBackcard" src="{{droppedBackcard.imgURL}}" class="rounded img-thumbnail">
+        </div>
       </div>
     </div>
 
@@ -49,5 +53,6 @@
   </div>
 
 </div>
+<div id="response"></div>
 
 
