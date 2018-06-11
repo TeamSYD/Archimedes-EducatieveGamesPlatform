@@ -22,7 +22,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ArrangementsComponent } from './arrangements/arrangements.component';
 
-import {ngFileUpload} from 'ng-file-upload';
+import { ngFileUpload } from 'ng-file-upload';
 
 import { CardsComponent } from './cards/cards.component';
 import { CardEditorComponent } from './card-editor/card-editor.component';
@@ -31,12 +31,13 @@ import { CardEditorDetailComponent } from './card-editor-detail/card-editor-deta
 import { CarouselComponent, CarouselItemElement } from './carousel/carousel.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { MessagesComponent } from './messages/messages.component';
+
 // COMPONENTS: SEARCH
 import { CategorySearchComponent } from './category-search/category-search.component';
 import { CardSearchComponent } from './card-search/card-search.component';
 
 // COMPONENTS: ADD
-import { AddResourceComponent } from "./add-resource/add-resource.component";
+import { AddResourceComponent } from "./resources/resources.component";
 import { AddCategoryComponent } from './resources/resources.component';
 
 // SERVICES

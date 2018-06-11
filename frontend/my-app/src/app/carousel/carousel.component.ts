@@ -1,4 +1,17 @@
-import { AfterViewInit, Component, ContentChildren, Directive, ElementRef, Input, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ContentChildren,
+  Directive,
+  ElementRef,
+  HostListener,
+  Input,
+  OnInit,
+  QueryList,
+  TemplateRef,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import { CarouselItemDirective } from './carousel-item.directive';
 import { animate, AnimationBuilder, AnimationFactory, AnimationPlayer, style } from '@angular/animations';
 import { Card } from '../cards/card'
@@ -16,13 +29,13 @@ export class CarouselItemElement {
   exportAs: 'carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css']
-
 })
+
 export class CarouselComponent implements AfterViewInit {
   cards: Card[] = [];
   @ContentChildren(CarouselItemDirective) items : QueryList<CarouselItemDirective>;
   @ViewChildren(CarouselItemElement, { read: ElementRef }) private itemsElements : QueryList<ElementRef>;
-  @ViewChildren('cardcontainer') cardContainer: QueryList<ElementRef>;
+  @ViewChildren('cardlistitem') cardListItem: QueryList<ElementRef>;
   @ViewChild('carousel') private carousel : ElementRef;
   @ViewChild('carouselcontainer') private carouselContainer : ElementRef;
   @Input() timing = '250ms ease-in';
@@ -37,11 +50,17 @@ export class CarouselComponent implements AfterViewInit {
   private itemWidth : number;
 
   constructor( private builder : AnimationBuilder, private cardService : CardService, private renderer: Renderer2 ) {
+
   }
 
   getCards(): void {
     this.cardService.getCards()
-      .subscribe(cards => this.cards = cards);
+      .subscribe(cards => {
+        this.log();
+        this.arraySize = cards.length-(this.carouselCap-1);
+        this.resizeColumns();
+        this.cards = cards;
+      });
   }
 
   setCarouselCap(amount : number) {
@@ -60,10 +79,11 @@ export class CarouselComponent implements AfterViewInit {
     this.itemWidth = this.carouselWidth / this.carouselCap;
   }
 
+  @HostListener('window:resize', ['$event'])
   resizeColumns() {
     this.updateCarouselWidth();
     this.updateItemWidth();
-    this.cardContainer.forEach((cc) => {
+    this.cardListItem.forEach((cc) => {
       this.renderer.setStyle(
         cc.nativeElement,
         'width',
@@ -74,13 +94,11 @@ export class CarouselComponent implements AfterViewInit {
 
   /*
   updateItemWidth(){
-    this.itemWidth = this.cardContainer.nativeElement.attributes['width'].value();
+    this.itemWidth = this.cardListItem.nativeElement.attributes['width'].value();
   }
   */
   // Handig voor later
-  //let widths = this.cardContainer.map(cc => cc.nativeElement.offsetWidth);
-
-
+  //let widths = this.cardListItem.map(cc => cc.nativeElement.offsetWidth);
 
   log(){
     // Log all variables for debug purposes
@@ -135,7 +153,7 @@ export class CarouselComponent implements AfterViewInit {
     //console.log('AfterView Reached');
 
     // Triggers too early
-    this.updateArraySize();
+    //this.updateArraySize();
 
     /* SHOULD PROBABLY BE DELETED
     this.listWidth = this.itemWidth * this.arraySize;
@@ -151,8 +169,8 @@ export class CarouselComponent implements AfterViewInit {
     });
 
     // TODO: Load both functions AFTER cards have been loaded (Async function)
-    this.updateArraySize();
-    this.resizeColumns();
+    //this.updateArraySize();
+    //this.resizeColumns();
   }
 
 }
