@@ -100,7 +100,7 @@ import { CarouselItemDirective } from './carousel/carousel-item.directive';
     )
   ],
   providers: [],
-  entryComponents:[ResourcesComponent, AddCategoryComponent],
+  entryComponents:[ResourcesComponent, AddCategoryComponent,AddResourceComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

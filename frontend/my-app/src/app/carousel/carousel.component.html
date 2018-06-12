@@ -1,8 +1,8 @@
 <div class="row carousel-outer">
-  <div *ngIf="showControls" class="col-md-2 btn-container">
+  <div *ngIf="showControls" class="col-md-1 btn-container">
     <button (click)="prev()" class="btn btn-light btn-outline-dark rounded-circle"><i class="fa fa-chevron-left"></i></button>
   </div>
-<section class="col-md-8 carousel-wrapper"> <!--[ngStyle]="carouselWrapperStyle"-->
+<section class="col-md-10 carousel-wrapper"> <!--[ngStyle]="carouselWrapperStyle"-->
 
   <div class="carousel-container" #carouselcontainer>
   <ul class="carousel-list" #carousel>
@@ -20,7 +20,7 @@
   </div>
 
 </section>
-  <div *ngIf="showControls" class="col-md-2 btn-container">
+  <div *ngIf="showControls" class="col-md-1 btn-container">
     <button (click)="next()" class="btn btn-light btn-outline-dark rounded-circle"><i class="fa fa-chevron-right"></i></button>
   </div>
 </div>

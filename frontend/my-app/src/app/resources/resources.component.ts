@@ -46,7 +46,7 @@ export class ResourcesComponent implements OnInit {
 
   items = [
     {id:1, imgUrl:"../../assets/angular-logo.png"},
-    {id:2, imgUrl:"../../assets/4.jpg"},
+    {id:2, imgUrl:"../../assets/angular-logo.png"},
     {id:3, imgUrl:"../../assets/angular-logo.png"},
     {id:4, imgUrl:"../../assets/angular-logo.png"},
     {id:5, imgUrl:"../../assets/angular-logo.png"},

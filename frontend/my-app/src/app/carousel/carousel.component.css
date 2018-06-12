@@ -10,7 +10,7 @@ p{
 .carousel-wrapper {
   overflow: hidden;
   margin: auto;
-  width: 92%;
+  width: 96%;
   height:100%;
   background-color: #bfc7cb;
   padding: 0;
@@ -22,14 +22,14 @@ p{
 .btn-container{
   background-color: #e5eaee;
   height: 100%;
-  width: 4%;
+  width: 2%;
   padding: 0;
   display: flex;
 }
 
 .btn{
-  width: 5em;
-  height: 5em;
+  width: 3em;
+  height: 3em;
   display: block;
   position: relative;
   margin: auto;
@@ -69,11 +69,6 @@ p{
 }
 
 .carousel-outer{
-  height: 12em;
+  height: 100%;
   background-color: #f4f1ed;
-}
-
-.ding {
-  width: 80%;
-  height: 80%;
 }
