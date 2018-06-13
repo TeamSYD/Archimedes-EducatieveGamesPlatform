@@ -28,6 +28,7 @@ import { CardsComponent } from './cards/cards.component';
 import { CardEditorComponent } from './card-editor/card-editor.component';
 import { CardEditorDetailComponent } from './card-editor-detail/card-editor-detail.component';
 
+import { GameEditorSetsComponent } from './game-editor-sets/game-editor-sets.component';
 import { CarouselComponent, CarouselItemElement } from './carousel/carousel.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { MessagesComponent } from './messages/messages.component';
@@ -45,7 +46,7 @@ import { ResourceService} from './resource.service';
 
 // DIRECTIVES
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
-
+import { SetsComponent } from './sets/sets.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,10 @@ import { CarouselItemDirective } from './carousel/carousel-item.directive';
 
     // DIRECTIVES
     CarouselItemDirective,
+
+    GameEditorSetsComponent,
+
+    SetsComponent,
   ],
   imports: [
     // MODULES
