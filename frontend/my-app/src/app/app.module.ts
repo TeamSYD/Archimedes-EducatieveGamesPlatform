@@ -2,14 +2,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // TODO: Ngmodule wordt niet gebruikt, dependency checken.
-import { NgModule } from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AppRoutingModule } from './app-routing.module';
-import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatInputModule} from '@angular/material';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MAT_DIALOG_DEFAULT_OPTIONS,MatSnackBarModule, MatDialogModule, MatInputModule, MatGridListModule,MatSlideToggleModule} from '@angular/material';
+import { ImageCropperComponent, CropperSettings } from "ngx-img-cropper";
+import * as Raven from 'raven-js';
+
+
+
 
 // MODULES: WEB MOCKUP DATA
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -23,15 +27,16 @@ import { FooterComponent } from './footer/footer.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ArrangementsComponent } from './arrangements/arrangements.component';
 
-import { ngFileUpload } from 'ng-file-upload';
-
 import { CardsComponent } from './cards/cards.component';
 import { CardEditorComponent } from './card-editor/card-editor.component';
 import { CardEditorDetailComponent } from './card-editor-detail/card-editor-detail.component';
 
+import { GameEditorSetsComponent } from './game-editor-sets/game-editor-sets.component';
 import { CarouselComponent, CarouselItemElement } from './carousel/carousel.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { MessagesComponent } from './messages/messages.component';
+import { SetsComponent } from './sets/sets.component';
+
 
 // COMPONENTS: SEARCH
 import { CategorySearchComponent } from './category-search/category-search.component';
@@ -48,7 +53,14 @@ import { ResourceService} from './resource.service';
 // DIRECTIVES
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
 
-
+Raven
+  .config('https://e0659b2825b54c52abce4fd1d8f40df0@sentry.io/1225718')
+  .install();
+export class RavenErrorHandler implements ErrorHandler {
+  handleError(err:any) : void {
+    Raven.captureException(err);
+  }
+}
 @NgModule({
   declarations: [
     // COMPONENTS
@@ -80,9 +92,13 @@ import { CarouselItemDirective } from './carousel/carousel-item.directive';
 
     // SERVICES
     // ResourceService,
-
+    ImageCropperComponent,
     // DIRECTIVES
     CarouselItemDirective,
+
+    GameEditorSetsComponent,
+
+    SetsComponent,
   ],
   imports: [
     // MODULES
@@ -95,7 +111,10 @@ import { CarouselItemDirective } from './carousel/carousel-item.directive';
     HttpClientModule,
     MatDialogModule,
     MatInputModule,
+    MatSlideToggleModule,
+    MatGridListModule,
     MatSnackBarModule,
+
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
@@ -103,7 +122,7 @@ import { CarouselItemDirective } from './carousel/carousel-item.directive';
       InMemoryDataService, { dataEncapsulation: false }
     )
   ],
-  providers: [],
+  providers: [{ provide: ErrorHandler, useClass: RavenErrorHandler }],
   entryComponents:[ResourcesComponent, AddCategoryComponent,AddResourceComponent, SnackbarComponent],
   bootstrap: [AppComponent]
 })
