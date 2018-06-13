@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AppRoutingModule } from './app-routing.module';
-import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatInputModule,MatGridListModule,MatSlideToggleModule} from '@angular/material';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatInputModule, MatGridListModule,MatSlideToggleModule} from '@angular/material';
 import { ImageCropperComponent, CropperSettings } from "ngx-img-cropper";
 import * as Raven from 'raven-js';
 
@@ -28,9 +28,12 @@ import { CardsComponent } from './cards/cards.component';
 import { CardEditorComponent } from './card-editor/card-editor.component';
 import { CardEditorDetailComponent } from './card-editor-detail/card-editor-detail.component';
 
+import { GameEditorSetsComponent } from './game-editor-sets/game-editor-sets.component';
 import { CarouselComponent, CarouselItemElement } from './carousel/carousel.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { MessagesComponent } from './messages/messages.component';
+import { SetsComponent } from './sets/sets.component';
+
 
 // COMPONENTS: SEARCH
 import { CategorySearchComponent } from './category-search/category-search.component';
@@ -87,6 +90,10 @@ export class RavenErrorHandler implements ErrorHandler {
     ImageCropperComponent,
     // DIRECTIVES
     CarouselItemDirective,
+
+    GameEditorSetsComponent,
+
+    SetsComponent,
   ],
   imports: [
     // MODULES
@@ -99,8 +106,8 @@ export class RavenErrorHandler implements ErrorHandler {
     HttpClientModule,
     MatDialogModule,
     MatInputModule,
-    MatGridListModule,
     MatSlideToggleModule,
+    MatGridListModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
