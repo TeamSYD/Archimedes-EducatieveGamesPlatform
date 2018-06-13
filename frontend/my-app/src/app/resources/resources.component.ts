@@ -1,8 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject,Type } from '@angular/core';
 import { ResourceService } from '../resource.service';
 import { CategoryService } from '../category.service';
 import { Category } from '../category';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {ImageCropperComponent, CropperSettings, Bounds} from 'ngx-img-cropper';
 
 @Component({
   selector: 'app-resources',
@@ -82,16 +83,44 @@ export class ResourcesComponent implements OnInit {
 @Component({
   selector: 'add-resource.component',
   templateUrl: 'add-resource.component.html',
+  styles: [`
+    .pull-straight {
+      width: 100%;
+      height: 100%;
+      float: left;
+      background-color: rgba(0, 0, 0, 0.05);
+    }`],
 })
 export class AddResourceComponent {
 
+  imgData: any;
+  cropperSettings: CropperSettings;
+
   constructor(
     public dialogRef: MatDialogRef<AddResourceComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.cropperSettings = new CropperSettings();
+    this.cropperSettings.width = 100;
+    this.cropperSettings.height = 150;
+    this.cropperSettings.croppedWidth =100;
+    this.cropperSettings.croppedHeight = 150;
+    this.cropperSettings.canvasWidth = 400;
+    this.cropperSettings.canvasHeight = 300;
+    this.cropperSettings.dynamicSizing = false;
+    this.imgData = {};
+  }
+  cropped(bounds:Bounds) {
+    //console.log(bounds);
+  }
+  toggle(){
+    throw new Error("oops");
+  }
+
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+
 
 }
 

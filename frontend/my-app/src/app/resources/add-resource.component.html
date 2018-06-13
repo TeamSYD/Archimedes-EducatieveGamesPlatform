@@ -1,30 +1,26 @@
 <div mat-dialog-content>
   <p>Voeg een nieuwe afbeelding toe:</p>
-
-  <div class="btn btn-primary"
-       ng-model="file" name="file"
-       accept="image/*"
-       ngf-select ngf-pattern="'image/*'"
-       ngf-min-height="100" ngf-min-width="100"
-       ngf-resize="{width: 400, height: 600}"
-       ngf-max-size="20MB"
-       ngf-multiple="false">Select
-  </div>
-
-
-  <input type="file" img-cropper-fileread image="cropper.sourceImage"/>
-  <div>
-    <canvas width="500" height="300" id="canvas"
-            image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage"
-            crop-width="400" crop-height="200" touch-radius="30"
-            keep-aspect="true" crop-area-bounds="bounds">
-    </canvas>
-  </div>
-  <div>Cropped Image (Left: {{bounds.left}} Right: {{bounds.right}} Top: {{bounds.top}} Bottom: {{bounds.bottom}})</div>
-  <!--<div ng-show="cropper.croppedImage!=null"><img ng-src="{{cropper.croppedImage}}"/></div>-->
-  <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">terug</button>
-    <button type="submit" ng-click="submit(cropper.croppedImage)" class="btn btn-primary btn-sm category-bar-height" style="right: 70px" mat-button [mat-dialog-close]="data.data1" cdkFocusInitial>Opslaan</button>
-  </div>
-
 </div>
+<mat-grid-list cols="3" rowHeight="1:1">
+  <mat-grid-tile [colspan]="2" [rowspan]="2">
+    <div class="pull-straight">
+      <img-cropper [image]="imgData" [settings]="cropperSettings" (onCrop)="cropped($event)"></img-cropper>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1">
+    <div class="pull-straight">
+    <span class="result" *ngIf="imgData.image">
+                <img [src]="imgData.image" [width]="cropperSettings.croppedWidth"
+                     [height]="cropperSettings.croppedHeight">
+            </span>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1">
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">terug</button>
+      <button mat-button (click)="toggle()" class="btn btn-primary btn-sm" >Opslaan</button>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
