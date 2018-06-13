@@ -32,6 +32,7 @@ import { GameEditorSetsComponent } from './game-editor-sets/game-editor-sets.com
 import { CarouselComponent, CarouselItemElement } from './carousel/carousel.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { MessagesComponent } from './messages/messages.component';
+import { SetsComponent } from './sets/sets.component';
 
 // COMPONENTS: SEARCH
 import { CategorySearchComponent } from './category-search/category-search.component';
@@ -46,7 +47,6 @@ import { ResourceService} from './resource.service';
 
 // DIRECTIVES
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
-import { SetsComponent } from './sets/sets.component';
 
 @NgModule({
   declarations: [
