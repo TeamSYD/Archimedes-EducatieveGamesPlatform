@@ -9,6 +9,7 @@ import { NgDragDropModule } from 'ng-drag-drop';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AppRoutingModule } from './app-routing.module';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatInputModule} from '@angular/material';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 // MODULES: WEB MOCKUP DATA
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -39,6 +40,7 @@ import { CardSearchComponent } from './card-search/card-search.component';
 // COMPONENTS: ADD
 import { AddResourceComponent } from "./resources/resources.component";
 import { AddCategoryComponent } from './resources/resources.component';
+import { SnackbarComponent } from './snackbar.service';
 
 // SERVICES
 import { ResourceService} from './resource.service';
@@ -66,6 +68,7 @@ import { CarouselItemDirective } from './carousel/carousel-item.directive';
 
     MessagesComponent,
     ResourcesComponent,
+    SnackbarComponent,
 
     // COMPONENTS: SEARCH
     CardSearchComponent,
@@ -92,6 +95,7 @@ import { CarouselItemDirective } from './carousel/carousel-item.directive';
     HttpClientModule,
     MatDialogModule,
     MatInputModule,
+    MatSnackBarModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
@@ -100,7 +104,7 @@ import { CarouselItemDirective } from './carousel/carousel-item.directive';
     )
   ],
   providers: [],
-  entryComponents:[ResourcesComponent, AddCategoryComponent,AddResourceComponent],
+  entryComponents:[ResourcesComponent, AddCategoryComponent,AddResourceComponent, SnackbarComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

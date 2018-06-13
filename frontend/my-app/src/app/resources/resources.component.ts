@@ -3,6 +3,8 @@ import { ResourceService } from '../resource.service';
 import { CategoryService } from '../category.service';
 import { Category } from '../category';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
+import {SnackbarService} from "../snackbar.service";
 
 @Component({
   selector: 'app-resources',
@@ -15,7 +17,17 @@ export class ResourcesComponent implements OnInit {
   data1: string;
   constructor(private resourceService: ResourceService,
               private categoryService: CategoryService,
-              public dialog: MatDialog) {}
+              public dialog: MatDialog,
+              private snackbarService: SnackbarService) {}
+
+
+  OpenSnackBarError(text: String) {
+    this.snackbarService.ErrorSnackBar(text);
+  }
+
+  OpenSnackbarSucces(text: String){
+    this.snackbarService.SuccesSnackBar(text);
+  }
 
   openCategoryDialog(): void {
     console.log('data na aanroepen functie:  ' + this.data1);
@@ -79,6 +91,16 @@ export class ResourcesComponent implements OnInit {
 
 
 }
+
+
+@Component({
+  selector: 'snack-bar-component',
+  templateUrl: '../snack-bar-component.html',
+  styles: [],
+})
+export class PizzaPartyComponent {}
+
+
 @Component({
   selector: 'add-resource.component',
   templateUrl: 'add-resource.component.html',
