@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AppRoutingModule } from './app-routing.module';
-import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatInputModule} from '@angular/material';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatInputModule, MatSlideToggleModule} from '@angular/material';
 
 // MODULES: WEB MOCKUP DATA
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -32,6 +32,7 @@ import { GameEditorSetsComponent } from './game-editor-sets/game-editor-sets.com
 import { CarouselComponent, CarouselItemElement } from './carousel/carousel.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { MessagesComponent } from './messages/messages.component';
+
 
 // COMPONENTS: SEARCH
 import { CategorySearchComponent } from './category-search/category-search.component';
@@ -97,6 +98,7 @@ import { SetsComponent } from './sets/sets.component';
     HttpClientModule,
     MatDialogModule,
     MatInputModule,
+    MatSlideToggleModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
