@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -15,19 +17,19 @@ public class AccountType implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
+    @NotEmpty
     private String type;
 
-    @NotBlank
+    @NotNull
     private int maxArrangements;
 
-    @NotBlank
+    @NotNull
     private int maxGames;
 
-    @NotBlank
+    @NotNull
     private double price;
 
-    @NotBlank
+    @NotNull
     private long dataLimit;
 
     public String getType() {
