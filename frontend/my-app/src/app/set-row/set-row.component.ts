@@ -19,16 +19,19 @@ export class SetRowComponent implements OnInit {
     this.cardcontent.push(e.dragData);
   }
 
-  onReplace(e: DropEvent) {
-    this.cardcontent.splice(0,1);
-    this.cardcontent.push(e.dragData);
-  }
-
   removeItem(item: any, list: Array<any>) {
     let index = list.map(function (e) {
       return e.name
-    }).indexOf(item.name);
+    }).indexOf(item.id);
     list.splice(index, 1);
+  }
+
+  remove(index: number) {
+    this.cardcontent.splice(index, 1);
+  }
+
+  replace(index: number, e: DropEvent) {
+    this.cardcontent.splice(index, 1, e.dragData);
   }
 
   ngOnInit() {

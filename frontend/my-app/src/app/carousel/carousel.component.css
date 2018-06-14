@@ -53,10 +53,10 @@ p{
 
 .card{
   margin: auto;
-  height: 100%;
-  width: 90%;
+  height: 9em;
+  width: 6em;
   background-color: #dddfdd;
-  border-radius: 0px;
+  border-radius: 0;
   border: 2px solid #525e70;
 }
 
