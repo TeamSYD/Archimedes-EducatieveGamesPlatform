@@ -1,5 +1,6 @@
 package com.restservice.archimedes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -25,6 +26,7 @@ public class Category extends AuditModel implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Account account;
 
     public long getId() {
