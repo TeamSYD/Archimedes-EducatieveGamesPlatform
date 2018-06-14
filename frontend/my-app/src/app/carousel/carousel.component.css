@@ -4,94 +4,71 @@ ul {
   padding: 0;
 }
 
+p{
+  text-align: center;
+}
 .carousel-wrapper {
   overflow: hidden;
   margin: auto;
-  width: 92%;
+  width: 96%;
   height:100%;
-  background-color: red;
-  padding: 0px;
-  border-style: solid;
-  border-width: 2px;
+  background-color: #bfc7cb;
+  padding: 0;
   border-radius: 10px;
-  border-color: black;
+  border: 2px solid #666666;
   display: flex;
 }
 
 .btn-container{
-  background-color: red;
+  background-color: #e5eaee;
   height: 100%;
-  width: 4%;
-  padding: 0px;
+  width: 2%;
+  padding: 0;
   display: flex;
 }
 
 .btn{
-  width: 4em;
-  height: 4em;
+  width: 3em;
+  height: 3em;
   display: block;
   position: relative;
   margin: auto;
 }
 
-.btn-light{
-
-}
-
-.card-div{
-  background-color: red;
-  width:  125px;
-  height: 100%;
-}
-
-.carousel-inner {
-  padding: 0px 0px 0px 0px;
+.carousel-list {
+  padding: 0 0 0 0;
   height: 100%;
   width: 6000px;
-  background-color: pink;
+  background-color: #aeb4b0;
   margin: auto;
 }
 
-.carousel-item{
+.card-list-item{
   display: inline-block;
-  width: 110px;
+  width: 9em;
   height: 100%;
   margin: auto;
-  background-color: #5383d3;
+  background-color: #aeb4b0;
 }
 
-.card-container{
+.card{
   margin: auto;
   height: 100%;
-  width: 100px;
-  background-color: brown;
-  border-style: solid;
-  border-width: 2px;
+  width: 90%;
+  background-color: #dddfdd;
   border-radius: 10px;
-  border-color: cyan;
-}
-
-.test{
-  width: 100px;
+  border: 2px solid #525e70;
 }
 
 .carousel-container{
   display:block;
   height: 95%;
   width: 100%;
-  background-color: yellow;
+  background-color: #f4f1ed;
   margin: auto;
 }
 
 .carousel-outer{
-
-  height: 8em;
-  background-color: green;
-}
-
-
-
-.ding {
-  width: 80%;
-  height: 80%;
+  height: 100%;
+  background-color: #f4f1ed;
 }
