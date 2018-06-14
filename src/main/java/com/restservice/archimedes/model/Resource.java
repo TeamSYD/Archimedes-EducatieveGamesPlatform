@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @Entity
@@ -18,13 +19,10 @@ public class Resource extends AuditModel implements Serializable {
     @Column(name = "name", unique = false, nullable = false, length = 255)
     private String name;
 
-    @NotBlank
     private String type;
 
-    @NotBlank
     private String text_resource;
 
-    @NotBlank
     private String category;
 
     @Column(name = "IMAGE_DATA", unique = false, nullable = true, length = 100000)

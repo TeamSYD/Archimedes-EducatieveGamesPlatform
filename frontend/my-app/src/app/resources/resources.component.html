@@ -5,9 +5,10 @@
     </div>
     <div class="col-md-5 style-for-divs">
       <div class="form-group" style="margin: 0px; padding-left: 20px;">
-        <select class="form-control category-bar-height" id="category"(change)="changed($event)" >
+        <select class="form-control category-bar-height" id="category" (change)="test($event)">
           <option value="" selected disabled>Category</option>
           <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+
         </select>
       </div>
     </div>

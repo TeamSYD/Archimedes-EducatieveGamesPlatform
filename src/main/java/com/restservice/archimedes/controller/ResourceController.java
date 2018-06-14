@@ -27,7 +27,7 @@ public class ResourceController {
         this.resourceRepository = resourceRepository;
     }
 
-
+    @Autowired
     private FileStorageService fileStorageService;
 
     // Get All Resource
@@ -37,7 +37,7 @@ public class ResourceController {
     }
 
     // Create a new Resource
-    @PostMapping("/uploadFile")
+    @PostMapping("/resources")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         String fileName = fileStorageService.storeFile(file);
 

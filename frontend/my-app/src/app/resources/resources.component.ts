@@ -6,6 +6,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ImageCropperComponent, CropperSettings, Bounds} from 'ngx-img-cropper';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 import {SnackbarService} from "../snackbar.service";
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-resources',
@@ -43,6 +44,13 @@ export class ResourcesComponent implements OnInit {
     });
   }
 
+
+  test(e){
+    this.items = [
+      {id:1, imgUrl:"../../assets/2"},
+      {id:2, imgUrl:"../../assets/1"}]
+}
+
   openResourceDialog(): void {
     let dialogRef = this.dialog.open(AddResourceComponent, {
       width: '50%',
@@ -75,17 +83,15 @@ export class ResourcesComponent implements OnInit {
 
   getCategories(): void {
     this.categoryService.getCategories()
-      .subscribe(categories => this.categories = categories);
-  }
+      .subscribe(categories =>
+        this.categories = categories);
 
+     }
   // getResourcesByCategoryId(id: number): void {
   //   this.resourceService.getResourceById()
   //     .subscribe()
   // }
 
- mySelectHandler($scope): void {
-    console.log('Cx123');
- }
 
 
   onItemDrop(e: any) {
