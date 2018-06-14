@@ -1,11 +1,26 @@
-<h1 mat-dialog-title>Hi {{data.name}}</h1>
 <div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data.animal">
-  </mat-form-field>
+  <p>Voeg een nieuwe afbeelding toe:</p>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
-</div>
+<mat-grid-list cols="3" rowHeight="1:1">
+  <mat-grid-tile [colspan]="2" [rowspan]="2">
+    <div class="pull-straight">
+      <img-cropper [image]="imgData" [settings]="cropperSettings" (onCrop)="cropped($event)"></img-cropper>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1">
+    <div class="pull-straight">
+    <span class="result" *ngIf="imgData.image">
+                <img [src]="imgData.image" [width]="cropperSettings.croppedWidth"
+                     [height]="cropperSettings.croppedHeight">
+            </span>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1">
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">terug</button>
+      <button mat-button (click)="toggle()" class="btn btn-primary btn-sm" >Opslaan</button>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+

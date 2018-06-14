@@ -1,14 +1,14 @@
 <div class="row carousel-outer">
-  <div *ngIf="showControls" class="col-md-2 btn-container">
-    <button (click)="prev()" class="btn btn-light rounded-circle"><span class="glyphicon glyphicon-chevron-left"></span></button>
+  <div *ngIf="showControls" class="col-md-1 btn-container">
+    <button (click)="prev()" class="btn btn-light btn-outline-dark rounded-circle"><i class="fa fa-chevron-left"></i></button>
   </div>
-<section class="col-md-8 carousel-wrapper"> <!--[ngStyle]="carouselWrapperStyle"-->
+<section class="col-md-10 carousel-wrapper"> <!--[ngStyle]="carouselWrapperStyle"-->
 
-  <div [style.width.px]="carouselWidth" class="carousel-container">
-  <ul class="carousel-inner" #carousel>
+  <div class="carousel-container" #carouselcontainer>
+  <ul class="carousel-list" #carousel>
 
-    <li *ngFor="let card of cards" class="carousel-item" ng-init="getCards()">
-      <div [style.width.%]="itemWidth" class="card-container" #cardcontainer>
+    <li *ngFor="let card of cards" class="card-list-item" #cardlistitem>
+      <div class="card">
       <ng-container [ngTemplateOutlet]="card.tpl">
         <p class="test">{{card.name}}</p>
         <p class="test">{{card.id}}</p>
@@ -20,23 +20,9 @@
   </div>
 
 </section>
-  <div *ngIf="showControls" class="col-md-2 btn-container">
-    <button (click)="next()" class="btn btn-light rounded-circle"><span class="glyphicon glyphicon-chevron-right ding"></span></button>
+  <div *ngIf="showControls" class="col-md-1 btn-container">
+    <button (click)="next()" class="btn btn-light btn-outline-dark rounded-circle"><i class="fa fa-chevron-right"></i></button>
   </div>
 </div>
 
-<!--
-<ul>
-<li *ngFor="let card of cards" class="carousel-item">
-  <h2>{{card.name}}</h2>
-</li>
-</ul>
--->
 
-<!--
-<div *ngIf="showControls" style="margin-top: 1em">
-  <button (click)="prev()" class="btn btn-dark rounded-circle"><span class="glyphicon glyphicon-chevron-left"></span></button>
-  <button (click)="next()" class="btn btn-dark rounded-circle"><span class="glyphicon glyphicon-chevron-right"></span></button>
-
-</div>
--->

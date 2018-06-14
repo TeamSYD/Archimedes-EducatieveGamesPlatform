@@ -1,16 +1,13 @@
 <div class="container-fluid" style="height: 100%">
-
-  <div class="row" style="background-color: aliceblue; padding: 0px;">
+  <div class="row" style="background-color: white; padding: 0px;">
     <div class="col-md-1 style-for-divs">
       <button mat-raised-button (click)="openCategoryDialog()" type="button" class="btn btn-primary btn-sm category-bar-height" style="padding-right:15px; padding-left:15px; margin:1px;">+</button>
     </div>
     <div class="col-md-5 style-for-divs">
       <div class="form-group" style="margin: 0px; padding-left: 20px;">
-        <select class="form-control category-bar-height" ng-change="change()"  id="category">
+        <select class="form-control category-bar-height" id="category"(change)="changed($event)" >
           <option value="" selected disabled>Category</option>
-          <option [ngValue]="Cx">optie1</option>
-          <option *ngFor="let category of categories">{{category.name}}</option>
-
+          <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
         </select>
       </div>
     </div>
@@ -19,19 +16,18 @@
       <app-category-search></app-category-search>
     </div>
   </div>
-  <div class="row" style="height:86%; background-color: rgba(143,146,150,0)">
+  <div class="row" style="height:100%; background-color: rgba(143,146,150,0)">
     <div class="col-md-12" id="testdiv" style="overflow-y:scroll; padding:0px;">
 
       <img draggable *ngFor="let item of items" [dragData]="item" src={{item.imgUrl}} class="rounded img-thumbnail imageStylingResourceBar">
 
-
-        </div>
+    </div>
   </div>
   <div class="row" style="margin: 5px;">
-    <div class="col-md-6" style="padding: 0px;"> <button type="button" class="btn btn-primary btn-sm category-bar-height" style="padding-right:15px; padding-left:15px; margin:1px;">Add Resource</button></div>
+    <div class="col-md-6" style="padding: 0px;"> <button mat-raised-button (click)="openResourceDialog()" type="button" class="btn btn-primary btn-sm category-bar-height" style="padding-right:15px; padding-left:15px; margin:1px;">Add Resource</button></div>
     <div class="col-md-6" style="left:20px;">
       <div class="card card-inverse card-primary mb-3 text-center" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-danger'"
-            (onDrop)="onItemDrop($event)">
+             (onDrop)="onItemDrop($event)">
         <div class="card-block" style="height: 100%; align-content: center">
           <blockquote class="card-blockquote">
             <p class="card-text"><i class="fa fa-trash" aria-hidden="true"></i> Drop to Delete</p>

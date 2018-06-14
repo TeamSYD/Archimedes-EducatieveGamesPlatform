@@ -9,18 +9,34 @@
         <p><b>Voorkant</b></p>
       </div>
 
-      <div class="col-md-12 front-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'">
-
+      <div class="col-md-12 front-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'" (onDrop)="onFrontDrop($event)">
+        <div class="col-md-12 card-image">
+          <img *ngFor="let item of droppedFrontcard" src="{{item.imgUrl}}" class="rounded img-thumbnail">
+        </div>
       </div>
+
+
+      <div class="text-style" style="padding-top: 10px">
+        <input type="submit" id="frontText" (click)="onFrontText()" value="Tekst voorkant" class="btn btn-primary">
+      </div>
+
+
     </div>
 
     <div class="col-md-3 col-md-3-height">
       <div class="text-style">
         <p><b>Achterkant</b></p>
       </div>
-      <div class="col-md-12 back-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'">
-
+      <div class="col-md-12 back-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'" (onDrop)="onBackDrop($event)">
+        <div class="col-md-12 card-image">
+          <img *ngFor="let item of droppedBackcard" src="{{item.imgUrl}}" class="rounded img-thumbnail">
+        </div>
       </div>
+
+      <div class="text-style" style="padding-top: 10px">
+        <input type="submit" id="backText" (click)="onBackText()" value="Tekst achterkant" class="btn btn-primary">
+      </div>
+
     </div>
 
     <div class="col-md-3 col-md-3-height"></div>

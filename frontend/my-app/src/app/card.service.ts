@@ -28,6 +28,13 @@ export class CardService {
       );
   }
 
+  public getImage(card: Card): Observable<Blob> {
+    return this.http
+      .get(`${this.cardsUrl}/image/${card.id}`, {
+        responseType: "blob"
+      });
+  }
+
   /** GET card by id. Return `undefined` when id not found */
   getCardNo404<Data>(id: number): Observable<Card> {
     const url = `${this.cardsUrl}/?id=${id}`;
