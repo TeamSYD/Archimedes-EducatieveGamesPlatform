@@ -14,8 +14,8 @@ p{
   height:100%;
   background-color: #bfc7cb;
   padding: 0;
-  border-radius: 10px;
-  border: 2px solid #666666;
+  border-radius: 0px;
+  border: 3px solid #666666;
   display: flex;
 }
 
@@ -56,7 +56,7 @@ p{
   height: 100%;
   width: 90%;
   background-color: #dddfdd;
-  border-radius: 10px;
+  border-radius: 0px;
   border: 2px solid #525e70;
 }
 

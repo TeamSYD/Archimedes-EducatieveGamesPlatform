@@ -1,0 +1,24 @@
+li {
+  display: inline-block;
+  width: 9em;
+  height: 13em;
+  background-color: #aeb4b0;
+  margin: 3px 3px;
+}
+
+.dropzone{
+  display: inline-block;
+  width: 9em;
+  height: 13em;
+  background-color: #aeb4b0;
+  margin: 3px 3px;
+  border-radius: 5px;
+  border: 2px dotted #525e70;
+}
+
+.container{
+  /*overflow-x: scroll;*/
+  width: 100%;
+  background-color: yellow;
+  border: 2px solid #525e70;
+}
