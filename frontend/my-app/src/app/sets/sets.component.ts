@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sets.component.css']
 })
 export class SetsComponent implements OnInit {
+  setfiller = true;
 
   constructor() { }
 

@@ -1,24 +1,73 @@
 li {
-  display: inline-block;
-  width: 9em;
-  height: 13em;
-  background-color: #aeb4b0;
-  margin: 3px 3px;
+  display: inline-flex;
+  width: 8em;
+  height: 12em;
+  background-color: #FFFFFF;
+  margin: 5px 5px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  border: 1px solid grey;
+}
+
+p {
+  color: #939598;
+}
+
+li .removalbutton {
+  display: none;
+}
+
+li:hover .removalbutton {
+  display: block;
 }
 
 .dropzone{
-  display: inline-block;
-  width: 9em;
-  height: 13em;
+  display: inline-flex;
+  width: 8em;
+  height: 12em;
   background-color: #aeb4b0;
-  margin: 3px 3px;
-  border-radius: 5px;
-  border: 2px dotted #525e70;
+  margin: 5px 5px;
+  border-radius: 7px;
+  border: 2px dashed #D7D8D9;
+}
+
+.removalicon {
+  width: 1em;
+  height: 1em;
+}
+
+.innercardbutton{
+  display: inline-flex;
+  justify-content: flex-end;
+  width: 100%;
+  position:absolute;
+}
+
+.innercardtext{
+  display: inline-flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin: auto;
+}
+
+.removalbutton{
+  width: 2em;
+  height: 2em;
+  background-color: grey;
+  border: none;
+  color: white;
+}
+
+p {
+  display: inline-flex;
 }
 
 .container{
   /*overflow-x: scroll;*/
+  display: flex;
   width: 100%;
-  background-color: yellow;
+  background-color: #939598;
   border: 2px solid #525e70;
+  flex-wrap: wrap;
+  border-radius: 3px;
 }

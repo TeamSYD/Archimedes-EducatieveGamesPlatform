@@ -1,14 +1,19 @@
-<div class="container">
+<div class="container" style="padding: 0; margin: 10px auto 10px auto;">
   <!--
     <div droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'" (onDrop)="onReplace($event)"
     class="col-md-2" style="height: 100%; background-color: green; border: 2px solid #525e70;">
     -->
   <li draggable [dragScope]="'infield'" droppable [dropScope]="'newcard'" *ngFor="let card of cardcontent; let i = index" [dragHintClass]="'drag-hint'" [dragOverClass]="'drag-target-border'" (onDrop)="replace(i, $event)">
-    {{card.id}}----{{i}}
-    <button (click)="remove(i)">remove</button>
+    <div class="innercardbutton">
+      <button (click)="remove(i)" class="removalbutton"><i class="fa fa-minus-circle removalicon"></i></button>
+    </div>
+    <div class="innercardtext">
+      <p>{{card.id}}</p>
+      <p>{{i}}</p>
+    </div>
   </li>
   <div class="dropzone" droppable [dropScope]="'newcard'" [dragHintClass]="'drag-hint'" [dragOverClass]="'drag-target-border'" (onDrop)="onDrop($event)">
-    <p>DROP HERE</p>
+    <i class="fas fa-7x fa-plus-circle " style="margin: auto;"></i>
   </div>
 </div>
 
