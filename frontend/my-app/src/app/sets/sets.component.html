@@ -5,22 +5,27 @@
         <h2 style="color: white;">GAME EDITOR</h2>
       </div>
 
-      <div class="row" style="background-color: #C5AB5E; height: 85%;">
-        <div class="col-md-12 set-container" style="padding: 0 5px 0 5px;">
-          <app-set-row></app-set-row>
-          <app-set-row [filler]="setfiller"></app-set-row>
+        <div class="row" style="background-color: #C5AB5E; height: 85%;">
+          <div class="col-md-12 set-container" style="padding: 0 5px 0 5px;">
+            <app-set-row></app-set-row>
+            <app-set-row [filler]="setfiller"></app-set-row>
+          </div>
+        </div>
+
+     <div class="col-md-2">
+       <div class="row" style="height: 50%"></div>
+          <div class="row" style="background-color: white; height: 30%; padding-top: 20%">
+            <div class="col-md-12">
+              <input type="button" id="invert" class="btn btn-primary" value="{{inverted}}" (click)="invertToggle()">
+            </div>
+            <div class="col-md-12">
+              <input type="button" id="duplicates" class="btn btn-primary" value="{{duplicates}}" (click)="duplicateToggle()">
+            </div>
+           </div>
+       <div class="row" style="background-color: white; height: 20%;">
+        <input class="btn btn-primary" type="button" value="Save game" style="margin-top: 20%; width: 100%; height: 40%; margin-left: 5px; margin-right: 5px;">
         </div>
       </div>
-    </div>
-
-    <div class="col-md-2">
-      <div class="row" style="background-color: #222222; height: 85%;">
-        <p style="color: white;">Hallo</p>
-      </div>
-      <div class="row" style="background-color: #222222; height: 15%;">
-        <p style="color: white;">Knop Hier</p>
-      </div>
-    </div>
     </div>
 </div>
 
