@@ -1,12 +1,16 @@
-<div class="container-fluid" style="height: 100%; padding: 0">
+<div class="container-fluid" style="height: 100%; padding: 0px">
     <div class="row" style="height: 100%;">
-      <div class="col-md-10" style="background-color: green;">
-        <div class="row" style="background-color: pink; height: 15%;">
-          <h2> GAME NAME </h2>
-        </div>
-
-        <div class="row" style="background-color: blue; height: 85%;"></div>
+      <div class="col-md-10" style="background-color: #C5AB5E;">
+      <div class="row" style="background-color: #222222; height: 15%;">
+        <h2 style="color: white;">GAME EDITOR</h2>
       </div>
+
+        <div class="row" style="background-color: #C5AB5E; height: 85%;">
+          <div class="col-md-12 set-container" style="padding: 0 5px 0 5px;">
+            <app-set-row></app-set-row>
+            <app-set-row [filler]="setfiller"></app-set-row>
+          </div>
+        </div>
 
      <div class="col-md-2">
        <div class="row" style="height: 50%"></div>

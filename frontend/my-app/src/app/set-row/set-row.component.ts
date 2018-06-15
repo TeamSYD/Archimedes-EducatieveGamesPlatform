@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DropEvent } from "ng-drag-drop";
 import { Card } from '../cards/card';
 
@@ -9,21 +9,13 @@ import { Card } from '../cards/card';
 })
 export class SetRowComponent implements OnInit {
   card: Card;
-
-  setcontent = [];
   cardcontent = [];
+  @Input() filler: boolean = false;
 
   constructor() { }
 
   onDrop(e: DropEvent){
     this.cardcontent.push(e.dragData);
-  }
-
-  removeItem(item: any, list: Array<any>) {
-    let index = list.map(function (e) {
-      return e.name
-    }).indexOf(item.id);
-    list.splice(index, 1);
   }
 
   remove(index: number) {
@@ -32,6 +24,14 @@ export class SetRowComponent implements OnInit {
 
   replace(index: number, e: DropEvent) {
     this.cardcontent.splice(index, 1, e.dragData);
+  }
+
+  getCards(){
+    return this.cardcontent;
+  }
+
+  clear() {
+    this.cardcontent = [];
   }
 
   ngOnInit() {

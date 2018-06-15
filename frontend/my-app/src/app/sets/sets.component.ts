@@ -7,6 +7,7 @@ import {MatSlideToggle} from "@angular/material";
   styleUrls: ['./sets.component.css']
 })
 export class SetsComponent implements OnInit {
+  setfiller = true;
 
   duplicate = false;
   invert = false;
