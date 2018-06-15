@@ -14,8 +14,8 @@ p{
   height:100%;
   background-color: #bfc7cb;
   padding: 0;
-  border-radius: 10px;
-  border: 2px solid #666666;
+  border-radius: 0px;
+  border: 3px solid #666666;
   display: flex;
 }
 
@@ -53,10 +53,10 @@ p{
 
 .card{
   margin: auto;
-  height: 100%;
-  width: 90%;
+  height: 9em;
+  width: 6em;
   background-color: #dddfdd;
-  border-radius: 10px;
+  border-radius: 0;
   border: 2px solid #525e70;
 }
 

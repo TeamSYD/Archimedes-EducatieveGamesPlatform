@@ -8,7 +8,7 @@
   <ul class="carousel-list" #carousel>
 
     <li *ngFor="let card of cards" class="card-list-item" #cardlistitem>
-      <div class="card">
+      <div [dragScope]="'newcard'" draggable [dragData]="card" class="card">
       <ng-container [ngTemplateOutlet]="card.tpl">
         <p class="test">{{card.name}}</p>
         <p class="test">{{card.id}}</p>
