@@ -12,10 +12,10 @@
        <div class="row" style="height: 50%"></div>
           <div class="row" style="background-color: white; height: 30%; padding-top: 20%">
             <div class="col-md-12">
-              <mat-slide-toggle>Invert</mat-slide-toggle>
+              <input type="button" id="invert" class="btn btn-primary" value="{{inverted}}" (click)="invertToggle()">
             </div>
             <div class="col-md-12">
-              <mat-slide-toggle [(ngModel)]="isChecked">Duplicates {{isChecked}}</mat-slide-toggle>
+              <input type="button" id="duplicates" class="btn btn-primary" value="{{duplicates}}" (click)="duplicateToggle()">
             </div>
            </div>
        <div class="row" style="background-color: white; height: 20%;">
