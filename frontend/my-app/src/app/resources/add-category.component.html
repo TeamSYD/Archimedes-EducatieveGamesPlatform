@@ -6,5 +6,6 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">terug</button>
-  <button class="btn btn-primary btn-sm category-bar-height" style="right: 70px" mat-button [mat-dialog-close]="data.data1" cdkFocusInitial>Opslaan</button>
+  <div style="padding:15px;"></div>
+  <button class="btn btn-primary btn-sm category-bar-height"  mat-button [mat-dialog-close]="data.data1" (click)="saveCategory(data.data1)">Opslaan</button>
 </div>

@@ -42,10 +42,12 @@ import { SetsComponent } from './sets/sets.component';
 import { CategorySearchComponent } from './category-search/category-search.component';
 import { CardSearchComponent } from './card-search/card-search.component';
 
-// COMPONENTS: ADD
+// COMPONENTS: ADD/UPDATE
 import { AddResourceComponent } from "./resources/resources.component";
-import { AddCategoryComponent } from './resources/resources.component';
+import { AddCategoryComponent, UpdateCategoryComponent } from './resources/resources.component';
 import { SnackbarComponent } from './snackbar.service';
+
+
 
 // SERVICES
 import { ResourceService} from './resource.service';
@@ -90,6 +92,9 @@ export class RavenErrorHandler implements ErrorHandler {
     AddCategoryComponent,
     AddResourceComponent,
 
+    // COMPONENTS: UPDATE
+    UpdateCategoryComponent,
+
     // SERVICES
     // ResourceService,
     ImageCropperComponent,
@@ -123,7 +128,7 @@ export class RavenErrorHandler implements ErrorHandler {
     // )
   ],
   providers: [{ provide: ErrorHandler, useClass: RavenErrorHandler }],
-  entryComponents:[ResourcesComponent, AddCategoryComponent,AddResourceComponent, SnackbarComponent],
+  entryComponents:[ResourcesComponent, AddCategoryComponent,AddResourceComponent, SnackbarComponent, UpdateCategoryComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

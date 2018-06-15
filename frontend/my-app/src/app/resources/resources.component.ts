@@ -16,6 +16,10 @@ import {forEach} from "@angular/router/src/utils/collection";
 export class ResourcesComponent implements OnInit {
   categories: Category[];
 
+  selectedCategoryId: number;
+  selectedCategoryName: string;
+  currentCategoryIndex: number;
+
   data1: string;
   constructor(private resourceService: ResourceService,
               private categoryService: CategoryService,
@@ -31,25 +35,95 @@ export class ResourcesComponent implements OnInit {
     this.snackbarService.SuccesSnackBar(text);
   }
 
+  test123(){
+    console.log('asdasdasdasasd');
+  }
+
   openCategoryDialog(): void {
     console.log('data na aanroepen functie:  ' + this.data1);
     let dialogRef = this.dialog.open(AddCategoryComponent, {
       width: '250px',
-      data:{data: this.data1}
+      data:{data: this.data1,
+            categoryName: this.selectedCategoryName}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.data1 = result;
+      console.log('The dialog was closed!');
+
+      if(this.categoryNameAlreadyInUse(result) == true){
+        this.OpenSnackBarError("The category name: " + result + ", already exists." )
+      } else if(result != undefined){
+        this.addCategory(result);
+        this.OpenSnackbarSucces("The category: " + result + " has succesfully been added.");
+      }
+
     });
   }
 
 
-  test(e){
+  openUpdateCategoryDialog(): void {
+    if(this.selectedCategoryName != undefined){
+      let dialogRef = this.dialog.open(UpdateCategoryComponent, {
+        width: '250px',
+        data:{name: this.selectedCategoryName,
+        category: this.categories[this.currentCategoryIndex]}
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('sadasdasd');
+        console.log('xD poo ' + result.name);
+      });
+    } else {
+      this.OpenSnackBarError("Please select a category first.");
+    }
+
+  }
+
+  getSelectedCategoryName(selectedCategoryId: number){
+    for (var category of this.categories) {
+      if(category.id == selectedCategoryId){
+        this.selectedCategoryName = category.name;
+      }
+  }}
+
+  categoryNameAlreadyInUse(categoryName: String){
+    for (var category of this.categories){
+      if(category.name == categoryName){
+        return true;
+      }
+    }
+  }
+
+  addCategory(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.categoryService.addCategory({ name } as Category)
+      .subscribe(category => {
+        this.categories.push(category);
+      });
+  }
+
+  saveCategory(): void {
+    this.categoryService.updateCategory(this.categories[this.currentCategoryIndex])
+      .subscribe(() => this.categoryService.getCategories());
+  }
+
+
+  selectCategory(e) {
+
+
+    this.selectedCategoryId = this.categories[e.target.value].id;
+    this.currentCategoryIndex = e.target.value;
+
+    console.log('de index van deze categorie is:' + e.target.value);
+
     this.items = [
-      {id:1, imgUrl:"../../assets/2"},
-      {id:2, imgUrl:"../../assets/1"}]
-}
+      {id: 1, imgUrl: "../../assets/2"},
+      {id: 2, imgUrl: "../../assets/1"}];
+
+    console.log('id: ' + this.selectedCategoryId);
+
+    this.getSelectedCategoryName(this.selectedCategoryId);
+  }
 
   openResourceDialog(): void {
     let dialogRef = this.dialog.open(AddResourceComponent, {
@@ -170,6 +244,23 @@ export class AddCategoryComponent{
 
   constructor(
     public dialogRef: MatDialogRef<AddCategoryComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
+
+
+@Component({
+  selector: 'change-category.component',
+  templateUrl: 'change-category.component.html',
+})
+export class UpdateCategoryComponent{
+
+  constructor(
+    public dialogRef: MatDialogRef<UpdateCategoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   onNoClick(): void {

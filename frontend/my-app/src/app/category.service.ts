@@ -40,8 +40,9 @@ export class CategoryService {
   /** POST: add a new category to the server */
   //TODO: add accountId to save category with correct account
   addCategory (category: Category): Observable<Category> {
-    return this.http.post<Category>(this.categoryUrl, category, httpOptions).pipe(
-      tap((category: Category) => this.log(`added category w/ id=${category.id}`)),
+    console.log('in addcategory met naam: ' + name);
+    return this.http.post<Category>('http://localhost:8080/api/account/1/category', category, httpOptions).pipe(
+      tap((category: Category) => console.log(`added category w/ id=${category.id}`)),
       catchError(this.handleError<Category>('addCategory'))
     );
   }
