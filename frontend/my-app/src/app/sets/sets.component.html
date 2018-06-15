@@ -1,24 +1,27 @@
 <div class="container-fluid" style="height: 100%; padding: 0">
     <div class="row" style="height: 100%;">
       <div class="col-md-10" style="background-color: green;">
-      <div class="row" style="background-color: pink; height: 15%;">
-        <h2>GAME EDITOR</h2>
+        <div class="row" style="background-color: pink; height: 15%;">
+          <h2> GAME NAME </h2>
+        </div>
+
+        <div class="row" style="background-color: blue; height: 85%;"></div>
       </div>
 
-      <div class="row" style="background-color: blue; height: 85%;">
-
+     <div class="col-md-2">
+       <div class="row" style="height: 50%"></div>
+          <div class="row" style="background-color: white; height: 30%; padding-top: 20%">
+            <div class="col-md-12">
+              <mat-slide-toggle>Invert</mat-slide-toggle>
+            </div>
+            <div class="col-md-12">
+              <mat-slide-toggle [(ngModel)]="isChecked">Duplicates {{isChecked}}</mat-slide-toggle>
+            </div>
+           </div>
+       <div class="row" style="background-color: white; height: 20%;">
+        <input class="btn btn-primary" type="button" value="Save game" style="margin-top: 20%; width: 100%; height: 40%; margin-left: 5px; margin-right: 5px;">
+        </div>
       </div>
-    </div>
-
-    <div class="col-md-2">
-      <div class="row" style="background-color: red; height: 85%;">
-        <p>Hallo</p>
-      </div>
-
-      <div class="row" style="background-color: purple; height: 15%;">
-        <p>knop hiero</p>
-      </div>
-    </div>
     </div>
 </div>
 
