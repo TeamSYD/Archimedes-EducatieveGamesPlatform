@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MatSlideToggle} from "@angular/material";
 
 @Component({
   selector: 'app-sets',
@@ -8,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 export class SetsComponent implements OnInit {
   setfiller = true;
 
-  constructor() { }
+  isChecked = true;
+
+  constructor() {
+
+  }
+
+  saveButton() {
+
+  }
 
   ngOnInit() {
   }
+
+
 
 }
