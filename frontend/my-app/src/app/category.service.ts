@@ -31,7 +31,8 @@ export class CategoryService {
   /** PUT: update the category on the server */
   //TODO: add accountId to update category with correct account
   updateCategory (category: Category): Observable<any> {
-    return this.http.put(this.categoryUrl, category, httpOptions).pipe(
+    console.log('id binnen updateCategory is: ' + category.id);
+    return this.http.put('http://localhost:8080/api/account/1/category/' + category.id, category, httpOptions).pipe(
       tap(_ => this.log(`updated category id=${category.id}`)),
       catchError(this.handleError<any>('updateCategory'))
     );
@@ -40,20 +41,22 @@ export class CategoryService {
   /** POST: add a new category to the server */
   //TODO: add accountId to save category with correct account
   addCategory (category: Category): Observable<Category> {
-    console.log('in addcategory met naam: ' + name);
+    console.log('in addcategory met naam : ' + name);
     return this.http.post<Category>('http://localhost:8080/api/account/1/category', category, httpOptions).pipe(
       tap((category: Category) => console.log(`added category w/ id=${category.id}`)),
       catchError(this.handleError<Category>('addCategory'))
     );
   }
 
-  /** DELETE: delete the hero from the server */
+  /** DELETE: delete the category from the server */
   //TODO: add accountId to delete category with correct account
-  deleteHero (category: Category | number): Observable<Category> {
+  deleteCategory (category: Category | number): Observable<Category> {
+    console.log('zit in delete');
     const id = typeof category === 'number' ? category : category.id;
     const url = `${this.categoryUrl}/${id}`;
+    console.log('http://localhost:8080/api/category/' + id);
 
-    return this.http.delete<Category>(url, httpOptions).pipe(
+    return this.http.delete<Category>('http://localhost:8080/api/category/' + id, httpOptions).pipe(
       tap(_ => this.log(`deleted category id=${id}`)),
       catchError(this.handleError<Category>('deleteCategory'))
     );

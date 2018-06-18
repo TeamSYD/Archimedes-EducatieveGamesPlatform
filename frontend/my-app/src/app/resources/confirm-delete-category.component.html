@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+  <h1>Delete category: {{data.name}}</h1>
+  <mat-form-field>
+    <p>Deleting the category will also delete all it's resources. Do you wish to continue?</p>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Back</button>
+  <div style="padding:15px;"></div>
+  <button class="btn btn-primary btn-sm category-bar-height"  mat-button [mat-dialog-close]="data.confirm">Confirm</button>
+</div>

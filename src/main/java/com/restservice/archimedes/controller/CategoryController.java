@@ -61,7 +61,7 @@ public class CategoryController {
     // Update a category
     @PutMapping("/account/{accountId}/category/{categoryId}")
     public Category updateCategory(@PathVariable(value = "accountId") long accoundId,
-                                   @PathVariable(value = "id") long categoryId,
+                                   @PathVariable(value = "categoryId") long categoryId,
                                    @Valid @RequestBody Category categoryDetails) {
 
         if (!accountRepository.existsById(accoundId)) {

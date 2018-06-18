@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AppRoutingModule } from './app-routing.module';
-import {MAT_DIALOG_DEFAULT_OPTIONS,MatSnackBarModule, MatDialogModule, MatInputModule, MatGridListModule,MatSlideToggleModule} from '@angular/material';
+import { MAT_DIALOG_DEFAULT_OPTIONS,MatSnackBarModule, MatDialogModule, MatInputModule, MatGridListModule,MatSlideToggleModule} from '@angular/material';
 import { ImageCropperComponent, CropperSettings } from "ngx-img-cropper";
 import * as Raven from 'raven-js';
 
@@ -42,9 +42,9 @@ import { SetsComponent } from './sets/sets.component';
 import { CategorySearchComponent } from './category-search/category-search.component';
 import { CardSearchComponent } from './card-search/card-search.component';
 
-// COMPONENTS: ADD/UPDATE
+// COMPONENTS: ADD/UPDATE/DELETE
 import { AddResourceComponent } from "./resources/resources.component";
-import { AddCategoryComponent, UpdateCategoryComponent } from './resources/resources.component';
+import { AddCategoryComponent, UpdateCategoryComponent, ConfirmDeleteComponent } from './resources/resources.component';
 import { SnackbarComponent } from './snackbar.service';
 
 
@@ -92,6 +92,9 @@ export class RavenErrorHandler implements ErrorHandler {
     AddCategoryComponent,
     AddResourceComponent,
 
+    // COMPONENTS: DELETE
+    ConfirmDeleteComponent,
+
     // COMPONENTS: UPDATE
     UpdateCategoryComponent,
 
@@ -128,7 +131,7 @@ export class RavenErrorHandler implements ErrorHandler {
     // )
   ],
   providers: [{ provide: ErrorHandler, useClass: RavenErrorHandler }],
-  entryComponents:[ResourcesComponent, AddCategoryComponent,AddResourceComponent, SnackbarComponent, UpdateCategoryComponent],
+  entryComponents:[ResourcesComponent, AddCategoryComponent,AddResourceComponent, SnackbarComponent, UpdateCategoryComponent, ConfirmDeleteComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

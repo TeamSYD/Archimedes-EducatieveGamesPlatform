@@ -2,7 +2,7 @@ import { Component, OnInit, Inject,Type } from '@angular/core';
 import { ResourceService } from '../resource.service';
 import { CategoryService } from '../category.service';
 import { Category } from '../category';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ImageCropperComponent, CropperSettings, Bounds} from 'ngx-img-cropper';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 import {SnackbarService} from "../snackbar.service";
@@ -61,16 +61,72 @@ export class ResourcesComponent implements OnInit {
   }
 
 
+  confirmDeleteDialog(): void {
+
+    console.log('current index: ' + this.currentCategoryIndex);
+    console.log('array length begin deletefunctie = ' + this.categories.length );
+
+    if(this.selectedCategoryName != undefined) {
+      let dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+        width: '250px',
+        data: {
+          name: this.selectedCategoryName,
+          confirm: false,
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(result);
+        this.categoryService.deleteCategory( this.categories[this.currentCategoryIndex]).subscribe((response) => {
+          console.log("deleted");
+
+          this.OpenSnackbarSucces("The category: " + this.categories[this.currentCategoryIndex].name + " has been succesfully deleted.");
+          console.log('array length = ' + this.categories.length);
+
+          for(var category of this.categories){
+            console.log(category.name);
+          }
+
+          this.currentCategoryIndex = 0;
+          this.getCategories();
+
+      });
+
+      });
+    } else {
+      this.OpenSnackBarError("Please select a category that you wish to delete.");
+    }
+  }
+
+
+
   openUpdateCategoryDialog(): void {
-    if(this.selectedCategoryName != undefined){
+    if(this.categories.length != 0){
+      this.selectedCategoryName = this.categories[this.currentCategoryIndex].name;
+    }
+
+    console.log('in openUpdateDialog index: ' + this.currentCategoryIndex);
+    console.log('in openUpdateDialog id :' + this.selectedCategoryId );
+    console.log('in openUpdateDialog name:' + this.categories[this.currentCategoryIndex].name);
+    if(this.currentCategoryIndex != undefined){
       let dialogRef = this.dialog.open(UpdateCategoryComponent, {
         width: '250px',
-        data:{name: this.selectedCategoryName,
-        category: this.categories[this.currentCategoryIndex]}
+        data:{name: this.selectedCategoryName,}
       });
       dialogRef.afterClosed().subscribe(result => {
-        console.log('sadasdasd');
-        console.log('xD poo ' + result.name);
+        for (var category of this.categories){
+          console.log('resultname: ' + result + ' selectedCategoryNAme: ' + this.selectedCategoryName);
+          if (result == this.selectedCategoryName){
+            this.OpenSnackBarError("A category with the name: " + result + " already exists!")
+          } else if(result == undefined){
+            console.log('Geen naam ingevuld');
+          }
+          else {
+            this.categories[this.currentCategoryIndex].name = result;
+            this.saveCategory();
+            this.OpenSnackbarSucces("The category's name has been changed to: " + result + ".");
+          }
+        }
       });
     } else {
       this.OpenSnackBarError("Please select a category first.");
@@ -109,8 +165,6 @@ export class ResourcesComponent implements OnInit {
 
 
   selectCategory(e) {
-
-
     this.selectedCategoryId = this.categories[e.target.value].id;
     this.currentCategoryIndex = e.target.value;
 
@@ -159,6 +213,12 @@ export class ResourcesComponent implements OnInit {
     this.categoryService.getCategories()
       .subscribe(categories =>
         this.categories = categories);
+
+    if(this.categories.length - 1 == 0) {
+      this.selectedCategoryName = undefined;
+      this.selectedCategoryId = undefined;
+      this.currentCategoryIndex = undefined;
+    }
 
      }
   // getResourcesByCategoryId(id: number): void {
@@ -265,6 +325,28 @@ export class UpdateCategoryComponent{
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+}
+
+
+@Component({
+  selector: 'confirm-delete-category.component',
+  templateUrl: 'confirm-delete-category.component.html',
+})
+export class ConfirmDeleteComponent{
+
+  constructor(
+    public dialogRef: MatDialogRef<ConfirmDeleteComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+ ) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  confirmDelete(){
+    this.data.confirm = true;
   }
 
 }
