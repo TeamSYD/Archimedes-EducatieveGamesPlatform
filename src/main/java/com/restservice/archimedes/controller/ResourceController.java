@@ -47,6 +47,18 @@ public class ResourceController {
         return resourceRepository.findByCategoryId(categoryId, pageable);
     }
 
+    //Get all Images by Category ID
+    @GetMapping("/resources/category/images/{categoryId}")
+    public Page<Resource> getAllImagesByCategoryId(@PathVariable(value = "categoryId") long categoryId, Pageable pageable) {
+        return resourceRepository.findImagesByCategoryId(categoryId, pageable);
+    }
+
+    //Get all Texts by Category ID
+    @GetMapping("/resources/category/texts/{categoryId}")
+    public Page<Resource> getAllTextByCategoryId(@PathVariable(value = "categoryId") long categoryId, Pageable pageable) {
+        return resourceRepository.findTextsByCategoryId(categoryId, pageable);
+    }
+
     // Create a new Resource
     @PostMapping("/resources/{category_id}")
     public Resource uploadFile(
