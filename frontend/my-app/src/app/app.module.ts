@@ -12,9 +12,6 @@ import {MAT_DIALOG_DEFAULT_OPTIONS,MatSnackBarModule, MatDialogModule, MatInputM
 import { ImageCropperComponent, CropperSettings } from "ngx-img-cropper";
 import * as Raven from 'raven-js';
 
-
-
-
 // MODULES: WEB MOCKUP DATA
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
@@ -36,7 +33,7 @@ import { CarouselComponent, CarouselItemElement } from './carousel/carousel.comp
 import { ResourcesComponent } from './resources/resources.component';
 import { MessagesComponent } from './messages/messages.component';
 import { SetsComponent } from './sets/sets.component';
-
+import { SetRowComponent } from './set-row/set-row.component';
 
 // COMPONENTS: SEARCH
 import { CategorySearchComponent } from './category-search/category-search.component';
@@ -52,7 +49,6 @@ import { ResourceService} from './resource.service';
 
 // DIRECTIVES
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
-import { SetRowComponent } from './set-row/set-row.component';
 
 Raven
   .config('https://e0659b2825b54c52abce4fd1d8f40df0@sentry.io/1225718')

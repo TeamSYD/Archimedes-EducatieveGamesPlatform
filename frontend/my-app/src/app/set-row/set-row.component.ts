@@ -9,7 +9,7 @@ import { Card } from '../cards/card';
 })
 export class SetRowComponent implements OnInit {
   card: Card;
-  cardcontent = [];
+  @Input() cardcontent = [];
   @Input() filler: boolean = false;
 
   constructor() { }

@@ -6,9 +6,17 @@
       </div>
 
         <div class="row" style="background-color: #BBBBBB; height: 85%;">
-          <div class="col-md-12 set-container" style="padding: 0 5px 0 5px;">
-            <app-set-row *ngFor="let set of setcontent; let i = index"></app-set-row>
-            <app-set-row [filler]="setfiller"></app-set-row>
+          <div class="col-md-12 set-container">
+            <div class="setrow" *ngFor="let set of setcontent; let i = index">
+              <i (click)="remove(i)" class="far fa-2x fa-times-circle removesetbutton"></i>
+              <app-set-row ></app-set-row>
+            </div>
+
+              <button (click)="add()" class="addsetbutton">
+                <i class="fas fa-7x fa-plus addseticon"></i>
+              </button>
+
+            <app-set-row [ngStyle]="{'color': 'white', 'font-size': '12px', 'background-color': 'blue'}" [filler]="setfiller"></app-set-row>
           </div>
         </div>
       </div>
@@ -24,7 +32,7 @@
             </div>
            </div>
        <div class="row" style="background-color: #222222; height: 20%;">
-        <input class="btn btn-primary" type="button" value="Save game" style="margin-top: 20%; width: 100%; height: 40%; margin-left: 5px; margin-right: 5px;">
+        <input class="btn btn-primary" type="button" (click)="saveButton()" value="Save game" style="margin-top: 20%; width: 100%; height: 40%; margin-left: 5px; margin-right: 5px;">
         </div>
       </div>
     </div>
