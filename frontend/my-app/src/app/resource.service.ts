@@ -23,11 +23,8 @@ export class ResourceService {
     private messageService: MessageService) { }
 
   getResource (): Observable<Resource[]> {
-    return this.http.get<Resource[]>(this.resourceUrl)
-      .pipe(
-        tap(resource => this.log(`fetched resources`)),
-        catchError(this.handleError('getResource', []))
-      );
+    return this.http.get<Resource[]>('http://localhost:8080/api/resources')
+      ;
   }
 
   saveResource (resource: Resource): Observable<Resource> {
@@ -56,7 +53,7 @@ export class ResourceService {
 
   getResourceById<Data>(id: number): Observable<Resource> {
     const url = `${this.resourceUrl}/?id=${id}`;
-    return this.http.get<Resource[]>(url)
+    return this.http.get<Resource[]>('http://localhost:8080/api/resources/category/images/' +  id)
       .pipe(
         map(resource => resource[0]), // returns a {0|1} element array
         tap(h => {

@@ -22,6 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class ResourceController {
 
     private final ResourceRepository resourceRepository;

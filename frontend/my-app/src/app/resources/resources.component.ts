@@ -2,6 +2,7 @@ import { Component, OnInit, Inject,Type } from '@angular/core';
 import { ResourceService } from '../resource.service';
 import { CategoryService } from '../category.service';
 import { Category } from '../category';
+import { Resource } from '../resource';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ImageCropperComponent, CropperSettings, Bounds} from 'ngx-img-cropper';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
@@ -15,6 +16,7 @@ import {forEach} from "@angular/router/src/utils/collection";
 })
 export class ResourcesComponent implements OnInit {
   categories: Category[];
+  resources: Resource[];
 
   selectedCategoryId: number;
   selectedCategoryName: string;
@@ -170,9 +172,8 @@ export class ResourcesComponent implements OnInit {
 
     console.log('de index van deze categorie is:' + e.target.value);
 
-    this.items = [
-      {id: 1, imgUrl: "../../assets/2"},
-      {id: 2, imgUrl: "../../assets/1"}];
+    this.getResource();
+
 
     console.log('id: ' + this.selectedCategoryId);
 
@@ -192,6 +193,18 @@ export class ResourcesComponent implements OnInit {
   ngOnInit() {
     this.getCategories();
   }
+
+  getResource() : void{
+
+    this.resourceService.getResource()
+      .subscribe(resources => this.resources = resources);
+
+    this.resources.forEach(function(element){
+      console.log("test"+element)
+    });
+    console.log("get:resources")
+  }
+
 
   items = [
     {id:1, imgUrl:"../../assets/angular-logo.png"},
@@ -221,10 +234,7 @@ export class ResourcesComponent implements OnInit {
     }
 
      }
-  // getResourcesByCategoryId(id: number): void {
-  //   this.resourceService.getResourceById()
-  //     .subscribe()
-  // }
+
 
 
 
