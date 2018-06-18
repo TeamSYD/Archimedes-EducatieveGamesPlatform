@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatSlideToggle} from "@angular/material";
+import { SetRowComponent} from "../set-row/set-row.component";
 
 @Component({
   selector: 'app-sets',
@@ -22,9 +22,6 @@ export class SetsComponent implements OnInit {
   ngOnInit() {}
 
   duplicateToggle(){
-
-
-
 
     this.duplicateButton();
 

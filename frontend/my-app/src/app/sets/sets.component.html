@@ -1,4 +1,4 @@
-<div class="container-fluid" style="height: 100%; padding: 0px">
+<div class="container-fluid" style="height: 100%; padding: 0">
     <div class="row" style="height: 100%;">
       <div class="col-md-10" style="background-color: #C5AB5E;">
       <div class="row" style="background-color: #222222; height: 15%;">
@@ -11,10 +11,11 @@
             <app-set-row [filler]="setfiller"></app-set-row>
           </div>
         </div>
+      </div>
 
      <div class="col-md-2">
        <div class="row" style="height: 50%"></div>
-          <div class="row" style="background-color: white; height: 30%; padding-top: 20%">
+          <div class="row" style="background-color: white; height: 30%; padding-top: 20%;">
             <div class="col-md-12">
               <input type="button" id="invert" class="btn btn-primary" value="{{inverted}}" (click)="invertToggle()">
             </div>
@@ -28,6 +29,5 @@
       </div>
     </div>
 </div>
-
 
 
