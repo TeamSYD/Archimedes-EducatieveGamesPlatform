@@ -11,7 +11,10 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name = "category")
+@Table(
+        name = "category",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})}
+)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Category extends AuditModel implements Serializable {

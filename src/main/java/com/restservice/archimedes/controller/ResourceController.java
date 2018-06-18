@@ -1,11 +1,16 @@
 package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
+import com.restservice.archimedes.model.Category;
 import com.restservice.archimedes.model.Resource;
+import com.restservice.archimedes.model.ResourceType;
 import com.restservice.archimedes.model.UploadFileResponse;
+import com.restservice.archimedes.repository.CategoryRepository;
 import com.restservice.archimedes.repository.ResourceRepository;
 import com.restservice.archimedes.service.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,16 +24,17 @@ import java.util.List;
 @RequestMapping("/api")
 public class ResourceController {
 
-    private final
-    ResourceRepository resourceRepository;
+    private final ResourceRepository resourceRepository;
+    private final CategoryRepository categoryRepository;
+    private final FileStorageService fileStorageService;
 
     @Autowired
-    public ResourceController(ResourceRepository resourceRepository) {
+    public ResourceController(ResourceRepository resourceRepository, CategoryRepository categoryRepository, FileStorageService fileStorageService) {
         this.resourceRepository = resourceRepository;
+        this.categoryRepository = categoryRepository;
+        this.fileStorageService = fileStorageService;
     }
 
-    @Autowired
-    private FileStorageService fileStorageService;
 
     // Get All Resource
     @GetMapping("/resources")
@@ -36,24 +42,59 @@ public class ResourceController {
         return resourceRepository.findAll();
     }
 
-    // Create a new Resource
-    @PostMapping("/resources")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-        String fileName = fileStorageService.storeFile(file);
+    //Get all resources by Category ID
+    @GetMapping("/resources/category/{categoryId}")
+    public Page<Resource> getAllResourceByCategoryId(@PathVariable(value = "categoryId") long categoryId, Pageable pageable) {
+        return resourceRepository.findByCategoryId(categoryId, pageable);
+    }
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
+    //Get all Images by Category ID
+    @GetMapping("/resources/category/images/{categoryId}")
+    public Page<Resource> getAllImagesByCategoryId(@PathVariable(value = "categoryId") long categoryId, Pageable pageable) {
+        return resourceRepository.findImagesByCategoryId(categoryId, pageable);
+    }
+
+    //Get all Texts by Category ID
+    @GetMapping("/resources/category/texts/{categoryId}")
+    public Page<Resource> getAllTextByCategoryId(@PathVariable(value = "categoryId") long categoryId, Pageable pageable) {
+        return resourceRepository.findTextsByCategoryId(categoryId, pageable);
+    }
+
+    // Create a new Resource Image
+    @PostMapping(value = "/resources/save_image/{category_id}")
+    public Resource AddImage(
+            @RequestParam("file") MultipartFile file,
+            @PathVariable(value = "category_id") long category_id) throws IOException {
+
+        Category category = categoryRepository.findById(category_id)
+        .orElseThrow(() -> new ResourceNotFoundException("Category","name" ,category_id ));
+
+        String fileName = fileStorageService.storeFile(file);
         Resource newUpload = new Resource();
+        newUpload.setCategory(category);
         newUpload.setName(fileName);
-        newUpload.setType("Image");
-        newUpload.setCategory("Unsorted");
+        newUpload.setType(ResourceType.IMAGE);
         newUpload.setImage_Data(file.getBytes());
         resourceRepository.save(newUpload);
         System.out.println("File succesfully uploaded and saved...............");
-        return new UploadFileResponse(fileName, fileDownloadUri,
-                file.getContentType(), file.getSize());
+        return resourceRepository.save(newUpload);
+    }
+
+    // Create a new Resource
+    @PostMapping(value = "/resources/save_text/{category_id}")
+    public Resource AddText(
+            @RequestParam("text_resource") String text_resource,
+            @PathVariable(value = "category_id") long category_id) throws IOException {
+
+        Category category = categoryRepository.findById(category_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Category","name" ,category_id ));
+
+        Resource resource = new Resource();
+        resource.setCategory(category);
+        resource.setName("");
+        resource.setType(ResourceType.TEXT);
+        resource.setText_resource(text_resource);
+        return resourceRepository.save(resource);
     }
 
     // Get a Single Resource
