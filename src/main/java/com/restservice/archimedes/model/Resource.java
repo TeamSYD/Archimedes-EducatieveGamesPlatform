@@ -1,6 +1,8 @@
 package com.restservice.archimedes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -9,7 +11,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "resources")
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
+@JsonIgnoreProperties(value = {"createdAt", "updatedAt","hibernateLazyInitializer", "handler"},
         allowGetters = true)
 public class Resource extends AuditModel implements Serializable {
     @Id
@@ -23,7 +25,10 @@ public class Resource extends AuditModel implements Serializable {
 
     private String text_resource;
 
-    private String category;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Category category;
 
     @Column(name = "IMAGE_DATA", unique = false, nullable = true, length = 100000)
     private byte[] image_data;
@@ -52,11 +57,11 @@ public class Resource extends AuditModel implements Serializable {
         this.type = type;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

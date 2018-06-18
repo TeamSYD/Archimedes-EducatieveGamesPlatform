@@ -43,7 +43,7 @@ public class AccountController {
     public Account createAccount(@Valid @RequestBody Account account) {
         long x = 1;
         AccountType accounttype_id = accountTypeRepository.findById(x)
-                .orElseThrow(() -> new ResourceNotFoundException("Account", "id", account.getId()));
+                .orElseThrow(() -> new ResourceNotFoundException("AccountType", "id", x));
         account.setAccountType(accounttype_id);
         return accountRepository.save(account);
     }

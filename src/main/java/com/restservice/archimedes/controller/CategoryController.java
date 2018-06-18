@@ -46,6 +46,7 @@ public class CategoryController {
     public Category createCategory(@PathVariable(value = "accountId") long accountId,
                                    @Valid @RequestBody Category category) {
         return accountRepository.findById(accountId).map(account -> {
+            category.setName(category.getName().toLowerCase());
             category.setAccount(account);
             return categoryRepository.save(category);
         }).orElseThrow(() -> new ResourceNotFoundException("Account", "id", accountId));
@@ -56,6 +57,12 @@ public class CategoryController {
     public Category getCategoryById(@PathVariable(value = "id") long categoryId) {
         return categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "id", categoryId));
+    }
+
+    // Get a Single category by name
+    @GetMapping("/category/name/{name}")
+    public Category getCategoryByName(@PathVariable(value = "name") String categoryName) {
+        return categoryRepository.findByName(categoryName.toLowerCase() );
     }
 
     // Update a category

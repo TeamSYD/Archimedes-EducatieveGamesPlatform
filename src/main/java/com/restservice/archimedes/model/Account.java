@@ -23,9 +23,8 @@ public class Account extends AuditModel implements Serializable {
     @NotBlank
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="accounttype_id", nullable=false)
-    @JsonIgnore
     private AccountType accountType;
 
     public AccountType getAccountType() {
