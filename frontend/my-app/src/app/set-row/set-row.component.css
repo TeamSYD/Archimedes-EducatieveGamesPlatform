@@ -66,8 +66,8 @@ p {
   /*overflow-x: scroll;*/
   display: flex;
   width: 100%;
-  background-color: #939598;
-  border: 2px solid #525e70;
+  background-color: #D7D8D9;
+  border: 4px solid #525e70;
   flex-wrap: wrap;
-  border-radius: 3px;
+  border-radius: 6px;
 }
