@@ -3,6 +3,7 @@ package com.restservice.archimedes.controller;
 import com.restservice.archimedes.exception.ResourceNotFoundException;
 import com.restservice.archimedes.model.Category;
 import com.restservice.archimedes.model.Resource;
+import com.restservice.archimedes.model.ResourceType;
 import com.restservice.archimedes.model.UploadFileResponse;
 import com.restservice.archimedes.repository.CategoryRepository;
 import com.restservice.archimedes.repository.ResourceRepository;
@@ -59,9 +60,9 @@ public class ResourceController {
         return resourceRepository.findTextsByCategoryId(categoryId, pageable);
     }
 
-    // Create a new Resource
-    @PostMapping("/resources/{category_id}")
-    public Resource uploadFile(
+    // Create a new Resource Image
+    @PostMapping(value = "/resources/save_image/{category_id}")
+    public Resource AddImage(
             @RequestParam("file") MultipartFile file,
             @PathVariable(value = "category_id") long category_id) throws IOException {
 
@@ -72,11 +73,28 @@ public class ResourceController {
         Resource newUpload = new Resource();
         newUpload.setCategory(category);
         newUpload.setName(fileName);
-        newUpload.setType("Image");
+        newUpload.setType(ResourceType.IMAGE);
         newUpload.setImage_Data(file.getBytes());
         resourceRepository.save(newUpload);
         System.out.println("File succesfully uploaded and saved...............");
         return resourceRepository.save(newUpload);
+    }
+
+    // Create a new Resource
+    @PostMapping(value = "/resources/save_text/{category_id}")
+    public Resource AddText(
+            @RequestParam("text_resource") String text_resource,
+            @PathVariable(value = "category_id") long category_id) throws IOException {
+
+        Category category = categoryRepository.findById(category_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Category","name" ,category_id ));
+
+        Resource resource = new Resource();
+        resource.setCategory(category);
+        resource.setName("");
+        resource.setType(ResourceType.TEXT);
+        resource.setText_resource(text_resource);
+        return resourceRepository.save(resource);
     }
 
     // Get a Single Resource

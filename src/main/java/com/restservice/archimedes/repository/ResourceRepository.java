@@ -16,10 +16,10 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
     Page<Resource> findByCategoryId(long categoryId, Pageable pageable);
 
     //Get Images
-    @Query("SELECT r FROM Resource r WHERE category_id = :x and image_data IS NOT NULL AND text_resource IS NULL")
+    @Query("SELECT r FROM Resource r WHERE category_id = :x and type = 'image'")
     Page<Resource> findImagesByCategoryId(@Param("x") long categoryId, Pageable pageable);
 
     //Get Texts
-    @Query("SELECT r FROM Resource r WHERE category_id = :x and image_data IS NULL AND text_resource IS NOT NULL")
+    @Query("SELECT r FROM Resource r WHERE category_id = :x and type = 'text'")
     Page<Resource> findTextsByCategoryId(@Param("x") long categoryId, Pageable pageable);
 }

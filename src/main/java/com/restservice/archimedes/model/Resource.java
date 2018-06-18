@@ -18,11 +18,12 @@ public class Resource extends AuditModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name", unique = false, nullable = false, length = 255)
+    @Column(name = "name", unique = false, nullable = true, length = 255)
     private String name;
 
-    private String type;
+    private ResourceType type;
 
+    @Column(nullable = true)
     private String text_resource;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -49,11 +50,12 @@ public class Resource extends AuditModel implements Serializable {
         this.name = name;
     }
 
-    public String getType() {
+    @Enumerated(EnumType.ORDINAL)
+    public ResourceType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ResourceType type) {
         this.type = type;
     }
 
