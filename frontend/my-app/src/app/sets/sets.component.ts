@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
-import { MatSlideToggle } from "@angular/material";
 import { SetRowComponent } from '../set-row/set-row.component'
 
 @Component({
@@ -17,6 +16,7 @@ export class SetsComponent implements AfterViewInit {
   invert = false;
   inverted: String = 'gekozen rule';
   duplicates: String = 'gekozen rule';
+
 
   constructor() {
     this.setcontent = [[], [], [], []];
