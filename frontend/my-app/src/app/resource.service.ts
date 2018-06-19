@@ -28,8 +28,9 @@ export class ResourceService {
       ;
   }
 
-  saveResource (resource: Resource): Observable<Resource> {
-    return this.http.post<Resource>(this.resourceUrl, resource, httpOptions).pipe(
+  saveResource (image_data: ByteString, catID : number): Observable<Resource> {
+    console.log('http://localhost:8080/api/resources/save_image/'+catID);
+    return this.http.post<Resource>('http://localhost:8080/api/resources/save_image/'+catID, "{'file':"+btoa(image_data)+"}", httpOptions).pipe(
       tap((resource: Resource) => this.log(`added resource w/ id=${resource.id}`)),
       catchError(this.handleError<Resource>('addResource'))
     );

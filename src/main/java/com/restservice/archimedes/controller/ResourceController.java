@@ -64,19 +64,16 @@ public class ResourceController {
     // Create a new Resource Image
     @PostMapping(value = "/resources/save_image/{category_id}")
     public Resource AddImage(
-            @RequestParam("file") MultipartFile file,
+                    @RequestBody byte[] file,
             @PathVariable(value = "category_id") long category_id) throws IOException {
 
         Category category = categoryRepository.findById(category_id)
         .orElseThrow(() -> new ResourceNotFoundException("Category","name" ,category_id ));
 
-        String fileName = fileStorageService.storeFile(file);
         Resource newUpload = new Resource();
         newUpload.setCategory(category);
-        newUpload.setName(fileName);
         newUpload.setType(ResourceType.IMAGE);
-        newUpload.setImage_Data(file.getBytes());
-        resourceRepository.save(newUpload);
+        newUpload.setImage_Data(file);
         System.out.println("File succesfully uploaded and saved...............");
         return resourceRepository.save(newUpload);
     }

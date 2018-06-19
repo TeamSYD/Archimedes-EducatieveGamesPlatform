@@ -8,6 +8,7 @@ import {ImageCropperComponent, CropperSettings, Bounds} from 'ngx-img-cropper';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 import {SnackbarService} from "../snackbar.service";
 import {forEach} from "@angular/router/src/utils/collection";
+import {toBase64String} from "@angular/compiler/src/output/source_map";
 
 @Component({
   selector: 'app-resources',
@@ -191,21 +192,21 @@ export class ResourcesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      console.log(result);
-      this.saveResource(result);
-      this.OpenSnackbarSucces("The image: " + result + " has succesfully been added.");
+      console.log(result[0]);
+      let image = result[0].split(',')[1];
+      this.saveResource(image,result[1]);
+      this.OpenSnackbarSucces("The image has succesfully been added.");
     });
   }
   ngOnInit() {
     this.getCategories();
   }
-  saveResource(image_data:String): void {
-    image_data = image_data.trim();
-    if (!name) { return; }
-    this.resourceService.saveResource({ image_data } as Resource)
+  saveResource(image_data:ByteString, catID:number): void {
+    this.resourceService.saveResource(image_data, catID )
       .subscribe(resource => {
         this.resources.push(resource);
       });
+
   }
   getResource(id: number) : void{
     console.log('in getResource')
