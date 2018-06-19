@@ -182,18 +182,28 @@ export class ResourcesComponent implements OnInit {
 
   openResourceDialog(): void {
     let dialogRef = this.dialog.open(AddResourceComponent, {
-      width: '50%',
-      //data:{data: this.data1}
+      width: '80vh',
+      data:{catID: this.categories[this.currentCategoryIndex].id}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      console.log(result);
+      this.saveResource(result);
+      this.OpenSnackbarSucces("The image: " + result + " has succesfully been added.");
     });
   }
   ngOnInit() {
     this.getCategories();
   }
-
+  saveResource(image_data:String): void {
+    image_data = image_data.trim();
+    if (!name) { return; }
+    this.resourceService.saveResource({ image_data } as Resource)
+      .subscribe(resource => {
+        this.resources.push(resource);
+      });
+  }
   getResource() : void{
 
     this.resourceService.getResource()
@@ -267,10 +277,7 @@ export class PizzaPartyComponent {}
   templateUrl: 'add-resource.component.html',
   styles: [`
     .pull-straight {
-      width: 100%;
-      height: 100%;
-      float: left;
-      background-color: rgba(0, 0, 0, 0.05);
+      margin: auto;
     }`],
 })
 export class AddResourceComponent {
@@ -293,9 +300,6 @@ export class AddResourceComponent {
   }
   cropped(bounds:Bounds) {
     //console.log(bounds);
-  }
-  toggle(){
-    throw new Error("oops");
   }
 
 
