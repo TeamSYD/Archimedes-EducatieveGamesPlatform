@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Resource } from './resource';
 import { MessageService } from './message.service';
+import {Category} from "./Category";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -41,26 +42,29 @@ export class ResourceService {
     );
   }
 
-  deleteResource (resource: Resource | number): Observable<Resource> {
+  deleteResource (resource: Resource): Observable<Resource> {
     const id = typeof resource === 'number' ? resource : resource.id;
-    const url = `${this.resourceUrl}/${id}`;
+    const url = `http://localhost:8080/api/resources/'+ ${id}`;
 
-    return this.http.delete<Resource>(url, httpOptions).pipe(
+    console.log('http://localhost:8080/api/resources/' + resource.id)
+
+    return this.http.delete<Resource>('http://localhost:8080/api/resources/' + resource.id, httpOptions).pipe(
       tap(_ => this.log(`deleted resource id=${id}`)),
       catchError(this.handleError<Resource>('deleteResource'))
     );
   }
 
-  getResourceById<Data>(id: number): Observable<Resource> {
-    const url = `${this.resourceUrl}/?id=${id}`;
+  getResourceById<Data>(id: number): Observable<Resource[]> {
+    console.log('http://localhost:8080/api/resources/category/images/' +  id)
     return this.http.get<Resource[]>('http://localhost:8080/api/resources/category/images/' +  id)
       .pipe(
-        map(resource => resource[0]), // returns a {0|1} element array
+        map(res => <Resource[]>res['content']),
         tap(h => {
           const outcome = h ? `fetched` : `did not find`;
           this.log(`${outcome} resource id=${id}`);
+          console.log(h);
         }),
-        catchError(this.handleError<Resource>(`getResource id=${id}`))
+        catchError(this.handleError<Resource[]>(`getResource id=${id}`))
       );
   }
 

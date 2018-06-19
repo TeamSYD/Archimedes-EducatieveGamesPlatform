@@ -37,9 +37,7 @@ export class ResourcesComponent implements OnInit {
     this.snackbarService.SuccesSnackBar(text);
   }
 
-  test123(){
-    console.log('asdasdasdasasd');
-  }
+
 
   openCategoryDialog(): void {
     console.log('data na aanroepen functie:  ' + this.data1);
@@ -65,8 +63,7 @@ export class ResourcesComponent implements OnInit {
 
   confirmDeleteDialog(): void {
 
-    console.log('current index: ' + this.currentCategoryIndex);
-    console.log('array length begin deletefunctie = ' + this.categories.length );
+    this.logFunctie("confirmDeleteDialog");
 
     if(this.selectedCategoryName != undefined) {
       let dialogRef = this.dialog.open(ConfirmDeleteComponent, {
@@ -78,21 +75,25 @@ export class ResourcesComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
-        this.categoryService.deleteCategory( this.categories[this.currentCategoryIndex]).subscribe((response) => {
-          console.log("deleted");
 
-          this.OpenSnackbarSucces("The category: " + this.categories[this.currentCategoryIndex].name + " has been succesfully deleted.");
-          console.log('array length = ' + this.categories.length);
+        if (result != undefined){
+          console.log('result:' + result);
+          this.categoryService.deleteCategory( this.categories[this.currentCategoryIndex]).subscribe((response) => {
+            console.log("deleted");
 
-          for(var category of this.categories){
-            console.log(category.name);
-          }
+            this.OpenSnackbarSucces("The category: " + this.categories[this.currentCategoryIndex].name + " has been succesfully deleted.");
+            this.logFunctie("confirmDeleteDialog after delete");
 
-          this.currentCategoryIndex = 0;
-          this.getCategories();
+            for(var category of this.categories){
+              console.log(category.name);
+            }
 
-      });
+            this.currentCategoryIndex = 0;
+            this.getCategories();
+
+          });
+        }
+
 
       });
     } else {
@@ -107,9 +108,7 @@ export class ResourcesComponent implements OnInit {
       this.selectedCategoryName = this.categories[this.currentCategoryIndex].name;
     }
 
-    console.log('in openUpdateDialog index: ' + this.currentCategoryIndex);
-    console.log('in openUpdateDialog id :' + this.selectedCategoryId );
-    console.log('in openUpdateDialog name:' + this.categories[this.currentCategoryIndex].name);
+    this.logFunctie("openUpdateCategoryDialog");
     if(this.currentCategoryIndex != undefined){
       let dialogRef = this.dialog.open(UpdateCategoryComponent, {
         width: '250px',
@@ -165,19 +164,23 @@ export class ResourcesComponent implements OnInit {
       .subscribe(() => this.categoryService.getCategories());
   }
 
+  logFunctie(text: string){
+    console.log("Functie: " + text + ", current index: " + this.currentCategoryIndex);
+    console.log("Functie: " + text + ", selected name: " + this.categories[this.currentCategoryIndex].name);
+    console.log("Functie: " + text + ", selected id:: " + this.categories[this.currentCategoryIndex].id);
+    console.log("Functie: " + text + ", categories array length: " + this.categories.length);
+  }
+
 
   selectCategory(e) {
+
     this.selectedCategoryId = this.categories[e.target.value].id;
     this.currentCategoryIndex = e.target.value;
-
-    console.log('de index van deze categorie is:' + e.target.value);
-
-    this.getResource();
-
-
-    console.log('id: ' + this.selectedCategoryId);
-
     this.getSelectedCategoryName(this.selectedCategoryId);
+    this.logFunctie("SelectCategory");
+
+    this.getResource(this.categories[this.currentCategoryIndex].id);
+
   }
 
   openResourceDialog(): void {
@@ -204,13 +207,16 @@ export class ResourcesComponent implements OnInit {
         this.resources.push(resource);
       });
   }
-  getResource() : void{
+  getResource(id: number) : void{
+    console.log('in getResource')
 
-    this.resourceService.getResource()
+    this.resourceService.getResourceById(id)
       .subscribe(resources => this.resources = resources);
 
+    console.log('nu zit ik hier')
+
     this.resources.forEach(function(element){
-      console.log("test"+element)
+      console.log("test"+element.name)
     });
     console.log("get:resources")
   }
@@ -250,7 +256,11 @@ export class ResourcesComponent implements OnInit {
 
   onItemDrop(e: any) {
     // Get the dropped data here
-    console.log(e.dragData.imgUrl);
+    console.log(e.dragData.id);
+    this.resourceService.deleteResource(e.dragData).subscribe((response) => {
+      this.OpenSnackbarSucces('Image deleted!');
+      this.getResource(this.categories[this.currentCategoryIndex].id)
+  });
   }
 
   changed(e){
@@ -269,7 +279,7 @@ export class ResourcesComponent implements OnInit {
   templateUrl: '../snack-bar-component.html',
   styles: [],
 })
-export class PizzaPartyComponent {}
+export class SnackbarComponent {}
 
 
 @Component({
@@ -357,10 +367,10 @@ export class ConfirmDeleteComponent{
 
   onNoClick(): void {
     this.dialogRef.close();
+    this.data.confirm = true;
   }
 
   confirmDelete(){
-    this.data.confirm = true;
   }
 
 }
