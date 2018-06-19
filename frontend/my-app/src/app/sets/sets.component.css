@@ -1,7 +1,13 @@
 .set-container{
   overflow-y: auto;
   margin: 0;
-  padding: 10px 8px 0px 8px;
+  padding: 10px 8px 0 8px;
+  border-left: 2px;
+  border-right: 0px;
+  border-top: 2px;
+  border-bottom: 2px;
+  border-style: solid;
+  border-color: #002642;
 }
 /* width */
 ::-webkit-scrollbar {
@@ -34,6 +40,7 @@
   border: none;
   border-radius: 5px;
   color: #aeb4b0;
+  padding: 15px 15px 15px 15px;
 }
 
 .addsetbutton:hover{
@@ -45,4 +52,25 @@
 
 .removesetbutton{
   float: right;
+}
+
+.color1{
+  background-color: #6EA4BF;
+}
+
+.rulediv{
+
+}
+
+.emptydiv{;
+}
+
+.savediv {
+
+}
+.cornerdiv{
+
+}
+.headerdiv{
+
 }

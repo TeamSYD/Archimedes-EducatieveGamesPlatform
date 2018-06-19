@@ -44,7 +44,7 @@ export class CarouselComponent implements AfterViewInit {
   private currentSlide = 0;
   // TODO: Unused carouselWrapperStyle, scrap perhaps?
   carouselWrapperStyle = {};
-  private carouselCap = 8;
+  private carouselCap = 6;
   private carouselWidth;
   private arraySize = null;
   private itemWidth : number;
