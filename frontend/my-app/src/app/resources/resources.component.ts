@@ -179,6 +179,8 @@ export class ResourcesComponent implements OnInit {
     this.getSelectedCategoryName(this.selectedCategoryId);
     this.logFunctie("SelectCategory");
 
+    this.getResource(this.categories[this.currentCategoryIndex].id);
+
   }
 
   openResourceDialog(): void {
@@ -195,13 +197,16 @@ export class ResourcesComponent implements OnInit {
     this.getCategories();
   }
 
-  getResource() : void{
+  getResource(id: number) : void{
+    console.log('in getResource')
 
-    this.resourceService.getResource()
+    this.resourceService.getResourceById(id)
       .subscribe(resources => this.resources = resources);
 
+    console.log('nu zit ik hier')
+
     this.resources.forEach(function(element){
-      console.log("test"+element)
+      console.log("test"+element.name)
     });
     console.log("get:resources")
   }
@@ -241,8 +246,11 @@ export class ResourcesComponent implements OnInit {
 
   onItemDrop(e: any) {
     // Get the dropped data here
-    console.log(e.dragData.imgUrl);
-    this.resourceService.deleteResource(e.dragData);
+    console.log(e.dragData.id);
+    this.resourceService.deleteResource(e.dragData).subscribe((response) => {
+      this.OpenSnackbarSucces('Image deleted!');
+      this.getResource(this.categories[this.currentCategoryIndex].id)
+  });
   }
 
   changed(e){
@@ -261,7 +269,7 @@ export class ResourcesComponent implements OnInit {
   templateUrl: '../snack-bar-component.html',
   styles: [],
 })
-export class PizzaPartyComponent {}
+export class SnackbarComponent {}
 
 
 @Component({
