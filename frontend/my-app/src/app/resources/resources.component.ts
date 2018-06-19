@@ -91,6 +91,7 @@ export class ResourcesComponent implements OnInit {
 
             this.currentCategoryIndex = 0;
             this.getCategories();
+            this.getResource(this.categories[this.currentCategoryIndex].id);
 
           });
         }
