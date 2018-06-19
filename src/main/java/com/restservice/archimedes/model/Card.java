@@ -22,12 +22,12 @@ public class Card extends AuditModel implements Serializable {
     @NotBlank
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "openface_side_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Resource openface_side;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "closedface_side_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Resource closedface_side;

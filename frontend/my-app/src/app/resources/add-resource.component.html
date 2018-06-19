@@ -19,7 +19,7 @@
 
     <div mat-dialog-actions>
       <button mat-button (click)="onNoClick()">terug</button>
-      <button mat-button (click)="toggle()" class="btn btn-primary btn-sm" >Opslaan</button>
+      <button mat-button [mat-dialog-close]="imgData.image" (click)="saveResource(imgData.image)" class="btn btn-primary btn-sm" >Opslaan</button>
     </div>
   </mat-grid-tile>
 </mat-grid-list>
