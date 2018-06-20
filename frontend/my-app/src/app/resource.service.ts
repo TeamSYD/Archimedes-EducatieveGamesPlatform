@@ -7,6 +7,9 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Resource } from './resource';
 import { MessageService } from './message.service';
 import {Category} from "./Category";
+import 'rxjs/add/operator/map';
+
+
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -25,6 +28,11 @@ export class ResourceService {
 
   getResource (): Observable<Resource[]> {
     return this.http.get<Resource[]>('http://localhost:8080/api/resources')
+        .map(result => {
+          const items = <any[]>result; // could be SomeItem[] instead of any[]
+          items.forEach(item => item.image_data = atob(item.image_data));
+          return items;
+        });
       ;
   }
 
