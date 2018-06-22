@@ -1,16 +1,12 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a routerLink="/login" class="navbar-brand">Terug naar inloggen</a>
-    </div>
+    <a class="navbar-brand" routerLink="/login">Terug naar inloggen</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   </div>
 </nav>
+
 <div class="container main-margin-container">
 <form id="create_account" action="#">
     <h3>Registratie formulier</h3>
@@ -28,7 +24,7 @@
     </div>
     <div class="form-group">
       <label>Wachtwoord</label>
-      <input type="password" placeholder="Vul hier uw wachtwoord in" id="wachtwoord" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}" title="Het wachtwoord moet minimaal 7 tekens, een hoofdletter, een kleine letter en een cijfer bevatten." required="required" class="form-control">
+      <input type="password" placeholder="Bevat minimaal 7 tekens, waaronder hoofdletter, kleine letter en cijfer." id="wachtwoord" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}" required="required" class="form-control">
     </div>
     <input type="submit" id="submit" value="Account aanmaken" required="required" class="btn btn-primary">
   </form>

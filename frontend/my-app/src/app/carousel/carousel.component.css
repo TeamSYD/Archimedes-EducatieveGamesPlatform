@@ -12,10 +12,16 @@ p{
   margin: auto;
   width: 96%;
   height:100%;
-  background-color: #bfc7cb;
+  background-color: #95BCD0;
   padding: 0;
-  border-radius: 10px;
-  border: 2px solid #666666;
+  border-radius: 0px;
+  border-left: 2px;
+  border-right: 2px;
+  border-top: 0px;
+  border-bottom: 0px;
+  border-style: solid;
+  border-color: #666666;
+
   display: flex;
 }
 
@@ -48,15 +54,15 @@ p{
   width: 9em;
   height: 100%;
   margin: auto;
-  background-color: #aeb4b0;
+  background-color: #6EA4BF;
 }
 
 .card{
   margin: auto;
   height: 100%;
-  width: 90%;
-  background-color: #dddfdd;
-  border-radius: 10px;
+  width: 6em;
+  background-color: #D7E6ED;
+  border-radius: 0;
   border: 2px solid #525e70;
 }
 
@@ -64,7 +70,7 @@ p{
   display:block;
   height: 95%;
   width: 100%;
-  background-color: #f4f1ed;
+  background-color: #6EA4BF;
   margin: auto;
 }
 

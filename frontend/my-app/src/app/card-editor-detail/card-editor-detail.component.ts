@@ -23,6 +23,10 @@ export class CardEditorDetailComponent implements OnInit {
   droppedFrontcard = [];
   textBackCard: string;
   textFrontCard: string;
+  showBack = false;
+  showFront = false;
+  frontValue: string = 'Text';
+  backValue: string = 'Text';
 
   constructor(private resourceService: ResourceService,
               private cardService: CardService,
@@ -49,21 +53,45 @@ export class CardEditorDetailComponent implements OnInit {
   }
 
   onBackDrop(e: DropEvent) {
+    this.showBack = false;
+    this.changeBackValue();
     this.droppedBackcard.splice(0,1);
     this.droppedBackcard.push(e.dragData);
   }
 
   onFrontDrop(e: DropEvent) {
+    this.showFront = false;
+    this.changeFrontValue();
     this.droppedFrontcard.splice(0,1);
     this.droppedFrontcard.push(e.dragData);
   }
 
   onFrontText(){
     this.droppedFrontcard.splice(0,1);
+    this.showFront = !this.showFront;
+    this.changeFrontValue()
   }
 
   onBackText(){
     this.droppedBackcard.splice(0,1);
+    this.showBack = !this.showBack;
+    this.changeBackValue();
+  }
+
+  changeFrontValue() {
+    if (this.showFront == true){
+      this.frontValue = 'No text';
+    } else {
+      this.frontValue = 'Text';
+    }
+  }
+
+  changeBackValue(){
+    if (this.showBack == true){
+      this.backValue = 'No text';
+    } else {
+      this.backValue = 'Text';
+    }
   }
 
 }
