@@ -7,8 +7,6 @@ import { ResourceService } from '../resource.service';
 import { Resource } from '../resource';
 import { CardService } from '../card.service';
 import { Card } from '../cards/card';
-import {variable} from "@angular/compiler/src/output/output_ast";
-import {createViewChild} from "@angular/compiler/src/core";
 
 @Component({
   selector: 'app-card-editor-detail',
@@ -17,7 +15,7 @@ import {createViewChild} from "@angular/compiler/src/core";
 })
 
 export class CardEditorDetailComponent implements OnInit {
-  resource: Resource[] = [];
+  resource: Resource[];
   card: Card;
 
   droppedBackcard = [];
@@ -44,8 +42,14 @@ export class CardEditorDetailComponent implements OnInit {
       .subscribe(resource => this.resource = resource);
   }
 
-  saveCard(): void {
+  saveCard(text_resource: String): void {
     console.log(this.frontText.nativeElement.innerHTML);
+    console.log(this.backText.nativeElement.innerHTML);
+    this.resourceService.saveResourceText(text_resource)
+      .subscribe(resource => {
+        this.resource.push(this.frontText.nativeElement.innerHTML);
+        this.resource.push(this.backText.nativeElement.innerHTML);
+      });
   }
 
   goBack(): void {
