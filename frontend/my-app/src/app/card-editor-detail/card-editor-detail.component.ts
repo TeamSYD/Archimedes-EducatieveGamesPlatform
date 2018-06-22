@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { DropEvent } from 'ng-drag-drop';
@@ -8,6 +8,7 @@ import { Resource } from '../resource';
 import { CardService } from '../card.service';
 import { Card } from '../cards/card';
 import {variable} from "@angular/compiler/src/output/output_ast";
+import {createViewChild} from "@angular/compiler/src/core";
 
 @Component({
   selector: 'app-card-editor-detail',
@@ -21,8 +22,8 @@ export class CardEditorDetailComponent implements OnInit {
 
   droppedBackcard = [];
   droppedFrontcard = [];
-  textBackCard: string;
-  textFrontCard: string;
+  @ViewChild('frontText') private frontText: ElementRef;
+  @ViewChild('backText') private backText: ElementRef;
   showBack = false;
   showFront = false;
   frontValue: string = 'Text';
@@ -44,8 +45,7 @@ export class CardEditorDetailComponent implements OnInit {
   }
 
   saveCard(): void {
-    this.cardService.addCard(this.card)
-      .subscribe(() => this.goBack());
+    console.log(this.frontText.nativeElement.innerHTML);
   }
 
   goBack(): void {
