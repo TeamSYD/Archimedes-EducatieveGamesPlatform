@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AppRoutingModule } from './app-routing.module';
-import { MAT_DIALOG_DEFAULT_OPTIONS,MatSnackBarModule, MatDialogModule, MatInputModule, MatGridListModule,MatSlideToggleModule} from '@angular/material';
+import { MatButtonModule, MAT_DIALOG_DEFAULT_OPTIONS,MatSnackBarModule, MatDialogModule, MatInputModule, MatGridListModule,MatSlideToggleModule, MatCardModule, MatSelectModule} from '@angular/material';
 import { ImageCropperComponent, CropperSettings } from "ngx-img-cropper";
 import * as Raven from 'raven-js';
 
@@ -46,6 +46,7 @@ import { CardSearchComponent } from './card-search/card-search.component';
 import { AddResourceComponent } from "./resources/resources.component";
 import { AddCategoryComponent, UpdateCategoryComponent, ConfirmDeleteComponent } from './resources/resources.component';
 import { SnackbarComponent } from './snackbar.service';
+import { AddGameComponent } from './add-game/add-game.component'
 
 
 
@@ -54,7 +55,7 @@ import { ResourceService} from './resource.service';
 
 // DIRECTIVES
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
-import { AddGameComponent } from './add-game/add-game.component';
+
 
 Raven
   .config('https://e0659b2825b54c52abce4fd1d8f40df0@sentry.io/1225718')
@@ -73,6 +74,7 @@ export class RavenErrorHandler implements ErrorHandler {
     FooterComponent,
     CreateAccountComponent,
     ArrangementsComponent,
+    AddGameComponent,
 
     CardsComponent,
     CardEditorComponent,
@@ -109,7 +111,6 @@ export class RavenErrorHandler implements ErrorHandler {
 
     SetsComponent,
 
-    AddGameComponent,
 
     SetRowComponent,
   ],
@@ -127,6 +128,9 @@ export class RavenErrorHandler implements ErrorHandler {
     MatSlideToggleModule,
     MatGridListModule,
     MatSnackBarModule,
+    MatCardModule,
+    MatSelectModule,
+    MatButtonModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.

@@ -1,13 +1,56 @@
-<div class="form-group" style="margin: 0px; padding-left: 20px;">
-  <select class="form-control" (change)="selectGame($event)">
-    <option value="" selected disabled>Choose a game</option>
-    <option [value]='Memory'>Memory</option>
-    <option [value]='Puzzle'>Memory</option>
+<mat-card>
+  <mat-card-content>
+<form class="example-form" style="padding-left: 20px;">
+  <mat-form-field class="example-full-width">
+    <input matInput #name placeholder="Game name" (keyup)="onKey($event)">
+  </mat-form-field>
+
+</form>
+
+  <select #selectedGame class="form-control" (change)="log($event)">
+    <option  selected disabled>Choose a game</option>
+    <option value="Memory">Memory</option>
+    <option value="Puzzle">Puzzle</option>
 
   </select>
-</div>
 
-<div>
+  </mat-card-content>
+</mat-card>
 
 
-</div>
+
+  <mat-card class="result">
+    <mat-card-content *ngIf="checkIfMemory()">
+      <section class="example-section">
+        <mat-slide-toggle [(ngModel)]="classicMemory"
+          class="example-margin">
+          Classic Memory
+        </mat-slide-toggle>
+      </section>
+
+      <section class="example-section">
+        <mat-slide-toggle [(ngModel)]="openCards"
+          class="example-margin">
+          Open cards
+        </mat-slide-toggle>
+      </section>
+      <button mat-raised-button (click)="saveGame()">Save</button>
+    </mat-card-content>
+
+
+
+    <mat-card-content *ngIf="checkIfPuzzle()">
+      <section class="example-section">
+        <mat-slide-toggle [(ngModel)]="order"
+          class="example-margin"
+          >
+          Cards by order
+        </mat-slide-toggle>
+      </section>
+
+      <button mat-raised-button (click)="saveGame()">Save</button>
+    </mat-card-content>
+
+  </mat-card>
+
+

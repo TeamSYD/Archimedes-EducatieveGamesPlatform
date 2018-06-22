@@ -10,6 +10,7 @@ import {CardEditorComponent} from "./card-editor/card-editor.component";
 import {CardEditorDetailComponent} from "./card-editor-detail/card-editor-detail.component";
 import {CarouselComponent} from "./carousel/carousel.component";
 import {GameEditorSetsComponent} from "./game-editor-sets/game-editor-sets.component";
+import {AddGameComponent} from "./add-game/add-game.component";
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'card-editor', component: CardEditorComponent},
   {path: 'card-editor-detail', component: CardEditorDetailComponent},
   {path: 'game-editor-sets', component: GameEditorSetsComponent},
+  {path: 'add-game', component: AddGameComponent},
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 ];
 
