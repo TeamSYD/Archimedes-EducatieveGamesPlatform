@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -64,7 +65,7 @@ public class ResourceController {
     // Create a new Resource Image
     @PostMapping(value = "/resources/save_image/{category_id}")
     public Resource AddImage(
-                    @RequestBody byte[] file,
+                    @RequestBody String file,
             @PathVariable(value = "category_id") long category_id) throws IOException {
 
         Category category = categoryRepository.findById(category_id)
@@ -73,7 +74,7 @@ public class ResourceController {
         Resource newUpload = new Resource();
         newUpload.setCategory(category);
         newUpload.setType(ResourceType.IMAGE);
-        newUpload.setImage_Data(file);
+        newUpload.setImage_Data(Base64.getEncoder().encode(file.getBytes()));
         System.out.println("File succesfully uploaded and saved...............");
         return resourceRepository.save(newUpload);
     }
