@@ -27,7 +27,7 @@ public class Resource extends AuditModel implements Serializable {
     private String text_resource;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Category category;
 
