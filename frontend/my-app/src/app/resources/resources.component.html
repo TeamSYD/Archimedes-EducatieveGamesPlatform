@@ -1,25 +1,27 @@
 <div class="container-fluid" style="height: 100%">
-  <div class="row" style="background-color: white; padding: 0px;">
+  <div class="row" style="background-color: white; padding: 0px; padding-bottom: 5px;">
     <div class="col-md-1 style-for-divs">
       <button mat-raised-button (click)="openCategoryDialog()" type="button" class="btn btn-primary btn-sm category-bar-height" style="padding-right:15px; padding-left:15px; margin:1px;">+</button>
     </div>
     <div class="col-md-5 style-for-divs">
       <div class="form-group" style="margin: 0px; padding-left: 20px;">
-        <select class="form-control category-bar-height" id="category"(change)="changed($event)" >
+        <select class="form-control category-bar-height" id="category" (change)="selectCategory($event)">
           <option value="" selected disabled>Category</option>
-          <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+          <option *ngFor="let category of categories, let i = index" [value]='i'>{{category.name}}</option>
+
         </select>
       </div>
     </div>
 
-    <div class="col-md-6 style-for-divs">
-      <app-category-search></app-category-search>
+    <div class="col-md-6 style-for-divs" style="padding-left: 0px; padding-right: 0px;">
+      <button mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category" (click)="openUpdateCategoryDialog()">Update</button>
+      <button mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category" (click)="confirmDeleteDialog()">Delete</button>
     </div>
   </div>
   <div class="row" style="height:100%; background-color: rgba(143,146,150,0)">
     <div class="col-md-12" id="testdiv" style="overflow-y:scroll; padding:0px;">
 
-      <img draggable *ngFor="let item of items" [dragData]="item" src={{item.imgUrl}} class="rounded img-thumbnail imageStylingResourceBar">
+      <img draggable *ngFor="let resource of resources" [dragData]="resource" src="data:image/jpg;base64,{{resource.image_data}}" class="rounded img-thumbnail imageStylingResourceBar">
 
     </div>
   </div>

@@ -1,6 +1,5 @@
 package com.restservice.archimedes.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -11,26 +10,27 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(
-        name = "category",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})}
-)
+@Table(name = "sets")
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Category extends AuditModel implements Serializable {
+public class Set extends AuditModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotBlank
-    private String name;
+    private int set_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", nullable = false)
+    @JoinColumn(name = "card_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private Account account;
+    private Card card;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Game game;
 
     public long getId() {
         return id;
@@ -40,19 +40,27 @@ public class Category extends AuditModel implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getSet_id() {
+        return set_id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSet_id(int set_id) {
+        this.set_id = set_id;
     }
 
-    public Account getAccount() {
-        return account;
+    public Card getCard() {
+        return card;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setCard(Card card) {
+        this.card = card;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

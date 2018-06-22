@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+  <p>Change the name of the category:</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.name" value="{{data.name}}" >
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">terug</button>
+  <div style="padding:15px;"></div>
+  <button class="btn btn-primary btn-sm category-bar-height"  mat-button [mat-dialog-close]="data.name">Save</button>
+</div>

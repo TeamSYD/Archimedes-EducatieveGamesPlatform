@@ -1,16 +1,12 @@
 package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
-import com.restservice.archimedes.model.Account;
 import com.restservice.archimedes.model.AccountType;
 import com.restservice.archimedes.repository.AccountTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -40,15 +36,15 @@ public class AccountTypeController {
 
     // Get a Single AccountType
     @GetMapping("/accounttypes/{id}")
-    public AccountType getAccountById(@PathVariable(value = "id") Long accountTypeId) {
+    public AccountType getAccountById(@PathVariable(value = "id") long accountTypeId) {
         return accountTypeRepository.findById(accountTypeId)
                 .orElseThrow(() -> new ResourceNotFoundException("AccountType", "id", accountTypeId));
     }
 
     // Update a AccountType
     @PutMapping("/accounttypes/{id}")
-    public AccountType updateAccountType(@PathVariable(value = "id") Long accountTypeId,
-                                 @Valid @RequestBody AccountType accountTypeDetails) {
+    public AccountType updateAccountType(@PathVariable(value = "id") long accountTypeId,
+                                         @Valid @RequestBody AccountType accountTypeDetails) {
 
         AccountType accountType = accountTypeRepository.findById(accountTypeId)
                 .orElseThrow(() -> new ResourceNotFoundException("AccountType", "id", accountTypeId));
@@ -64,7 +60,7 @@ public class AccountTypeController {
 
     // Delete a AccountType
     @DeleteMapping("/accounttypes/{id}")
-    public ResponseEntity<?> deleteAccountType(@PathVariable(value = "id") Long accountTypeId) {
+    public ResponseEntity<?> deleteAccountType(@PathVariable(value = "id") long accountTypeId) {
         AccountType accountType = accountTypeRepository.findById(accountTypeId)
                 .orElseThrow(() -> new ResourceNotFoundException("AccountType", "id", accountTypeId));
 

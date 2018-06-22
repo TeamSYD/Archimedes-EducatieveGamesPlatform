@@ -1,16 +1,12 @@
 package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
-import com.restservice.archimedes.model.Scoreboard;
 import com.restservice.archimedes.model.Session;
 import com.restservice.archimedes.repository.SessionRepository;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.*;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -40,14 +36,14 @@ public class SessionController {
 
     // Get a Single Session
     @GetMapping("/sessions/{id}")
-    public Session getSessionById(@PathVariable(value = "id") Long sessionId) {
+    public Session getSessionById(@PathVariable(value = "id") long sessionId) {
         return sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Session", "id", sessionId));
     }
 
     // Update a Session
     @PutMapping("/sessions/{id}")
-    public Session updateSession(@PathVariable(value = "id") Long sessionId,
+    public Session updateSession(@PathVariable(value = "id") long sessionId,
                                  @Valid @RequestBody Session sessionDetails) {
 
         Session session = sessionRepository.findById(sessionId)
@@ -62,7 +58,7 @@ public class SessionController {
 
     // Delete a Session
     @DeleteMapping("/sessions/{id}")
-    public ResponseEntity<?> deleteSession(@PathVariable(value = "id") Long sessionId) {
+    public ResponseEntity<?> deleteSession(@PathVariable(value = "id") long sessionId) {
         Session session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Session", "id", sessionId));
 

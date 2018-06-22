@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
-    Page<Account> findByAccountTypeId(Long accountTypeId, Pageable pageable);
+    Page<Account> findByAccountTypeId(long accountTypeId, Pageable pageable);
 }

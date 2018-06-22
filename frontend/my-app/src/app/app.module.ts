@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AppRoutingModule } from './app-routing.module';
-import {MAT_DIALOG_DEFAULT_OPTIONS,MatSnackBarModule, MatDialogModule, MatInputModule, MatGridListModule,MatSlideToggleModule} from '@angular/material';
+import { MAT_DIALOG_DEFAULT_OPTIONS,MatSnackBarModule, MatDialogModule, MatInputModule, MatGridListModule,MatSlideToggleModule} from '@angular/material';
 import { ImageCropperComponent, CropperSettings } from "ngx-img-cropper";
 import * as Raven from 'raven-js';
 
@@ -39,10 +39,12 @@ import { SetRowComponent } from './set-row/set-row.component';
 import { CategorySearchComponent } from './category-search/category-search.component';
 import { CardSearchComponent } from './card-search/card-search.component';
 
-// COMPONENTS: ADD
+// COMPONENTS: ADD/UPDATE/DELETE
 import { AddResourceComponent } from "./resources/resources.component";
-import { AddCategoryComponent } from './resources/resources.component';
+import { AddCategoryComponent, UpdateCategoryComponent, ConfirmDeleteComponent } from './resources/resources.component';
 import { SnackbarComponent } from './snackbar.service';
+
+
 
 // SERVICES
 import { ResourceService} from './resource.service';
@@ -87,6 +89,12 @@ export class RavenErrorHandler implements ErrorHandler {
     AddCategoryComponent,
     AddResourceComponent,
 
+    // COMPONENTS: DELETE
+    ConfirmDeleteComponent,
+
+    // COMPONENTS: UPDATE
+    UpdateCategoryComponent,
+
     // SERVICES
     // ResourceService,
     ImageCropperComponent,
@@ -117,12 +125,12 @@ export class RavenErrorHandler implements ErrorHandler {
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // )
   ],
   providers: [{ provide: ErrorHandler, useClass: RavenErrorHandler }],
-  entryComponents:[ResourcesComponent, AddCategoryComponent,AddResourceComponent, SnackbarComponent],
+  entryComponents:[ResourcesComponent, AddCategoryComponent,AddResourceComponent, SnackbarComponent, UpdateCategoryComponent, ConfirmDeleteComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

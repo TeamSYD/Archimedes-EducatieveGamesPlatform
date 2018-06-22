@@ -1,32 +1,38 @@
 package com.restservice.archimedes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Table(name = "resources")
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
+@JsonIgnoreProperties(value = {"createdAt", "updatedAt","hibernateLazyInitializer", "handler"},
         allowGetters = true)
 public class Resource extends AuditModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
+    @Column(name = "name", unique = false, nullable = true, length = 255)
     private String name;
 
-    @NotBlank
-    private String type;
+    private ResourceType type;
 
-    @NotBlank
-    private String category;
+    @Column(nullable = true)
+    private String text_resource;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Category category;
+
+    @Column(name = "IMAGE_DATA", unique = false, nullable = true, length = 100000)
+    private byte[] image_data;
 
     public long getId() {
         return id;
@@ -44,19 +50,37 @@ public class Resource extends AuditModel implements Serializable {
         this.name = name;
     }
 
-    public String getType() {
+    @Enumerated(EnumType.ORDINAL)
+    public ResourceType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ResourceType type) {
         this.type = type;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
+
+    public byte[] getImage_data() {
+        return image_data;
+    }
+
+    public void setImage_Data(byte[] data) {
+        this.image_data = data;
+    }
+
+    public String getText_resource() {
+        return text_resource;
+    }
+
+    public void setText_resource(String text_resource) {
+        this.text_resource = text_resource;
+    }
+
 }

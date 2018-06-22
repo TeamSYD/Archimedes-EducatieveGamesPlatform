@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -27,33 +28,37 @@ public class AccountController {
     }
 
     // Get All Accounts with {accountType}
-    @GetMapping("/accounttypes/{accountTypeId}/accounts")
-    public Page<Account> getAllAccountsByAccountType(@PathVariable (value = "accountTypeId") Long accountTypeId, Pageable pageable) {
+    @GetMapping("/accounttypes/{accountTypeId}/account")
+    public Page<Account> getAllAccountsByAccountType(@PathVariable(value = "accountTypeId") long accountTypeId, Pageable pageable) {
         return accountRepository.findByAccountTypeId(accountTypeId, pageable);
     }
 
-    @GetMapping("/accounts")
+    @GetMapping("/account")
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
     }
 
     // Create a new Account
-    @PostMapping("/accounts")
+    @PostMapping("/account")
     public Account createAccount(@Valid @RequestBody Account account) {
+        long x = 1;
+        AccountType accounttype_id = accountTypeRepository.findById(x)
+                .orElseThrow(() -> new ResourceNotFoundException("AccountType", "id", x));
+        account.setAccountType(accounttype_id);
         return accountRepository.save(account);
     }
 
     // Get a Single Account
-    @GetMapping("/accounts/{id}")
-    public Account getAccountById(@PathVariable(value = "id") Long accountId) {
+    @GetMapping("/account/{id}")
+    public Account getAccountById(@PathVariable(value = "id") long accountId) {
         return accountRepository.findById(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", "id", accountId));
     }
 
     // Update a Account
-    @PutMapping("/accounttypes/{accountTypeId}/accounts/{id}")
-    public Account updateAccount(@PathVariable(value = "accountTypeId") Long accountTypeId,
-                                 @PathVariable(value = "id") Long accountId,
+    @PutMapping("/accounttypes/{accountTypeId}/account/{id}")
+    public Account updateAccount(@PathVariable(value = "accountTypeId") long accountTypeId,
+                                 @PathVariable(value = "id") long accountId,
                                  @Valid @RequestBody Account accountDetails) {
 
         if (!accountTypeRepository.existsById(accountTypeId)) {
@@ -67,8 +72,8 @@ public class AccountController {
     }
 
     // Delete a Account
-    @DeleteMapping("/accounts/{id}")
-    public ResponseEntity<?> deleteAccount(@PathVariable(value = "id") Long accountId) {
+    @DeleteMapping("/account/{id}")
+    public ResponseEntity<?> deleteAccount(@PathVariable(value = "id") long accountId) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", "id", accountId));
 
@@ -77,8 +82,8 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/accounttypes/{accountTypeId}/accounts")
-    public Account createAccount(@PathVariable(value = "accountTypeId") Long accountTypeId,
+    @PostMapping("/accounttypes/{accountTypeId}/account")
+    public Account createAccount(@PathVariable(value = "accountTypeId") long accountTypeId,
                                  @Valid @RequestBody Account account) {
 
         return accountTypeRepository.findById(accountTypeId).map(accountType -> {

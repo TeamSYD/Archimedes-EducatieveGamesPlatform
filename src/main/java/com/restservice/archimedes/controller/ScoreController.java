@@ -2,20 +2,14 @@ package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
 import com.restservice.archimedes.model.Score;
-import com.restservice.archimedes.model.Scoreboard;
 import com.restservice.archimedes.repository.ScoreRepository;
 import com.restservice.archimedes.repository.ScoreboardRepository;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -34,7 +28,7 @@ public class ScoreController {
 
     // Get All Scores by scoreboard
     @GetMapping("/scoreboard/{scoreboardId}/scores")
-    public Page<Score> getAllScoreByScoreboard(@PathVariable (value = "scoreboardId") Long scoreboardId, Pageable pageable) {
+    public Page<Score> getAllScoreByScoreboard(@PathVariable(value = "scoreboardId") long scoreboardId, Pageable pageable) {
         return scoreRepository.findByScoreboardId(scoreboardId, pageable);
     }
 
@@ -52,16 +46,16 @@ public class ScoreController {
 
     // Get a Single Score
     @GetMapping("/scores/{id}")
-    public Score getScoreById(@PathVariable(value = "id") Long scoreId) {
+    public Score getScoreById(@PathVariable(value = "id") long scoreId) {
         return scoreRepository.findById(scoreId)
                 .orElseThrow(() -> new ResourceNotFoundException("Score", "id", scoreId));
     }
 
     // Update a Score
     @PutMapping("scoreboard/{scoreboardId}/scores/{id}")
-    public Score updateScore(@PathVariable(value = "id") Long scoreId,
-                             @PathVariable(value = "scoreboardId") Long scoreboardId,
-                                 @Valid @RequestBody Score scoreDetails) {
+    public Score updateScore(@PathVariable(value = "id") long scoreId,
+                             @PathVariable(value = "scoreboardId") long scoreboardId,
+                             @Valid @RequestBody Score scoreDetails) {
 
         if (!scoreboardRepository.existsById(scoreboardId)) {
             throw new ResourceNotFoundException("Scoreboard", "id", scoreboardId);
@@ -78,7 +72,7 @@ public class ScoreController {
 
     // Delete a Score
     @DeleteMapping("/scores/{id}")
-    public ResponseEntity<?> deleteScore(@PathVariable(value = "id") Long scoreId) {
+    public ResponseEntity<?> deleteScore(@PathVariable(value = "id") long scoreId) {
         Score score = scoreRepository.findById(scoreId)
                 .orElseThrow(() -> new ResourceNotFoundException("Score", "id", scoreId));
 
