@@ -21,7 +21,7 @@
   <div class="row" style="height:100%; background-color: rgba(143,146,150,0)">
     <div class="col-md-12" id="testdiv" style="overflow-y:scroll; padding:0px;">
 
-      <img draggable *ngFor="let resource of resources" [dragData]="resource" src="data:image/jpg;base64,{{resource.image_data}}" class="rounded img-thumbnail imageStylingResourceBar">
+      <img draggable *ngFor="let resource of resources" [dragData]="resource" src="data:image/jpeg;base64,{{resource.image_data}}" class="rounded img-thumbnail imageStylingResourceBar">
 
     </div>
   </div>

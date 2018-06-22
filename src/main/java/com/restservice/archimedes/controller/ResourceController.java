@@ -8,6 +8,7 @@ import com.restservice.archimedes.model.UploadFileResponse;
 import com.restservice.archimedes.repository.CategoryRepository;
 import com.restservice.archimedes.repository.ResourceRepository;
 import com.restservice.archimedes.service.FileStorageService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -53,7 +55,13 @@ public class ResourceController {
     //Get all Images by Category ID
     @GetMapping("/resources/category/images/{categoryId}")
     public Page<Resource> getAllImagesByCategoryId(@PathVariable(value = "categoryId") long categoryId, Pageable pageable) {
-        return resourceRepository.findImagesByCategoryId(categoryId, pageable);
+        Page<Resource> pr = resourceRepository.findImagesByCategoryId(categoryId, pageable);
+        for (Resource resource: pr) {
+            resource.setImage_Data(Base64.getEncoder().encode(resource.getImage_data()));
+            resource.setImage_Data(Base64.getDecoder().decode(resource.getImage_data()));
+        }
+        System.out.println(pr.getContent());
+        return pr;
     }
 
     //Get all Texts by Category ID
@@ -71,10 +79,14 @@ public class ResourceController {
         Category category = categoryRepository.findById(category_id)
         .orElseThrow(() -> new ResourceNotFoundException("Category","name" ,category_id ));
 
+        JSONObject jsonObject = new JSONObject(file);
+
         Resource newUpload = new Resource();
         newUpload.setCategory(category);
         newUpload.setType(ResourceType.IMAGE);
-        newUpload.setImage_Data(Base64.getEncoder().encode(file.getBytes()));
+
+        newUpload.setImage_Data(Base64.getDecoder().decode(jsonObject.getString("file")));
+
         System.out.println("File succesfully uploaded and saved...............");
         return resourceRepository.save(newUpload);
     }

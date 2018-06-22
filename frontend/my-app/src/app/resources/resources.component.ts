@@ -195,8 +195,7 @@ export class ResourcesComponent implements OnInit {
       console.log('The dialog was closed');
       let image = result[0].split(',')[1];
 
-      console.log(image);
-      this.saveResource(image, result[1]);
+      this.saveResource((image), (result[1]));
       this.OpenSnackbarSucces("The image has succesfully been added.");
     });
   }
