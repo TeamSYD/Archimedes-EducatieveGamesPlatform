@@ -36,7 +36,7 @@ import { CarouselComponent, CarouselItemElement } from './carousel/carousel.comp
 import { ResourcesComponent } from './resources/resources.component';
 import { MessagesComponent } from './messages/messages.component';
 import { SetsComponent } from './sets/sets.component';
-
+import { SetRowComponent } from './set-row/set-row.component';
 
 // COMPONENTS: SEARCH
 import { CategorySearchComponent } from './category-search/category-search.component';
@@ -110,6 +110,8 @@ export class RavenErrorHandler implements ErrorHandler {
     SetsComponent,
 
     AddGameComponent,
+
+    SetRowComponent,
   ],
   imports: [
     // MODULES

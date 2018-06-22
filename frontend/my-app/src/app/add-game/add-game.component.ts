@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-add-game',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-game.component.css']
 })
 export class AddGameComponent implements OnInit {
+
+  @ViewChild('gameName') private gameName: ElementRef;
 
   selectedGame: string;
 

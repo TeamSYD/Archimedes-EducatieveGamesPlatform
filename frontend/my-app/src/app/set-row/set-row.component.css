@@ -1,0 +1,78 @@
+li {
+  display: inline-flex;
+  width: 8em;
+  height: 12em;
+  background-color: #FFFFFF;
+  margin: 5px 5px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  border: 1px solid grey;
+}
+
+p {
+  color: #939598;
+}
+
+li .removalbutton {
+  display: none;
+}
+
+li:hover .removalbutton {
+  display: block;
+}
+
+.dropzone{
+  color: #EBEBEB;
+  display: inline-flex;
+  width: 8em;
+  height: 12em;
+  background-color: #CCCCCC;
+  margin: 5px 5px;
+  border-radius: 13px;
+  border: 2px dashed #7B7B7B;
+}
+
+.removalicon {
+  width: 1em;
+  height: 1em;
+}
+
+.innercardbutton{
+  display: inline-flex;
+  justify-content: flex-end;
+  width: 100%;
+  position:absolute;
+}
+
+.innercardtext{
+  display: inline-flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin: auto;
+}
+
+.removalbutton{
+  width: 2em;
+  height: 2em;
+  background-color: grey;
+  border: none;
+  color: white;
+}
+
+p {
+  display: inline-flex;
+}
+
+.container{
+  /*overflow-x: scroll;*/
+  display: flex;
+  width: 100%;
+  background-color: #D7D8D9;
+  border: 2px solid #525e70;
+  flex-wrap: wrap;
+  border-radius: 6px;
+}
+
+.filler > .container{
+  background-color: green;
+}
