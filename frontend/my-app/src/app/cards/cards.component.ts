@@ -21,14 +21,14 @@ export class CardsComponent implements OnInit {
       .subscribe(cards => this.cards = cards);
   }
 
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.cardService.addCard({ name } as Card)
-      .subscribe(card => {
-        this.cards.push(card);
-      });
-  }
+  // add(name: string): void {
+  //   name = name.trim();
+  //   if (!name) { return; }
+  //   //this.cardService.addCard({ name } as Card)
+  //     .subscribe(card => {
+  //       this.cards.push(card);
+  //     });
+  // }
 
   delete(card: Card): void {
     this.cards = this.cards.filter(c => c !== card);

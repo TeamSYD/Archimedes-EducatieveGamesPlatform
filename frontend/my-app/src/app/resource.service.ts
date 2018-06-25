@@ -39,7 +39,6 @@ export class ResourceService {
   }
 
   saveResourceText (text_resource: String): Observable<Resource> {
-    console.log(text_resource)
     return this.http.post<Resource>('http://localhost:8080/api/resources/save_text', "{'text_resource':"+text_resource+"}", httpOptions).pipe(
       tap((resource: Resource) => this.log("added text resource w/ id=${resource.id}")),
       catchError(this.handleError<Resource>('addResource'))

@@ -18,6 +18,7 @@ export class CardEditorDetailComponent implements OnInit {
   resources: Resource[];
   card: Card;
 
+  cards = [];
   droppedBackcard = [];
   droppedFrontcard = [];
   frontText: String;
@@ -26,36 +27,44 @@ export class CardEditorDetailComponent implements OnInit {
   showFront = false;
   frontValue: string = 'Text';
   backValue: string = 'Text';
+  finalFrontId: number;
+  finalBackId: number;
 
   constructor(private resourceService: ResourceService,
               private cardService: CardService,
-              private route: ActivatedRoute,
               private location: Location)
   {}
 
   ngOnInit(): void {
   }
 
-  saveCard(text_resource: String): void {
+  saveNewCard(): void {
+
     if(this.frontText != undefined){
       this.resourceService.saveResourceText(this.frontText).subscribe(resource => {
-        this.resources.push(resource);
+        this.finalFrontId = resource.id;
       });
+      this.showFront = false;
     }
 
     if (this.backText != undefined) {
       this.resourceService.saveResourceText(this.backText).subscribe(resource => {
-        this.resources.push(resource);
+        this.finalBackId = resource.id;
       });
+      this.showBack = false;
     }
 
-    if (this.droppedFrontcard != []){
-
+    if (this.droppedFrontcard[0] != undefined){
+      this.finalFrontId = this.droppedFrontcard[0].id;
     }
 
-    if (this.droppedBackcard != []){
-
+    if (this.droppedBackcard[0] != undefined){
+      this.finalBackId = this.droppedBackcard[0].id;
     }
+
+    this.cardService.saveCard(this.finalFrontId, this.finalBackId).subscribe(card => {
+      this.cards.push(card);
+    });
 
     this.frontText = undefined;
     this.backText = undefined;
