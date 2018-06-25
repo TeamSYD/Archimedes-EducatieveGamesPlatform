@@ -10,17 +10,6 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class GameService {
 
-
-
-
-  /** POST: add a new game to the server */
-  addGame (game: Game): Observable<Game> {
-    return this.http.post<Game>(this.heroesUrl, game, httpOptions).pipe(
-      tap((game: Game) => this.log(`added hero w/ id=${game.id}`)),
-      catchError(this.handleError<Game>('addGame'))
-    );
-  }
-
   constructor(private messageService: MessageService,
               private http: HttpClient,) { }
 }
