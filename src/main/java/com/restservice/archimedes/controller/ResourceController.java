@@ -8,6 +8,7 @@ import com.restservice.archimedes.model.UploadFileResponse;
 import com.restservice.archimedes.repository.CategoryRepository;
 import com.restservice.archimedes.repository.ResourceRepository;
 import com.restservice.archimedes.service.FileStorageService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -80,19 +81,15 @@ public class ResourceController {
     }
 
     // Create a new Resource
-    @PostMapping(value = "/resources/save_text/{category_id}")
+    @PostMapping(value = "/resources/save_text")
     public Resource AddText(
-            @RequestParam("text_resource") String text_resource,
-            @PathVariable(value = "category_id") long category_id) throws IOException {
+            @RequestBody String text_resource){
 
-        Category category = categoryRepository.findById(category_id)
-                .orElseThrow(() -> new ResourceNotFoundException("Category","name" ,category_id ));
-
+        JSONObject jsonObject = new JSONObject(text_resource);
         Resource resource = new Resource();
-        resource.setCategory(category);
         resource.setName("");
         resource.setType(ResourceType.TEXT);
-        resource.setText_resource(text_resource);
+        resource.setText_resource(jsonObject.getString("text_resource"));
         return resourceRepository.save(resource);
     }
 

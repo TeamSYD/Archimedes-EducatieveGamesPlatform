@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { DropEvent } from 'ng-drag-drop';
@@ -15,13 +15,13 @@ import { Card } from '../cards/card';
 })
 
 export class CardEditorDetailComponent implements OnInit {
-  resource: Resource[];
+  resources: Resource[];
   card: Card;
 
   droppedBackcard = [];
   droppedFrontcard = [];
-  @ViewChild('frontText') private frontText: ElementRef;
-  @ViewChild('backText') private backText: ElementRef;
+  frontText: String;
+  backText: String;
   showBack = false;
   showFront = false;
   frontValue: string = 'Text';
@@ -34,22 +34,41 @@ export class CardEditorDetailComponent implements OnInit {
   {}
 
   ngOnInit(): void {
-    this.getResource();
-  }
-
-  getResource(): void {
-    this.resourceService.getResource()
-      .subscribe(resource => this.resource = resource);
   }
 
   saveCard(text_resource: String): void {
-    console.log(this.frontText.nativeElement.innerHTML);
-    console.log(this.backText.nativeElement.innerHTML);
-    this.resourceService.saveResourceText(text_resource)
-      .subscribe(resource => {
-        this.resource.push(this.frontText.nativeElement.innerHTML);
-        this.resource.push(this.backText.nativeElement.innerHTML);
+    if(this.frontText != undefined){
+      this.resourceService.saveResourceText(this.frontText).subscribe(resource => {
+        this.resources.push(resource);
       });
+    }
+
+    if (this.backText != undefined) {
+      this.resourceService.saveResourceText(this.backText).subscribe(resource => {
+        this.resources.push(resource);
+      });
+    }
+
+    if (this.droppedFrontcard != []){
+
+    }
+
+    if (this.droppedBackcard != []){
+
+    }
+
+    this.frontText = undefined;
+    this.backText = undefined;
+    this.droppedFrontcard.splice(0,1);
+    this.droppedBackcard.splice(0,1);
+  }
+
+  onKeyf(e){
+    this.frontText = e.target.value;
+  }
+
+  onKeyb(e){
+    this.backText = e.target.value;
   }
 
   goBack(): void {
