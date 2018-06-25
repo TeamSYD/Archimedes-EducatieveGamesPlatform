@@ -31,10 +31,6 @@ public class Game extends AuditModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Account account;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rule_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Rule rule;
 
 
     public String getName() {

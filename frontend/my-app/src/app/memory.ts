@@ -1,5 +1,5 @@
 export class memory {
   id: number;
-  boolean: duplicates;
-  boolean: inverted;
+  duplicates: boolean;
+  inverted: boolean;
 }
