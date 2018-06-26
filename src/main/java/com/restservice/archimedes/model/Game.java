@@ -32,6 +32,7 @@ public class Game extends AuditModel implements Serializable {
     private Account account;
 
 
+
     public String getName() {
         return name;
     }

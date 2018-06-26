@@ -50,6 +50,7 @@ div.scroll-list {
 
 .imageStylingResourceBar{
   max-width: 50%;
+  min-width: 33%;
 
 }
 

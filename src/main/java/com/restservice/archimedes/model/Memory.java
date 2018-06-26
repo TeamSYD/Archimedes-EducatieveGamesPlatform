@@ -12,22 +12,12 @@ import java.io.Serializable;
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Memory extends Rule implements Serializable {
-    @NotBlank
-    private int setSize;
 
     @NotBlank
     private Boolean duplicates;
 
     @NotBlank
     private Boolean inverted;
-
-    public int getSetSize() {
-        return setSize;
-    }
-
-    public void setSetSize(int setSize) {
-        this.setSize = setSize;
-    }
 
     public Boolean getDuplicates() {
         return duplicates;

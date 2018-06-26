@@ -52,7 +52,6 @@ public class MemoryController {
         memory.setId(memoryDetails.getId());
         memory.setDuplicates(memoryDetails.getDuplicates());
         memory.setInverted(memoryDetails.getInverted());
-        memory.setSetSize(memoryDetails.getSetSize());
         memory.setMaxCards(memoryDetails.getMaxCards());
         memory.setMinCards(memoryDetails.getMinCards());
 
