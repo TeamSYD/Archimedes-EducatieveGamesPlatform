@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "cards")
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
+@JsonIgnoreProperties(value = {"createdAt", "updatedAt","hibernateLazyInitializer", "handler"},
         allowGetters = true)
 public class Card extends AuditModel implements Serializable {
 
@@ -19,21 +19,21 @@ public class Card extends AuditModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
+
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "openface_side_id", nullable = false)
+    @JoinColumn(name = "openface_side_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Resource openface_side;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "closedface_side_id", nullable = false)
+    @JoinColumn(name = "closedface_side_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Resource closedface_side;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id", nullable = false)
+    @JoinColumn(name = "game_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Game game;
 

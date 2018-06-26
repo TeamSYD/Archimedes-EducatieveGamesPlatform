@@ -6,10 +6,6 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Resource } from './resource';
 import { MessageService } from './message.service';
-import {Category} from "./Category";
-import 'rxjs/add/operator/map';
-
-
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -27,18 +23,24 @@ export class ResourceService {
     private messageService: MessageService) { }
 
   getResource (): Observable<Resource[]> {
-    return this.http.get<Resource[]>('http://localhost:8080/api/resources')
-        .map(result => {
+    return this.http.get<Resource[]>('http://localhost:8080/api/resources').pipe(
+        map(result => {
           const items = <any[]>result; // could be SomeItem[] instead of any[]
           items.forEach(item => item.image_data = atob(item.image_data));
           return items;
-        });
-      ;
+        }));
   }
 
   saveResource (image_data: ByteString, catID : number): Observable<Resource> {
     return this.http.post<Resource>('http://localhost:8080/api/resources/save_image/'+catID, "{'file':'"+image_data+"'}", httpOptions).pipe(
       tap((resource: Resource) => this.log(`added resource w/ id=${resource.id}`)),
+      catchError(this.handleError<Resource>('addResource'))
+    );
+  }
+
+  saveResourceText (text_resource: String): Observable<Resource> {
+    return this.http.post<Resource>('http://localhost:8080/api/resources/save_text', "{'text_resource':"+text_resource+"}", httpOptions).pipe(
+      tap((resource: Resource) => this.log("added text resource w/ id=${resource.id}")),
       catchError(this.handleError<Resource>('addResource'))
     );
   }
@@ -63,14 +65,13 @@ export class ResourceService {
   }
 
   getResourceById<Data>(id: number): Observable<Resource[]> {
-    console.log('http://localhost:8080/api/resources/category/images/' +  id)
+    console.log('http://localhost:8080/api/resources/category/images/' +  id);
     return this.http.get<Resource[]>('http://localhost:8080/api/resources/category/images/' +  id)
       .pipe(
         map(res => <Resource[]>res['content']),
         tap(h => {
           const outcome = h ? `fetched` : `did not find`;
           this.log(`${outcome} resource id=${id}`);
-          console.log(h);
         }),
         catchError(this.handleError<Resource[]>(`getResource id=${id}`))
       );

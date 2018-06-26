@@ -12,12 +12,15 @@
       <div class="col-md-12 front-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'" (onDrop)="onFrontDrop($event)">
         <div class="col-md-12 card-image">
           <img *ngFor="let item of droppedFrontcard" src="data:image/jpeg;base64,{{item.image_data}}" class="rounded img-thumbnail">
-          <textarea rows="5" *ngIf="showFront"></textarea>
+          <textarea id="textarea1"  type="text" (keyup)="onKeyf($event)" *ngIf="showFront"></textarea>
           <div class="text-style" style="padding-top: 10px">
             <input type="submit" id="frontText" (click)="onFrontText()" value="{{frontValue}}" class="btn btn-primary">
           </div>
         </div>
       </div>
+
+
+
 
 
     </div>
@@ -29,7 +32,7 @@
       <div class="col-md-12 back-card" droppable [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-apply'" (onDrop)="onBackDrop($event)">
         <div class="col-md-12 card-image">
           <img *ngFor="let item of droppedBackcard" src="data:image/jpeg;base64,{{item.image_data}}" class="rounded img-thumbnail">
-          <textarea rows="5" *ngIf="showBack"></textarea>
+          <textarea id="textarea2" type="text" (keyup)="onKeyb($event)" *ngIf="showBack"></textarea>
           <div class="text-style" style="padding-top: 10px">
             <input type="submit" id="backText" (click)="onBackText()" value="{{backValue}}" class="btn btn-primary">
           </div>
@@ -52,15 +55,15 @@
       <input type="button" id="back" (click)="goBack()" value="Terug naar game editor" class="btn btn-primary">
     </div>
 
-<div class="col-md-6"></div>
+    <div class="col-md-6"></div>
 
-<div class="col-md-2 button-padding">
-  <input type="submit" id="submitCard" value="Opslaan en nieuwe kaart" class="btn btn-primary">
-</div>
+    <div class="col-md-2 button-padding">
+      <input type="submit" id="submitCard" (click)="saveNewCard()" value="Opslaan en nieuwe kaart" class="btn btn-primary">
+    </div>
 
-<div class="col-md-1"></div>
+    <div class="col-md-1"></div>
 
-</div>
+  </div>
 
 </div>
 

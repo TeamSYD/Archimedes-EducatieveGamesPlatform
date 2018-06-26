@@ -80,14 +80,12 @@ export class CardService {
     );
   }
 
-  saveCard (card: Card): Observable<Card> {
-    return this.http.post<Card>(this.cardsUrl, card, httpOptions).pipe(
-      tap((card: Card) => this.log(`added card w/ id=${card.id}`)),
-      catchError(this.handleError<Card>('addCard'))
+  saveCard (closedface_side_id: number, openface_side_id: number): Observable<Card> {
+    return this.http.post<Card>('http://localhost:8080/api/games/1/cards', "{'closedface_side_id':"+closedface_side_id+",'openface_side_id':"+openface_side_id+"}", httpOptions).pipe(
+      tap((card: Card) => this.log("added card w/ id=${card.id}")),
+      catchError(this.handleError<Card>('saveFrontCard'))
     );
   }
-
-
 
   /** DELETE: delete the card from the server */
   deleteCard (card: Card | number): Observable<Card> {

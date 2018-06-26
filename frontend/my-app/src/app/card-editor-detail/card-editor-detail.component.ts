@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { DropEvent } from 'ng-drag-drop';
@@ -7,7 +7,6 @@ import { ResourceService } from '../resource.service';
 import { Resource } from '../resource';
 import { CardService } from '../card.service';
 import { Card } from '../cards/card';
-import {variable} from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: 'app-card-editor-detail',
@@ -16,36 +15,69 @@ import {variable} from "@angular/compiler/src/output/output_ast";
 })
 
 export class CardEditorDetailComponent implements OnInit {
-  resource: Resource[] = [];
+  resources: Resource[];
   card: Card;
 
+  cards = [];
   droppedBackcard = [];
   droppedFrontcard = [];
-  textBackCard: string;
-  textFrontCard: string;
+  frontText: String;
+  backText: String;
   showBack = false;
   showFront = false;
   frontValue: string = 'Text';
   backValue: string = 'Text';
+  finalFrontId: number;
+  finalBackId: number;
 
   constructor(private resourceService: ResourceService,
               private cardService: CardService,
-              private route: ActivatedRoute,
               private location: Location)
   {}
 
   ngOnInit(): void {
-    this.getResource();
   }
 
-  getResource(): void {
-    this.resourceService.getResource()
-      .subscribe(resource => this.resource = resource);
+  saveNewCard(): void {
+
+    if(this.frontText != undefined){
+      this.resourceService.saveResourceText(this.frontText).subscribe(resource => {
+        this.finalFrontId = resource.id;
+      });
+      this.showFront = false;
+    }
+
+    if (this.backText != undefined) {
+      this.resourceService.saveResourceText(this.backText).subscribe(resource => {
+        this.finalBackId = resource.id;
+      });
+      this.showBack = false;
+    }
+
+    if (this.droppedFrontcard[0] != undefined){
+      this.finalFrontId = this.droppedFrontcard[0].id;
+    }
+
+    if (this.droppedBackcard[0] != undefined){
+      this.finalBackId = this.droppedBackcard[0].id;
+    }
+
+    this.cardService.saveCard(this.finalFrontId, this.finalBackId).subscribe(card => {
+      this.cards.push(card);
+    });
+
+    this.frontText = undefined;
+    this.backText = undefined;
+    this.droppedFrontcard.splice(0,1);
+    this.droppedBackcard.splice(0,1);
   }
 
-  saveCard(): void {
-    this.cardService.addCard(this.card)
-      .subscribe(() => this.goBack());
+  onKeyf(e){
+    this.frontText = e.target.value;
+  }
+
+  onKeyb(e){
+    this.backText = e.target.value;
   }
 
   goBack(): void {
