@@ -46,11 +46,12 @@ public class CardController {
     @PostMapping("/games/{game_id}/cards")
     public Card createCardsByGameId(@RequestBody String json,
                                     @PathVariable(value = "game_id") long gameId) {
-        System.out.println(json);
+
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new ResourceNotFoundException("Game", "id", gameId));
+
         JSONObject jsonObject = new JSONObject(json);
-        System.out.println(jsonObject.toString());
+
         Resource resource_open = resourceRepository.findById(jsonObject.getLong("openface_side_id"))
                 .orElseThrow(() -> new ResourceNotFoundException("Resource:: resource_open", "id", gameId));
 
