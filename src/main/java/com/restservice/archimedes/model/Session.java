@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -15,11 +17,8 @@ public class Session extends AuditModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
+    @NotNull
     private int PIN;
-
-    @NotBlank
-    private int lifeTime;
 
     public long getId() {
         return id;
@@ -37,11 +36,4 @@ public class Session extends AuditModel implements Serializable {
         this.PIN = PIN;
     }
 
-    public int getLifeTime() {
-        return lifeTime;
-    }
-
-    public void setLifeTime(int lifeTime) {
-        this.lifeTime = lifeTime;
-    }
 }
