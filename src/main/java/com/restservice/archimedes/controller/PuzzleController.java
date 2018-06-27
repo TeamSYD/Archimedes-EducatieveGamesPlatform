@@ -12,6 +12,7 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class PuzzleController {
 
@@ -49,7 +50,6 @@ public class PuzzleController {
                 .orElseThrow(() -> new ResourceNotFoundException("Puzzle", "id", puzzleId));
 
         puzzle.setId(puzzleDetails.getId());
-        puzzle.setFillerAmount(puzzleDetails.getFillerAmount());
         puzzle.setCardOrder(puzzleDetails.getCardOrder());
         puzzle.setMaxCards(puzzleDetails.getMaxCards());
         puzzle.setMinCards(puzzleDetails.getMinCards());
