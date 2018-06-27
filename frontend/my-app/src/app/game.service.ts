@@ -5,6 +5,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Memory } from './Memory'
 import {MessageService} from "./message.service";
 import {Game} from "./game";
+import {Puzzle} from "./Puzzle";
+import {Session} from "./session";
 
 
 const httpOptions = {
@@ -24,6 +26,14 @@ export class GameService {
     );
   }
 
+  /** POST: add a new puzzle game to the server */
+  addPuzzle (card_order: boolean): Observable<Puzzle> {
+    return this.http.post<Puzzle>('http://localhost:8080/api/puzzle', "{\"cardOrder\":"+card_order+"}", httpOptions).pipe(
+      tap((puzzle: Puzzle) => console.log(`added puzzle w/ id=${puzzle.id}`)),
+      catchError(this.handleError<Puzzle>('addPuzzle'))
+    );
+  }
+
 
   /** POST: add a new game game to the server */
   //TODO: add accountId to save Game with correct account
@@ -34,7 +44,12 @@ export class GameService {
     );
   }
 
-
+  addSession (pin:number): Observable<Session>{
+    return this.http.post<Session>('http://localhost:8080/api/sessions', "{'PIN':" + pin + "}", httpOptions).pipe(
+      tap((session: Session) => console.log(`added session w/ id=${session.id}`)),
+      catchError(this.handleError<Session>('addSession'))
+    );
+  }
 
 
   private log(message: string) {

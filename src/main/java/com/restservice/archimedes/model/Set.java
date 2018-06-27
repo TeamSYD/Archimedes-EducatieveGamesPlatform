@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
@@ -22,6 +23,9 @@ public class Set extends AuditModel implements Serializable {
     @NotBlank
     private int set_id;
 
+    @NotNull
+    private boolean filler;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "card_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -31,6 +35,14 @@ public class Set extends AuditModel implements Serializable {
     @JoinColumn(name = "game_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Game game;
+
+    public boolean isFiller() {
+        return filler;
+    }
+
+    public void setFiller(boolean filler) {
+        this.filler = filler;
+    }
 
     public long getId() {
         return id;
