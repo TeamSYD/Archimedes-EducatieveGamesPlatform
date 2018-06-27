@@ -13,6 +13,7 @@ import {GameEditorSetsComponent} from "./game-editor-sets/game-editor-sets.compo
 import {AddGameComponent} from "./add-game/add-game.component";
 
 
+
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent},

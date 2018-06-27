@@ -8,9 +8,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AppRoutingModule } from './app-routing.module';
-import { MatButtonModule, MAT_DIALOG_DEFAULT_OPTIONS,MatSnackBarModule, MatDialogModule, MatInputModule, MatGridListModule,MatSlideToggleModule, MatCardModule, MatSelectModule} from '@angular/material';
+import { MatButtonModule, MatSliderModule, MAT_DIALOG_DEFAULT_OPTIONS,MatSnackBarModule, MatDialogModule, MatInputModule, MatGridListModule,MatSlideToggleModule, MatCardModule, MatSelectModule} from '@angular/material';
 import { ImageCropperComponent, CropperSettings } from "ngx-img-cropper";
 import * as Raven from 'raven-js';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 
 
 
@@ -55,6 +56,7 @@ import { ResourceService} from './resource.service';
 
 // DIRECTIVES
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
+
 
 
 Raven
@@ -111,8 +113,8 @@ export class RavenErrorHandler implements ErrorHandler {
 
     SetsComponent,
 
-
     SetRowComponent,
+
   ],
   imports: [
     // MODULES
@@ -131,6 +133,7 @@ export class RavenErrorHandler implements ErrorHandler {
     MatCardModule,
     MatSelectModule,
     MatButtonModule,
+    MatSliderModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.

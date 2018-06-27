@@ -1,18 +1,20 @@
 <mat-card>
   <mat-card-content>
-<form class="example-form" style="padding-left: 20px;">
-  <mat-form-field class="example-full-width">
-    <input matInput #name placeholder="Game name" (keyup)="onKey($event)">
-  </mat-form-field>
+    <form class="example-form" style="padding-left: 20px;">
+      <mat-form-field class="example-full-width" style="padding-bottom: 20px;">
+        <input matInput placeholder="Game name" (keyup)="onKey($event)">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" style="width: 50%;">
+        <input matInput type="number" placeholder="Game duration (in seconds)" (change)="durationValue($event)" min="0" max="600">
+      </mat-form-field>
+    </form>
 
-</form>
+    <select #selectedGame class="form-control" (change)="log($event)">
+      <option selected disabled>Choose a game</option>
+      <option value="Memory">Memory</option>
+      <option value="Puzzle">Puzzle</option>
 
-  <select #selectedGame class="form-control" (change)="log($event)">
-    <option  selected disabled>Choose a game</option>
-    <option value="Memory">Memory</option>
-    <option value="Puzzle">Puzzle</option>
-
-  </select>
+    </select>
 
   </mat-card-content>
 </mat-card>

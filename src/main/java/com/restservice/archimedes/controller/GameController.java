@@ -4,9 +4,11 @@ import com.restservice.archimedes.exception.ResourceNotFoundException;
 import com.restservice.archimedes.model.Account;
 import com.restservice.archimedes.model.Card;
 import com.restservice.archimedes.model.Game;
+import com.restservice.archimedes.model.Rule;
 import com.restservice.archimedes.repository.AccountRepository;
 import com.restservice.archimedes.repository.CardRepository;
 import com.restservice.archimedes.repository.GameRepository;
+import com.restservice.archimedes.repository.RuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,18 +19,21 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class GameController {
 
     private final GameRepository gameRepository;
     private final CardRepository cardRepository;
     private final AccountRepository accountRepository;
+    private final RuleRepository ruleRepository;
 
     @Autowired
-    public GameController(GameRepository gameRepository, CardRepository cardRepository, AccountRepository accountRepository) {
+    public GameController(GameRepository gameRepository, CardRepository cardRepository, AccountRepository accountRepository, RuleRepository ruleRepository) {
         this.gameRepository = gameRepository;
         this.cardRepository = cardRepository;
         this.accountRepository = accountRepository;
+        this.ruleRepository = ruleRepository;
     }
 
     // Get All Games
@@ -38,14 +43,20 @@ public class GameController {
     }
 
     // Create a new Game
-    @PostMapping("/games/{acc_id}")
+    @PostMapping("/games/{acc_id}/{rule_id}")
     public Game createGame(@Valid @RequestBody Game game,
-                           @PathVariable(value = "acc_id") long accountId)
+                           @PathVariable(value = "acc_id") long accountId,
+                           @PathVariable(value = "rule_id") long ruleId)
     {
         Account account =  accountRepository.findById(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", "id", accountId));
 
+        Rule rule =  ruleRepository.findById(ruleId)
+                .orElseThrow(() -> new ResourceNotFoundException("Rule", "id", ruleId));
+
+
         game.setAccount(account);
+        game.setRule(rule);
         System.out.println(account.getUsername());
         return gameRepository.save(game);
     }

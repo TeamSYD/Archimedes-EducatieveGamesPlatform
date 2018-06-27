@@ -2,48 +2,44 @@ package com.restservice.archimedes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Rule extends AuditModel implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private long ruleId;
 
-    @NotBlank
-    private String maxCards;
+    private long maxCards= 100;
 
-    @NotBlank
-    private String minCards;
+    private long minCards = 0;
 
     public long getId() {
-        return id;
+        return ruleId;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.ruleId = id;
     }
 
-    public String getMaxCards() {
+    public long getMaxCards() {
         return maxCards;
     }
 
-    public void setMaxCards(String maxCards) {
+    public void setMaxCards(Long maxCards) {
         this.maxCards = maxCards;
     }
 
-    public String getMinCards() {
+    public long getMinCards() {
         return minCards;
     }
 
-    public void setMinCards(String minCards) {
+    public void setMinCards(Long minCards) {
         this.minCards = minCards;
     }
 }

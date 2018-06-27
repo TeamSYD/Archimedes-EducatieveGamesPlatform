@@ -1,12 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
 import { DropEvent } from 'ng-drag-drop';
-
+import {SnackbarService} from "../snackbar.service";
 import { ResourceService } from '../resource.service';
-import { Resource } from '../resource';
 import { CardService } from '../card.service';
-import { Card } from '../cards/card';
 
 @Component({
   selector: 'app-card-editor-detail',
@@ -15,8 +12,6 @@ import { Card } from '../cards/card';
 })
 
 export class CardEditorDetailComponent implements OnInit {
-  resources: Resource[];
-  card: Card;
 
   cards = [];
   droppedBackcard = [];
@@ -32,26 +27,25 @@ export class CardEditorDetailComponent implements OnInit {
 
   constructor(private resourceService: ResourceService,
               private cardService: CardService,
-              private location: Location)
+              private location: Location,
+              private snackbarService: SnackbarService)
   {}
 
   ngOnInit(): void {
   }
 
-  saveNewCard(): void {
+  saveNewText() : void {
 
     if(this.frontText != undefined){
       this.resourceService.saveResourceText(this.frontText).subscribe(resource => {
         this.finalFrontId = resource.id;
       });
-      this.showFront = false;
     }
 
     if (this.backText != undefined) {
       this.resourceService.saveResourceText(this.backText).subscribe(resource => {
         this.finalBackId = resource.id;
       });
-      this.showBack = false;
     }
 
     if (this.droppedFrontcard[0] != undefined){
@@ -61,15 +55,25 @@ export class CardEditorDetailComponent implements OnInit {
     if (this.droppedBackcard[0] != undefined){
       this.finalBackId = this.droppedBackcard[0].id;
     }
+  }
+
+  saveNewCard(): void {
+
+    this.saveNewText();
 
     this.cardService.saveCard(this.finalFrontId, this.finalBackId).subscribe(card => {
       this.cards.push(card);
     });
 
+    this.showFront = false;
+    this.showBack = false;
     this.frontText = undefined;
     this.backText = undefined;
     this.droppedFrontcard.splice(0,1);
     this.droppedBackcard.splice(0,1);
+
+    this.finalFrontId = 0;
+    this.finalBackId = 0;
   }
 
   onKeyf(e){
@@ -124,6 +128,14 @@ export class CardEditorDetailComponent implements OnInit {
     } else {
       this.backValue = 'Text';
     }
+  }
+
+  OpenSnackBarError(text: String) {
+    this.snackbarService.ErrorSnackBar(text);
+  }
+
+  OpenSnackbarSucces(text: String) {
+    this.snackbarService.SuccesSnackBar(text);
   }
 
 }
