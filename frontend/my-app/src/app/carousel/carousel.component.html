@@ -7,7 +7,7 @@
   <div class="carousel-container" #carouselcontainer>
   <ul class="carousel-list" #carousel>
 
-    <li *ngFor="let card of cards" class="card-list-item" #cardlistitem>
+    <li *ngFor="let card of cards$ | async" class="card-list-item" #cardlistitem>
       <div [dragScope]="'newcard'" draggable [dragData]="card" class="card">
       <ng-container [ngTemplateOutlet]="card.tpl">
 
