@@ -2,13 +2,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // TODO: Ngmodule wordt niet gebruikt, dependency checken.
-import {ErrorHandler, NgModule} from '@angular/core';
+import {ErrorHandler, NgModule, EventEmitter} from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AppRoutingModule } from './app-routing.module';
-import { MatButtonModule, MatSliderModule, MAT_DIALOG_DEFAULT_OPTIONS,MatSnackBarModule, MatDialogModule, MatInputModule, MatGridListModule,MatSlideToggleModule, MatCardModule, MatSelectModule} from '@angular/material';
+import { MatTableModule, MatButtonModule, MatSliderModule, MatCheckboxChange, MatCheckboxModule,  MAT_DIALOG_DEFAULT_OPTIONS,MatSnackBarModule, MatDialogModule, MatInputModule, MatGridListModule,MatSlideToggleModule, MatCardModule, MatSelectModule} from '@angular/material';
 import { ImageCropperComponent, CropperSettings } from "ngx-img-cropper";
 import * as Raven from 'raven-js';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
@@ -38,12 +38,13 @@ import { ResourcesComponent } from './resources/resources.component';
 import { MessagesComponent } from './messages/messages.component';
 import { SetsComponent } from './sets/sets.component';
 import { SetRowComponent } from './set-row/set-row.component';
+import {MaintainGameComponent} from "./maintain-game/maintain-game.component";
 
 // COMPONENTS: SEARCH
 import { CategorySearchComponent } from './category-search/category-search.component';
 import { CardSearchComponent } from './card-search/card-search.component';
 
-// COMPONENTS: ADD/UPDATE/DELETE
+// COMPONENTS: ADD/UPDATE/ELETE
 import { AddResourceComponent } from "./resources/resources.component";
 import { AddCategoryComponent, UpdateCategoryComponent, ConfirmDeleteComponent } from './resources/resources.component';
 import { SnackbarComponent } from './snackbar.service';
@@ -115,6 +116,8 @@ export class RavenErrorHandler implements ErrorHandler {
 
     SetRowComponent,
 
+    MaintainGameComponent,
+
   ],
   imports: [
     // MODULES
@@ -134,6 +137,10 @@ export class RavenErrorHandler implements ErrorHandler {
     MatSelectModule,
     MatButtonModule,
     MatSliderModule,
+    MatCheckboxModule,
+
+
+
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
