@@ -4,8 +4,8 @@
       <button (click)="remove(i)" class="removalbutton"><i class="fa fa-minus-circle removalicon"></i></button>
     </div>
     <div class="innercardtext">
-      <p>{{card.id}}</p>
-      <p>{{i}}</p>
+      <img *ngIf='card.openface_side.type == "IMAGE"' src="data:image/jpeg;base64,{{card.openface_side.image_data}}" class="image_resource">
+      <p *ngIf='card.openface_side.type == "TEXT"' class="text_resource">{{card.openface_side.text_resource}}</p>
     </div>
   </li>
   <div class="dropzone" droppable [dropScope]="'newcard'" [dragHintClass]="'drag-hint'" [dragOverClass]="'drag-target-border'" (onDrop)="onDrop($event)">

@@ -17,6 +17,7 @@ import { animate, AnimationBuilder, AnimationFactory, AnimationPlayer, style } f
 import { Card } from '../cards/card'
 import { CardService } from "../card.service";
 import { Renderer2} from "@angular/core";
+import {Observable} from "rxjs/Rx";
 
 @Directive({
   selector: '.carousel-item'
@@ -32,7 +33,7 @@ export class CarouselItemElement {
 })
 
 export class CarouselComponent implements AfterViewInit {
-  cards: Card[] = [];
+  cards: Observable<Card[]>;
   @ContentChildren(CarouselItemDirective) items : QueryList<CarouselItemDirective>;
   @ViewChildren(CarouselItemElement, { read: ElementRef }) private itemsElements : QueryList<ElementRef>;
   @ViewChildren('cardlistitem') cardListItem: QueryList<ElementRef>;
@@ -42,8 +43,6 @@ export class CarouselComponent implements AfterViewInit {
   @Input() showControls = true;
   private player : AnimationPlayer;
   private currentSlide = 0;
-  // TODO: Unused carouselWrapperStyle, scrap perhaps?
-  carouselWrapperStyle = {};
   private carouselCap = 6;
   private carouselWidth;
   private arraySize = null;
@@ -54,13 +53,16 @@ export class CarouselComponent implements AfterViewInit {
   }
 
   getCards(): void {
-    this.cardService.getCards()
-      .subscribe(cards => {
-        this.log();
-        this.arraySize = cards.length-(this.carouselCap-1);
-        this.resizeColumns();
-        this.cards = cards;
-      });
+    //this.cardService.getCards()
+
+      //.subscribe(cards => {
+        //this.log();
+        //this.arraySize = cards.length-(this.carouselCap-1);
+        //this.resizeColumns();
+        //this.cards = cards;
+        //console.log(cards);
+        //console.log(cards[0].openface_side.type);
+      //});
   }
 
   setCarouselCap(amount : number) {
@@ -68,7 +70,7 @@ export class CarouselComponent implements AfterViewInit {
   }
 
   updateArraySize(){
-    this.arraySize = this.cards.length-(this.carouselCap-1);
+    //this.arraySize = this.cards.length-(this.carouselCap-1);
   }
 
   updateCarouselWidth(){
@@ -79,6 +81,7 @@ export class CarouselComponent implements AfterViewInit {
     this.itemWidth = this.carouselWidth / this.carouselCap;
   }
 
+  /*
   @HostListener('window:resize', ['$event'])
   resizeColumns() {
     this.updateCarouselWidth();
@@ -91,6 +94,7 @@ export class CarouselComponent implements AfterViewInit {
       );
     });
   }
+  */
 
   /*
   updateItemWidth(){
@@ -110,10 +114,10 @@ export class CarouselComponent implements AfterViewInit {
   }
 
   next() {
-    if(this.arraySize != this.cards.length-this.carouselCap){
-      this.updateArraySize();
-    }
-    this.resizeColumns();
+    //if(this.arraySize != this.cards.length-this.carouselCap){
+    //  this.updateArraySize();
+    //}
+    //this.resizeColumns();
 
     if( this.currentSlide + 1 === this.arraySize ) return;
     this.currentSlide = (this.currentSlide + 1) % this.arraySize;
@@ -125,10 +129,10 @@ export class CarouselComponent implements AfterViewInit {
   }
 
   prev() {
-    if(this.arraySize != this.cards.length-this.carouselCap){
-      this.updateArraySize();
-    }
-    this.resizeColumns();
+    //if(this.arraySize != this.cards.length-this.carouselCap){
+    //  this.updateArraySize();
+    //}
+    //this.resizeColumns();
 
     if( this.currentSlide === 0 ) return;
     this.currentSlide = ((this.currentSlide - 1) + this.arraySize) % this.arraySize;
@@ -146,9 +150,10 @@ export class CarouselComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.getCards();
+    //this.getCards();
+    this.cards = this.cardService.getCards();
 
-    setTimeout(() => {
+    //setTimeout(() => {
     // TODO: GET items.length dynamicly from the DOM
     //console.log('AfterView Reached');
 
@@ -166,7 +171,7 @@ export class CarouselComponent implements AfterViewInit {
        width: `${this.itemWidth}px`
     };
     */
-    });
+    //});
 
     // TODO: Load both functions AFTER cards have been loaded (Async function)
     //this.updateArraySize();

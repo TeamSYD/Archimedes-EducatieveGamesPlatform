@@ -1,13 +1,19 @@
 <div class="container-fluid" style="height: 100%; padding: 0">
     <div class="row" style="height: 100%;">
       <div class="col-md-10" style="background-color: #C5AB5E;">
-      <div class="row headerdiv color1" style=" height: 15%;">
-        <h2 style="color: white;">GAME EDITOR</h2>
+
+      <div class="row headerdiv color1" style="height: 10%;">
+        <h2 style="color: white;">Game editor</h2>
       </div>
+
+        <div class="row headerdiv color1" style="height: 5%;">
+          <p>Add sets and get started! Don't know what to do? start with our <a routerLink="/card-editor">tutorial.</a></p>
+        </div>
         <div class="row" style="background-color: #BBBBBB; height: 85%;">
           <div class="col-md-12 set-container">
             <div class="setrow" *ngFor="let set of setcontent; let i = index">
               <i (click)="remove(i)" class="far fa-2x fa-times-circle removesetbutton"></i>
+              <label>Set {{(i+1)}}:</label>
               <app-set-row ></app-set-row>
             </div>
 
@@ -23,15 +29,24 @@
 
      <div class="col-md-2">
        <div class="row cornerdiv color1" style=" height: 15%;">
-         <h4 style="color: white;">PRACHTIGE HOEK</h4>
+         <h4 style="color: white;">Settings:</h4>
        </div>
        <div class="row color1 emptydiv" style="height: 35%;"></div>
           <div class="row color1 rulediv" style="height: 30%; padding-top: 20%">
             <div class="col-md-12">
-              <input type="button" id="invert" class="btn btn-primary" value="{{inverted}}" (click)="invertToggle()">
+              <label id="invert">{{inverted}}</label>
+              <label class="switch">
+                <input type="checkbox" (click)="invertToggle()">
+                <span class="slider round"></span>
+              </label>
             </div>
             <div class="col-md-12">
-              <input type="button" id="duplicates" class="btn btn-primary" value="{{duplicates}}" (click)="duplicateToggle()">
+              <label id="duplicates">{{duplicates}}</label>
+              <label class="switch">
+                <input type="checkbox" (click)="duplicateToggle()">
+                <span class="slider round"></span>
+              </label>
+
             </div>
            </div>
        <div class="row color1 savediv" style="height: 20%;">

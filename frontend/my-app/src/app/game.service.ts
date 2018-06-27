@@ -6,7 +6,8 @@ import { Memory } from './Memory'
 import {MessageService} from "./message.service";
 import {Game} from "./game";
 import {Puzzle} from "./Puzzle";
-import {Category} from "./Category";
+import {Session} from "./session";
+
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -44,6 +45,10 @@ export class GameService {
   }
 
 
+
+
+
+
   getGames(): Observable<Game[]> {
     // TODO: send the message _after_ fetching the games
     console.log("Fetched games.");
@@ -64,6 +69,12 @@ export class GameService {
     );
   }
 
+  addSession (pin:number): Observable<Session>{
+    return this.http.post<Session>('http://localhost:8080/api/sessions', "{'PIN':" + pin + "}", httpOptions).pipe(
+      tap((session: Session) => console.log(`added session w/ id=${session.id}`)),
+      catchError(this.handleError<Session>('addSession'))
+    );
+  }
 
 
   private log(message: string) {
