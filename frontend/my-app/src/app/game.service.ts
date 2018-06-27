@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { memory } from './memory'
 import {MessageService} from "./message.service";
 import {Observable, of} from "rxjs/index";
@@ -10,6 +9,9 @@ import { catchError, map, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class GameService {
+
+
+
 
   constructor(private messageService: MessageService,
               private http: HttpClient) { }
