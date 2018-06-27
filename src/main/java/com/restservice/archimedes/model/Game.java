@@ -22,7 +22,7 @@ public class Game extends AuditModel implements Serializable {
     private String name;
 
     @NotNull
-    private Number time;
+    private int time;
 
     @NotBlank
     private String game;
@@ -57,7 +57,7 @@ public class Game extends AuditModel implements Serializable {
         return time;
     }
 
-    public void setTime(Number time) {
+    public void setTime(int time) {
         this.time = time;
     }
 

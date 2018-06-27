@@ -48,6 +48,8 @@ public class GameController {
                            @PathVariable(value = "acc_id") long accountId,
                            @PathVariable(value = "rule_id") long ruleId)
     {
+
+        System.out.println(game.getTime());
         Account account =  accountRepository.findById(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", "id", accountId));
 
@@ -78,7 +80,7 @@ public class GameController {
 
         game.setGame(gameDetails.getGame());
         game.setName(gameDetails.getName());
-        game.setTime(gameDetails.getTime());
+        game.setTime(gameDetails.getTime().intValue());
 
 
         return gameRepository.save(game);

@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {MatInputModule, MatSlideToggleModule, MatCardModule, MatSelectModule, MatButtonModule, MatSliderModule} from '@angular/material/';
 import {GameService} from '../game.service';
 import {Memory} from "../Memory";
+import {Puzzle} from "../Puzzle";
 import { DataService } from "../data-service.service";
 
 @Component({
@@ -65,8 +66,20 @@ checkIfMemory(): boolean{
         .subscribe(memory => {
           this.gameService.addGame(this.name, this.value, this.selectedGame, memory.id)
             .subscribe(game => {
-              console.log('gameId: ' + game.id);
-              this.dataService.changeText('wdsadsadas');
+              localStorage.setItem("gameId", game.id.toString());
+            })
+        });
+
+    }
+
+
+    if(this.selectedGame == "Puzzle"){
+      this.gameService.addPuzzle(this.order)
+        .subscribe(puzzle => {
+          this.gameService.addGame(this.name, this.value, this.selectedGame, puzzle.id)
+            .subscribe(game => {
+              console.log('id :' + game.id);
+              localStorage.setItem("gameId", game.id.toString());
             })
         });
 

@@ -23,7 +23,6 @@ export class ResourcesComponent implements OnInit {
   selectedCategoryName: string;
   currentCategoryIndex: number;
 
-  game: Game;
   game1: String;
 
   data1: string;
@@ -182,8 +181,6 @@ export class ResourcesComponent implements OnInit {
 
   selectCategory(e) {
 
-    console.log('inselect');
-    console.log('gameid:' + this.game1);
     this.selectedCategoryId = this.categories[e.target.value].id;
     this.currentCategoryIndex = e.target.value;
     this.getSelectedCategoryName(this.selectedCategoryId);
@@ -210,12 +207,7 @@ export class ResourcesComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inNGONINT: ');
-    this.dataService.currentGame.subscribe(game => this.game1 = game);
-//GET CATEGORIES MOET NOG EVEN GEFIXT WORDNE
     this.getCategories();
-
-
 
   }
 
@@ -241,21 +233,6 @@ export class ResourcesComponent implements OnInit {
   }
 
 
-  items = [
-    {id: 1, imgUrl: "../../assets/angular-logo.png"},
-    {id: 2, imgUrl: "../../assets/angular-logo.png"},
-    {id: 3, imgUrl: "../../assets/angular-logo.png"},
-    {id: 4, imgUrl: "../../assets/angular-logo.png"},
-    {id: 5, imgUrl: "../../assets/angular-logo.png"},
-    {id: 6, imgUrl: "../../assets/angular-logo.png"},
-    {id: 7, imgUrl: "../../assets/angular-logo.png"},
-    {id: 8, imgUrl: "../../assets/angular-logo.png"},
-    {id: 9, imgUrl: "../../assets/angular-logo.png"},
-    {id: 10, imgUrl: "../../assets/angular-logo.png"},
-    {id: 11, imgUrl: "../../assets/angular-logo.png"},
-    {id: 12, imgUrl: "../../assets/angular-logo.png"},
-
-  ];
 
   getCategories(): void {
     this.categoryService.getCategories()
