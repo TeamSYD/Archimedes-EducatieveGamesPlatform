@@ -21,6 +21,8 @@ li:hover .removalbutton {
   display: block;
 }
 
+
+
 .dropzone{
   color: #EBEBEB;
   display: inline-flex;
@@ -66,6 +68,7 @@ p {
 .container{
   /*overflow-x: scroll;*/
   display: flex;
+  justify-content: center;
   width: 100%;
   background-color: #D7D8D9;
   border: 2px solid #525e70;

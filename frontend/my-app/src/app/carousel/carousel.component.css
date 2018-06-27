@@ -1,3 +1,35 @@
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  display: none;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  display: block;
+}
+
+.carousel-wrapper:hover ::-webkit-scrollbar{
+  display: inline-block;
+}
+
+img {
+  max-height: 100%;
+  max-width: none;
+  width: 100%;
+}
+
 ul {
   list-style: none;
   margin: 0;
@@ -42,25 +74,29 @@ p{
 }
 
 .carousel-list {
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: auto;
+  overflow-y: hidden;
   padding: 0 0 0 0;
   height: 100%;
-  width: 6000px;
+  width: 100%;
   background-color: #aeb4b0;
   margin: auto;
 }
 
 .card-list-item{
-  display: inline-block;
-  width: 9em;
+  display: inline-flex;
+  flex: 0 0 auto;
+  padding: 0px 0px 0px 0px;
+  width: 7em;
   height: 100%;
-  margin: auto;
   background-color: #6EA4BF;
 }
 
 .card{
   margin: auto;
   height: 100%;
-  width: 6em;
   background-color: #D7E6ED;
   border-radius: 0;
   border: 2px solid #525e70;
