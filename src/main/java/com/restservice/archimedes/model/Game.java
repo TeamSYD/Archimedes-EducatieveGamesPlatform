@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -20,8 +21,8 @@ public class Game extends AuditModel implements Serializable {
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String time;
+    @NotNull
+    private Number time;
 
     @NotBlank
     private String game;
@@ -31,7 +32,18 @@ public class Game extends AuditModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Account account;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rule_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Rule rule;
 
+    public Rule getRule() {
+        return rule;
+    }
+
+    public void setRule(Rule rule) {
+        this.rule = rule;
+    }
 
     public String getName() {
         return name;
@@ -41,11 +53,11 @@ public class Game extends AuditModel implements Serializable {
         this.name = name;
     }
 
-    public String getTime() {
+    public Number getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Number time) {
         this.time = time;
     }
 

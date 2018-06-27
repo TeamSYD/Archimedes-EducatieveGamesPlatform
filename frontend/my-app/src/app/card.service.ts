@@ -14,7 +14,7 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class CardService {
 
-  private cardsUrl = 'api/cards';  // URL to web api
+  private cardsUrl = 'http://localhost:8080/api';  // URL to web api
 
   constructor(
     private http: HttpClient,
@@ -22,7 +22,7 @@ export class CardService {
 
   /** GET cards from the server */
   getCards (): Observable<Card[]> {
-    return this.http.get<Card[]>(this.cardsUrl)
+    return this.http.get<Card[]>(this.cardsUrl+"/games/1/cards")
       .pipe(tap(cards => this.log(`fetched cards`)),
         catchError(this.handleError('getCards', []))
       );
