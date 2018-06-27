@@ -7,6 +7,8 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {Bounds, CropperSettings} from 'ngx-img-cropper';
 import {SnackbarService} from "../snackbar.service";
 import {collectExternalReferences} from "@angular/compiler";
+import { DataService } from "../data-service.service";
+import {Game} from "../game";
 
 @Component({
   selector: 'app-resources',
@@ -21,12 +23,16 @@ export class ResourcesComponent implements OnInit {
   selectedCategoryName: string;
   currentCategoryIndex: number;
 
+  game: Game;
+  game1: String;
+
   data1: string;
 
   constructor(private resourceService: ResourceService,
               private categoryService: CategoryService,
               public dialog: MatDialog,
-              private snackbarService: SnackbarService) {
+              private snackbarService: SnackbarService,
+              private dataService: DataService) {
   }
 
   OpenSnackBarError(text: String) {
@@ -176,12 +182,15 @@ export class ResourcesComponent implements OnInit {
 
   selectCategory(e) {
 
+    console.log('inselect');
+    console.log('gameid:' + this.game1);
     this.selectedCategoryId = this.categories[e.target.value].id;
     this.currentCategoryIndex = e.target.value;
     this.getSelectedCategoryName(this.selectedCategoryId);
     this.logFunctie("SelectCategory");
 
     this.getResource(this.categories[this.currentCategoryIndex].id);
+
 
   }
 
@@ -201,7 +210,13 @@ export class ResourcesComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('inNGONINT: ');
+    this.dataService.currentGame.subscribe(game => this.game1 = game);
+//GET CATEGORIES MOET NOG EVEN GEFIXT WORDNE
     this.getCategories();
+
+
+
   }
 
   saveResource(image_data: ByteString, catID: number): void {
