@@ -17,8 +17,6 @@ public class Puzzle extends Rule implements Serializable {
     @NotNull
     private Boolean cardOrder;
 
-    @NotBlank
-    private int fillerAmount;
 
     public Boolean getCardOrder() {
         return cardOrder;
@@ -28,11 +26,5 @@ public class Puzzle extends Rule implements Serializable {
         this.cardOrder = cardOrder;
     }
 
-    public int getFillerAmount() {
-        return fillerAmount;
-    }
 
-    public void setFillerAmount(int fillerAmount) {
-        this.fillerAmount = fillerAmount;
-    }
 }
