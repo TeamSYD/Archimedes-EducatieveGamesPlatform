@@ -4,4 +4,6 @@ export class Set {
   filler : boolean;
   cards : Card[];
   content: any;
+  cardId: number;
+
 }

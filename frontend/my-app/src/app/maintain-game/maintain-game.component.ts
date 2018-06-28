@@ -57,7 +57,9 @@ export class MaintainGameComponent implements OnInit {
   updateGame(){
 
     if(this.selectedIndex != undefined){
+
       localStorage.setItem("gameId", this.games[this.selectedIndex].id.toString());
+      console.log(localStorage.getItem("gameId"));
       this.router.navigate(['game-editor-sets']);
     } else {
       this.snackBarService.ErrorSnackBar('Select a game first!')

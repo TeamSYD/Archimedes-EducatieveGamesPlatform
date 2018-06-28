@@ -13,6 +13,7 @@ import {GameEditorSetsComponent} from "./game-editor-sets/game-editor-sets.compo
 import {AddGameComponent} from "./add-game/add-game.component";
 import {MaintainGameComponent} from "./maintain-game/maintain-game.component";
 import {GamesComponent} from "./games/games.component";
+import {PuzzleComponent} from "./puzzle/puzzle.component";
 
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'add-game', component: AddGameComponent},
   {path: 'maintain-game', component: MaintainGameComponent},
   {path: 'games', component: GamesComponent},
+  {path: 'puzzle', component: PuzzleComponent},
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 ];
 
