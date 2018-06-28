@@ -1,5 +1,6 @@
 import {Resource} from "../resource";
 import {Game} from "../game";
+
 export class Card {
   id: number;
   closedface_side_id: number;

@@ -23,7 +23,7 @@ export class CardService {
   /** GET cards from the server */
   getCards (): Observable<Card[]> {
     return this.http.get<Card[]>(this.cardsUrl+"/games/1/cards")
-      .pipe(map(cards => cards.content), tap(cards => this.log(`fetched cards`)),
+      .pipe(map(cards => cards), tap(cards => this.log(`fetched cards`)),
         catchError(this.handleError('getCards', []))
       );
   }
