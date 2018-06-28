@@ -17,7 +17,6 @@ import {Router} from "@angular/router";
 })
 export class MaintainGameComponent implements OnInit {
 
-
   selectedIndex: number;
   games: Game[];
   game_id: number;
@@ -27,11 +26,9 @@ export class MaintainGameComponent implements OnInit {
   pin: number;
   sessionArray: Session[];
 
-
-
   change() {
     if (this.deleteGame) {
-      console.log(this.deleteGame)
+      console.log(this.deleteGame);
       this.gameService.deleteGame(this.games[this.selectedIndex]).subscribe((response) => {
         this.getGames();
         this.deleteGame = false;
@@ -41,30 +38,21 @@ export class MaintainGameComponent implements OnInit {
     }
   }
 
-
   reset(){
     if(this.games.length == 0){
       this.selectedIndex = undefined;
     } else {
       this.selectedIndex = 0;
     }
-
-  }
-
-  selectGame(e){
-    this.selectedIndex = e.target.value;
-    console.log(this.games[this.selectedIndex])
   }
 
   updateGame(){
-
     if(this.selectedIndex != undefined){
       localStorage.setItem("gameId", this.games[this.selectedIndex].id.toString());
       this.router.navigate(['game-editor-sets']);
     } else {
       this.snackBarService.ErrorSnackBar('Select a game first!')
     }
-
   }
 
 
@@ -82,16 +70,7 @@ export class MaintainGameComponent implements OnInit {
         var date3 = new Date(null);
         date3.setSeconds(fourHoursDifference);
         var dateResult = date3.toISOString().substr(11, 8);
-
         session.remainingTime = dateResult;
-
-
-        console.log(date);
-        console.log(date2);
-        console.log(local);
-        console.log(difference);
-        console.log(date3);
-        console.log(dateResult);
       }
     });
   }
@@ -100,7 +79,6 @@ export class MaintainGameComponent implements OnInit {
     this.gameService.getGames()
       .subscribe(games =>
         this.games = games);
-
   }
 
   delete() {
@@ -110,7 +88,6 @@ export class MaintainGameComponent implements OnInit {
     } else {
       this.snackBarService.ErrorSnackBar('Select a game first!')
     }}
-
 
   generatePin(){
     this.pin = Math.floor(1000 + Math.random() * 9000);
