@@ -44,6 +44,31 @@ export class GameService {
     );
   }
 
+
+
+
+
+
+  getGames(): Observable<Game[]> {
+    // TODO: send the message _after_ fetching the games
+    console.log("Fetched games.");
+    return this.http.get<Game[]>('http://localhost:8080/api/account/1/games')
+      .pipe(map(res => <Game[]>res['content']),
+        tap(game => console.log(game),
+        catchError(this.handleError('getGames', []))
+      ));
+  }
+
+
+  /** DELETE: delete the game from the server */
+  deleteGame (game: Game | number): Observable<Game> {
+    const id = typeof game === 'number' ? game : game.id;
+    return this.http.delete<Game>('http://localhost:8080/api/games/' + id, httpOptions).pipe(
+      tap(_ => this.log(`deleted game id=${id}`)),
+      catchError(this.handleError<Game>('deleteGame'))
+    );
+  }
+
   addSession (pin:number): Observable<Session>{
     return this.http.post<Session>('http://localhost:8080/api/sessions', "{'pin':" + pin + "}", httpOptions).pipe(
       tap((session: Session) => console.log(`added session w/ id=${session.id}`)),

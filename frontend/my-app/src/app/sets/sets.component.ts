@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { SetRowComponent } from '../set-row/set-row.component'
+import {Observable} from "rxjs/Rx";
 
 @Component({
   selector: 'app-sets',
@@ -9,17 +10,18 @@ import { SetRowComponent } from '../set-row/set-row.component'
 export class SetsComponent implements AfterViewInit {
   @ViewChildren(SetRowComponent) rows: QueryList<SetRowComponent>
 
+  //setObservable : Observable<Set[]>;
   setcontent = [];
   setfiller = true;
 
   duplicate = false;
   invert = false;
-  inverted: String = 'gekozen rule';
-  duplicates: String = 'gekozen rule';
+  inverted: String = 'Cards open';
+  duplicates: String = 'Duplicates on';
 
 
   constructor() {
-    this.setcontent = [[], [], [], []];
+    this.setcontent = [[], []];
   }
 
   add(){
@@ -41,18 +43,21 @@ export class SetsComponent implements AfterViewInit {
   }
 
   duplicateButton(){
+    this.duplicate = !this.duplicate;
     if (this.duplicate == false){
-      this.duplicates = 'Duplicates'
+      this.duplicates = 'Duplicates off';
+
     } else {
-      this.duplicates = 'No duplicates'
+      this.duplicates = 'Duplicates on';
     }
   }
 
   invertButton(){
+    this.invert = !this.invert;
     if (this.invert == false){
-      this.inverted = 'Open cards'
+      this.inverted = 'Cards open';
     } else {
-      this.inverted = 'Closed cards'
+      this.inverted = 'Cards closed';
     }
   }
 
