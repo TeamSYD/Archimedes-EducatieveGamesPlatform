@@ -21,6 +21,7 @@ export class MaintainGameComponent implements OnInit {
   selected: Game;
   deleteGame: false;
   confirm: boolean = false;
+  pin: number;
 
 
 
@@ -79,8 +80,15 @@ export class MaintainGameComponent implements OnInit {
       this.confirm = true;
     } else {
       this.snackBarService.ErrorSnackBar('Select a game first!')
-    }
+    }}
 
+
+  generatePin(){
+    this.pin = Math.floor(1000 + Math.random() * 9000);
+    console.log(this.pin);
+    this.gameService.addSession(this.pin).subscribe( session => {
+      alert('Uw gegenereerde PIN is: ' + session.pin);
+    });
   }
 
 

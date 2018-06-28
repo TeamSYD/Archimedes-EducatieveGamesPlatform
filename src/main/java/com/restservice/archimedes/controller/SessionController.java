@@ -38,7 +38,7 @@ public class SessionController {
 
         JSONObject jsonObject = new JSONObject(pin);
         Session session = new Session();
-        session.setPIN(jsonObject.getInt("PIN"));
+        session.setPin(jsonObject.getInt("pin"));
         return sessionRepository.save(session);
     }
 
@@ -47,6 +47,12 @@ public class SessionController {
     public Session getSessionById(@PathVariable(value = "id") long sessionId) {
         return sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Session", "id", sessionId));
+    }
+
+    // Get a Single category by name
+    @GetMapping("/session/pin/{pin}")
+    public Session getCategoryByName(@PathVariable(value = "pin") int sessionPin) {
+        return sessionRepository.findByPin(sessionPin);
     }
 
     // Update a Session
@@ -58,7 +64,7 @@ public class SessionController {
                 .orElseThrow(() -> new ResourceNotFoundException("Session", "id", sessionId));
 
         session.setId(sessionDetails.getId());
-        session.setPIN(sessionDetails.getPIN());
+        session.setPin(sessionDetails.getPin());
 
         return sessionRepository.save(session);
     }
