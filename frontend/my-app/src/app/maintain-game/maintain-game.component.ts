@@ -17,12 +17,13 @@ export class MaintainGameComponent implements OnInit {
   selected: Game;
   delete: false;
   confirm: boolean = false;
+  pin: number;
 
 
 
   change(){
     if (this.delete){
-      console.log('in change')
+      console.log('in change');
       this.gameService.deleteGame(this.selected)
     }
 
@@ -39,9 +40,14 @@ export class MaintainGameComponent implements OnInit {
   deleteGame() {
     console.log('in delete game');
     this.confirm = true;
+  }
 
-
-
+  generatePin(){
+    this.pin = Math.floor(1000 + Math.random() * 9000);
+    console.log(this.pin);
+    this.gameService.addSession(this.pin).subscribe( session => {
+      alert('Uw gegenereerde PIN is: ' + session.pin);
+    });
   }
 
 

@@ -12,6 +12,7 @@ import {CarouselComponent} from "./carousel/carousel.component";
 import {GameEditorSetsComponent} from "./game-editor-sets/game-editor-sets.component";
 import {AddGameComponent} from "./add-game/add-game.component";
 import {MaintainGameComponent} from "./maintain-game/maintain-game.component";
+import {GameSpelenComponent} from "./game-spelen/game-spelen.component";
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path: 'game-editor-sets', component: GameEditorSetsComponent},
   {path: 'add-game', component: AddGameComponent},
   {path: 'maintain-game', component: MaintainGameComponent},
+  {path: 'game-spelen', component: GameSpelenComponent},
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 ];
 

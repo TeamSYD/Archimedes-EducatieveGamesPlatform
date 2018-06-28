@@ -1,3 +1,4 @@
+///<reference path="game-spelen/game-spelen.component.ts"/>
 // MODULES
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,6 +37,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { SetsComponent } from './sets/sets.component';
 import { SetRowComponent } from './set-row/set-row.component';
 import {MaintainGameComponent} from "./maintain-game/maintain-game.component";
+import {GameSpelenComponent} from "./game-spelen/game-spelen.component";
 
 // COMPONENTS: SEARCH
 import { CategorySearchComponent } from './category-search/category-search.component';
@@ -52,6 +54,7 @@ import { ResourceService} from './resource.service';
 
 // DIRECTIVES
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
+
 
 Raven
   .config('https://e0659b2825b54c52abce4fd1d8f40df0@sentry.io/1225718')
@@ -107,6 +110,7 @@ export class RavenErrorHandler implements ErrorHandler {
     SetRowComponent,
 
     MaintainGameComponent,
+    GameSpelenComponent
 
   ],
   imports: [
