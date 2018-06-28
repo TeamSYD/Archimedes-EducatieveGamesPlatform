@@ -13,8 +13,7 @@
 
 
   </mat-card-header>
-
-
+  <p>Today is {{today | date}}</p>
 
   <mat-card-content>
     <table class="table table-hover">
@@ -22,6 +21,10 @@
       <tr>
         <th>Pin</th>
         <th>Duration</th>
+      </tr>
+      <tr *ngFor="let session of sessionArray">
+        <td>{{session.pin}}</td>
+        <td>{{session.remainingTime}}</td>
       </tr>
       </thead>
       <tbody>
