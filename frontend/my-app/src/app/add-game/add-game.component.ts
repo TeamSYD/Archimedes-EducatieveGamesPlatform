@@ -4,6 +4,7 @@ import {GameService} from '../game.service';
 import {Memory} from "../Memory";
 import {Puzzle} from "../Puzzle";
 import { DataService } from "../data-service.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-game',
@@ -70,6 +71,7 @@ checkIfMemory(): boolean{
             })
         });
 
+      this.router.navigate(['game-editor-sets']);
     }
 
 
@@ -82,6 +84,7 @@ checkIfMemory(): boolean{
               localStorage.setItem("gameId", game.id.toString());
             })
         });
+      this.router.navigate(['game-editor-sets']);
 
     }
 
@@ -94,7 +97,7 @@ checkIfMemory(): boolean{
 
 
   constructor(private gameService: GameService,
-  private dataService: DataService) { }
+              public router: Router) { }
 
   ngOnInit() {
   }

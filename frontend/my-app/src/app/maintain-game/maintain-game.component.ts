@@ -7,6 +7,8 @@ import {GameService} from '../game.service';
 import {Game} from "../game";
 import {Session} from "../session";
 
+import {SnackbarService} from "../snackbar.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-maintain-game',
@@ -15,23 +17,56 @@ import {Session} from "../session";
 })
 export class MaintainGameComponent implements OnInit {
 
-  today: number = Date.now();
+
+  selectedIndex: number;
   games: Game[];
   game_id: number;
   selected: Game;
-  delete: false;
+  deleteGame: false;
   confirm: boolean = false;
   pin: number;
-  selectedIndex: number;
   sessionArray: Session[];
 
 
-  change(){
-    if (this.delete){
-      console.log('in change');
-      this.gameService.deleteGame(this.selected)
+
+  change() {
+    if (this.deleteGame) {
+      console.log(this.deleteGame)
+      this.gameService.deleteGame(this.games[this.selectedIndex]).subscribe((response) => {
+        this.getGames();
+        this.deleteGame = false;
+        this.confirm = false;
+        this.reset();
+      });
     }
   }
+
+
+  reset(){
+    if(this.games.length == 0){
+      this.selectedIndex = undefined;
+    } else {
+      this.selectedIndex = 0;
+    }
+
+  }
+
+  selectGame(e){
+    this.selectedIndex = e.target.value;
+    console.log(this.games[this.selectedIndex])
+  }
+
+  updateGame(){
+
+    if(this.selectedIndex != undefined){
+      localStorage.setItem("gameId", this.games[this.selectedIndex].id.toString());
+      this.router.navigate(['game-editor-sets']);
+    } else {
+      this.snackBarService.ErrorSnackBar('Select a game first!')
+    }
+
+  }
+
 
   selectGame(e){
     this.selectedIndex = e.target.value;
@@ -68,10 +103,14 @@ export class MaintainGameComponent implements OnInit {
 
   }
 
-  deleteGame() {
-    console.log('in delete game');
-    this.confirm = true;
-  }
+  delete() {
+    if(this.selectedIndex != undefined){
+      console.log('in delete game');
+      this.confirm = true;
+    } else {
+      this.snackBarService.ErrorSnackBar('Select a game first!')
+    }}
+
 
   generatePin(){
     this.pin = Math.floor(1000 + Math.random() * 9000);
@@ -79,11 +118,11 @@ export class MaintainGameComponent implements OnInit {
       this.sessionArray.push(session);
       alert('Uw gegenereerde PIN is: ' + session.pin);
     });
-
-
   }
 
-  constructor(private gameService: GameService) { }
+  constructor(private gameService: GameService,
+              private snackBarService: SnackbarService,
+              public router: Router) { }
 
   ngOnInit() {
     this.getGames();

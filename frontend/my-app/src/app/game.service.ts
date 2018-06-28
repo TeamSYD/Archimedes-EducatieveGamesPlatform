@@ -46,6 +46,17 @@ export class GameService {
 
 
 
+  /** DELETE: delete the game from the server */
+  deleteGame (game: Game | number): Observable<Game> {
+    const id = typeof game === 'number' ? game : game.id;
+    console.log('in delete game met id: ' + id);
+    return this.http.delete<Game>('http://localhost:8080/api/games/' + id, httpOptions).pipe(
+      tap(_ => console.log(`deleted game id=${id}`)),
+      catchError(this.handleError<Game>('deleteGame'))
+    );
+  }
+
+
   getGames(): Observable<Game[]> {
     // TODO: send the message _after_ fetching the games
     console.log("Fetched games.");
@@ -57,14 +68,7 @@ export class GameService {
   }
 
 
-  /** DELETE: delete the game from the server */
-  deleteGame (game: Game | number): Observable<Game> {
-    const id = typeof game === 'number' ? game : game.id;
-    return this.http.delete<Game>('http://localhost:8080/api/games/' + id, httpOptions).pipe(
-      tap(_ => this.log(`deleted game id=${id}`)),
-      catchError(this.handleError<Game>('deleteGame'))
-    );
-  }
+
 
   addSession (pin:number, game_id: number): Observable<Session>{
     return this.http.post<Session>('http://localhost:8080/api/sessions/'+game_id, "{'pin':" + pin + ", 'game_id': " + game_id + "}", httpOptions).pipe(
@@ -117,5 +121,6 @@ export class GameService {
 
 
   constructor(private messageService: MessageService,
-              private http: HttpClient) { }
+              private http: HttpClient
+  ) { }
 }
