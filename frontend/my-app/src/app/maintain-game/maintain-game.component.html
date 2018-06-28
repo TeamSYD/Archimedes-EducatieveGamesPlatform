@@ -17,14 +17,16 @@
 
   </mat-card-header>
 
-
-
   <mat-card-content>
     <table class="table table-hover">
       <thead>
       <tr>
         <th>Pin</th>
         <th>Duration</th>
+      </tr>
+      <tr *ngFor="let session of sessionArray">
+        <td>{{session.pin}}</td>
+        <td>{{session.remainingTime}}</td>
       </tr>
       </thead>
       <tbody>
