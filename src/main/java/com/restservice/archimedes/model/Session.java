@@ -1,10 +1,10 @@
 package com.restservice.archimedes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -18,7 +18,16 @@ public class Session extends AuditModel implements Serializable {
     private long id;
 
     @NotNull
-    private int PIN;
+    private int pin ;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "game_id", nullable = false)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    private Game game;
+
+//    public Game getGame() { return game; }
+//
+//    public void setGame(Game game) { this.game = game; }
 
     public long getId() {
         return id;
@@ -28,12 +37,12 @@ public class Session extends AuditModel implements Serializable {
         this.id = id;
     }
 
-    public int getPIN() {
-        return PIN;
+    public int getPin() {
+        return pin;
     }
 
-    public void setPIN(int PIN) {
-        this.PIN = PIN;
+    public void setPin(int pin) {
+        this.pin = pin;
     }
 
 }

@@ -45,10 +45,21 @@ export class GameService {
   }
 
   addSession (pin:number): Observable<Session>{
-    return this.http.post<Session>('http://localhost:8080/api/sessions', "{'PIN':" + pin + "}", httpOptions).pipe(
+    return this.http.post<Session>('http://localhost:8080/api/sessions', "{'pin':" + pin + "}", httpOptions).pipe(
       tap((session: Session) => console.log(`added session w/ id=${session.id}`)),
       catchError(this.handleError<Session>('addSession'))
     );
+  }
+
+  getSessionByPin<Data>(pin: number) : Observable<Session[]> {
+    return this.http.get<Session[]>('http://localhost:8080/api/session/pin/' + pin)
+      .pipe(
+        tap(h => {
+          const outcome = h ? `fetched` : `did not find`;
+          this.log(`${outcome} session pin=${pin}`);
+        }),
+        catchError(this.handleError<Session[]>(`getSessionbyPin pin=${pin}`))
+      );
   }
 
 
