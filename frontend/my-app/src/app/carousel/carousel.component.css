@@ -36,6 +36,10 @@ ul {
   padding: 0;
 }
 
+.text_resource{
+  width: 100%;
+}
+
 p{
   text-align: center;
 }
@@ -97,6 +101,7 @@ p{
 .card{
   margin: auto;
   height: 100%;
+  width: 6em;
   background-color: #D7E6ED;
   border-radius: 0;
   border: 2px solid #525e70;

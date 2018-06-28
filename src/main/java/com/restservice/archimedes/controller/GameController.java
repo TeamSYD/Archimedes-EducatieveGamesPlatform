@@ -36,6 +36,12 @@ public class GameController {
         this.ruleRepository = ruleRepository;
     }
 
+
+    //Get all categories by accountid
+    @GetMapping("/account/{accountId}/games")
+    public Page<Game> getAllCategoriesByAccountId(@PathVariable(value = "accountId") long accountId, Pageable pageable) {
+        return gameRepository.findByAccountId(accountId, pageable);
+    }
     // Get All Games
     @GetMapping("/games")
     public List<Game> getAllGames() {

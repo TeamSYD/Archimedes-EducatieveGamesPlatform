@@ -1,0 +1,35 @@
+<mat-card class="example-card">
+  <mat-card-header style="padding-bottom: 30px">
+
+
+    <select class="form-control" id="game" (change)="selectGame($event)" style="width:110px;">
+      <option value="" selected disabled>Games</option>
+      <option *ngFor="let game of games, let i = index" [value]='i'>{{game.name}}</option>
+    </select>
+
+      <button mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category"  style="min-width: 70px; margin-left: 20px; margin-right: 5px;">Update</button>
+      <button mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category"  style="min-width: 70px;" (click)="deleteGame()">Delete</button>
+       <mat-checkbox (change)="change()" class="example-margin" *ngIf="confirm" [(ngModel)]="delete" style="padding: 5px;">Delete</mat-checkbox>
+
+
+  </mat-card-header>
+
+
+
+  <mat-card-content>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Pin</th>
+        <th>Duration</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button type="submit" id="generatePin" class="btn btn-primary" (click)="generatePin()">Generate</button>
+  </mat-card-actions>
+</mat-card>
