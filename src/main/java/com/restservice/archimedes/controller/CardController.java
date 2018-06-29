@@ -65,4 +65,15 @@ public class CardController {
 
         return cardRepository.save(card);
     }
+
+    // Delete a card
+    @DeleteMapping("/card/{id}")
+    public ResponseEntity<?> deleteCard(@PathVariable(value = "id") long cardId) {
+        Card card = cardRepository.findById(cardId)
+                .orElseThrow(() -> new ResourceNotFoundException("Card", "id", cardId));
+
+        cardRepository.delete(card);
+
+        return ResponseEntity.ok().build();
+    }
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
 
 @Component({
   selector: 'app-card-editor',
@@ -6,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./card-editor.component.css']
 })
 export class CardEditorComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {

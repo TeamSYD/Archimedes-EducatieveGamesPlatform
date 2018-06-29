@@ -1,7 +1,7 @@
 import {Card} from "../cards/card";
 export class Set {
-  id : number;
+  gameId : number;
   filler : boolean;
   cards : Card[];
-  content: any;
+  id : number
 }

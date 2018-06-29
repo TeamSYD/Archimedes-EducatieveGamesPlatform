@@ -37,6 +37,19 @@ public class Card extends AuditModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Game game;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "set_id")
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    private Set set;
+
+    public Set getSet() {
+        return set;
+    }
+
+    public void setSet(Set set) {
+        this.set = set;
+    }
+
     public long getId() {
         return id;
     }

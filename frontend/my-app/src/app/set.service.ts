@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Set } from './sets/set';
 import { MessageService } from './message.service';
+import {Card} from "./cards/card";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })

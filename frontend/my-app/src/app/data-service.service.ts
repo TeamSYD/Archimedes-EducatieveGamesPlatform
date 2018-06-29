@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import {Game} from "./game";
+import {Card} from "./cards/card";
 
 
 @Injectable({
@@ -8,18 +9,17 @@ import {Game} from "./game";
 })
 export class DataService {
 
-  game: Game;
+  card: Card;
 
-  private gameSource = new BehaviorSubject<String>("standard messag");
-  currentGame = this.gameSource.asObservable();
+  private cardSource = new BehaviorSubject<Card>(this.card);
+  currentCard = this.cardSource.asObservable();
 
 
   constructor() { }
 
-  changeText(text: String){
-    console.log(this.currentGame);
-    console.log('string: ' + text);
-    this.gameSource.next(text);
+  changeCard(card: Card){
+    console.log(this.currentCard);
+    this.cardSource.next(card);
   }
 
   // changeGame(game: Game){

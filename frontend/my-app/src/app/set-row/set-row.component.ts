@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Input} from '@angular/core';
 import { DropEvent } from "ng-drag-drop";
 import { Card } from '../cards/card';
 
@@ -9,8 +9,9 @@ import { Card } from '../cards/card';
 })
 export class SetRowComponent implements OnInit {
   card: Card;
-  @Input() cardcontent = [];
+  @Input() cardcontent: Card[] = [];
   @Input() filler: boolean = false;
+  @Input() gameId: number;
 
   constructor() { }
 

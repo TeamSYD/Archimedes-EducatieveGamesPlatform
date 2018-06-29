@@ -27,11 +27,6 @@ public class Set extends AuditModel implements Serializable {
     private boolean filler;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "card_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Card card;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Game game;
@@ -58,14 +53,6 @@ public class Set extends AuditModel implements Serializable {
 
     public void setSet_id(int set_id) {
         this.set_id = set_id;
-    }
-
-    public Card getCard() {
-        return card;
-    }
-
-    public void setCard(Card card) {
-        this.card = card;
     }
 
     public Game getGame() {

@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { SetRowComponent } from '../set-row/set-row.component'
 import {Observable} from "rxjs/Rx";
+import {SetService} from "../set.service";
 
 @Component({
   selector: 'app-sets',
@@ -11,17 +12,18 @@ export class SetsComponent implements AfterViewInit {
   @ViewChildren(SetRowComponent) rows: QueryList<SetRowComponent>
 
   //setObservable : Observable<Set[]>;
-  setcontent = [];
+  set: Set;
+  sets: Set[];
+  setcontent;
   setfiller = true;
-
   duplicate = false;
   invert = false;
   inverted: String = 'Cards open';
   duplicates: String = 'Duplicates on';
 
 
-  constructor() {
-    this.setcontent = [[], []];
+  constructor(private setService: SetService) {
+    this.setcontent = [[]];
   }
 
   add(){
@@ -63,7 +65,11 @@ export class SetsComponent implements AfterViewInit {
 
   saveButton() {
     console.log("SAVE BUTTON CLICKED");
-    this.rows.forEach(rowInstance => console.log(rowInstance));
+    this.rows.forEach(res => this.setService.saveSet((res.cardcontent, res.filler, res.gameId))
+    );
+
+    console.log(this.setcontent);
+
   }
 
   ngAfterViewInit() {
