@@ -6,7 +6,6 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Card } from './cards/card';
 import { MessageService } from './message.service';
-import {Category} from "./Category";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,21 +14,12 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class CardService {
 
-
   private cardsUrl = 'http://localhost:8080/api';  // URL to web api
+  gameId: number = parseInt(localStorage.getItem("gameId"));
 
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
-    private _gameID: number;
-
-  get gameID(): number {
-    return this._gameID;
-  }
-
-  set gameID(value: number) {
-    this._gameID = value;
-  }
 
   /** GET cards from the server */
   getCards (): Observable<Card[]> {
@@ -98,6 +88,16 @@ export class CardService {
     );
   }
 
+  /** DELETE: delete the card from the server */
+  deleteCard (card: Card | number): Observable<Card> {
+    const id = typeof card === 'number' ? card : card.id;
+    const url = `${this.cardsUrl}/${id}`;
+
+    return this.http.delete<Card>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted card id=${id}`)),
+      catchError(this.handleError<Card>('deleteCard'))
+    );
+  }
 
   /** PUT: update the card on the server */
   updateCard (card: Card): Observable<any> {

@@ -11,6 +11,10 @@ import {CardEditorDetailComponent} from "./card-editor-detail/card-editor-detail
 import {CarouselComponent} from "./carousel/carousel.component";
 import {GameEditorSetsComponent} from "./game-editor-sets/game-editor-sets.component";
 import {AddGameComponent} from "./add-game/add-game.component";
+import {MaintainGameComponent} from "./maintain-game/maintain-game.component";
+import {GamesComponent} from "./games/games.component";
+import {PuzzleComponent} from "./puzzle/puzzle.component";
+
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -24,6 +28,9 @@ const routes: Routes = [
   {path: 'card-editor-detail', component: CardEditorDetailComponent},
   {path: 'game-editor-sets', component: GameEditorSetsComponent},
   {path: 'add-game', component: AddGameComponent},
+  {path: 'maintain-game', component: MaintainGameComponent},
+  {path: 'games', component: GamesComponent},
+  {path: 'puzzle', component: PuzzleComponent},
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 ];
 

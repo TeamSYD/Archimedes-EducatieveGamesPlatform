@@ -44,10 +44,58 @@ export class GameService {
     );
   }
 
-  addSession (pin:number): Observable<Session>{
-    return this.http.post<Session>('http://localhost:8080/api/sessions', "{'PIN':" + pin + "}", httpOptions).pipe(
+
+
+  /** DELETE: delete the game from the server */
+  deleteGame (game: Game | number): Observable<Game> {
+    const id = typeof game === 'number' ? game : game.id;
+    console.log('in delete game met id: ' + id);
+    return this.http.delete<Game>('http://localhost:8080/api/games/' + id, httpOptions).pipe(
+      tap(_ => console.log(`deleted game id=${id}`)),
+      catchError(this.handleError<Game>('deleteGame'))
+    );
+  }
+
+
+  getGames(): Observable<Game[]> {
+    // TODO: send the message _after_ fetching the games
+    console.log("Fetched games.");
+    return this.http.get<Game[]>('http://localhost:8080/api/account/1/games')
+      .pipe(map(res => <Game[]>res['content']),
+        tap(game => console.log(game),
+        catchError(this.handleError('getGames', []))
+      ));
+  }
+
+
+
+
+  addSession (pin:number, game_id: number): Observable<Session>{
+    return this.http.post<Session>('http://localhost:8080/api/sessions/'+game_id, "{'pin':" + pin + ", 'game_id': " + game_id + "}", httpOptions).pipe(
       tap((session: Session) => console.log(`added session w/ id=${session.id}`)),
       catchError(this.handleError<Session>('addSession'))
+    );
+  }
+
+  getSessionByPin<Data>(pin: number) : Observable<Session[]> {
+    return this.http.get<Session[]>('http://localhost:8080/api/session/pin/'+pin)
+      .pipe(
+        tap(h => {
+          const outcome = h ? `fetched` : `did not find`;
+          this.log(`${outcome} session pin=${pin}`);
+        }),
+        catchError(this.handleError<Session[]>(`getSessionByPin pin=${pin}`))
+      );
+  }
+
+  getSessionByGameId(game_id: number) : Observable<Session[]> {
+    return this.http.get<Session[]>('http://localhost:8080/api/sessions/table/'+game_id).pipe(
+      map(res => <Session[]>res['content']),
+      tap(h => {
+        const outcome = h ? `fetched` : `did not find`;
+        this.log(`${outcome} game_id=${game_id}`);
+      }),
+      catchError(this.handleError<Session[]>(`getSessionById id=${game_id}`))
     );
   }
 
@@ -73,5 +121,6 @@ export class GameService {
 
 
   constructor(private messageService: MessageService,
-              private http: HttpClient) { }
+              private http: HttpClient
+  ) { }
 }
