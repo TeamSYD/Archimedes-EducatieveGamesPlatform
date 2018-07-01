@@ -2,8 +2,8 @@ import {Card} from "../cards/card";
 export class Set {
   id : number;
   filler : boolean;
-  cards : Card[];
+  card : Card;
   content: any;
-  cardId: number;
+  card_id: number;
 
 }

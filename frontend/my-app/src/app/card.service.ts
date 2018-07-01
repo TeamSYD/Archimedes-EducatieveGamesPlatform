@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Card } from './cards/card';
 import { MessageService } from './message.service';
+import {Category} from "./Category";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -24,7 +25,7 @@ export class CardService {
   /** GET cards from the server */
   getCards (): Observable<Card[]> {
     return this.http.get<Card[]>(this.cardsUrl+"/games/" +this.gameId + "/cards")
-      .pipe(map(cards => cards), tap(cards => this.log(`fetched cards`)),
+      .pipe(map(res => <Card[]>res['content']), tap(cards => this.log(`fetched cards`)),
         catchError(this.handleError('getCards', []))
       );
   }
