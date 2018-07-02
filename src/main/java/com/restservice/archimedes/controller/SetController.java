@@ -46,22 +46,22 @@ public class SetController {
         Page<Set> set = setRepository.findByGameId(gameId, pageable);
         List<Set> setList = new ArrayList<>();
         int a = set.getContent().size();
-        List<Card> cardList = new ArrayList<>();
         for (int x = 0; x < a; x++) {
-            if (!cardRepository.findBySetId(set.getContent().get(x).getId(), pageable).hasContent())
-            {
-                continue;
-            }
+            List<Card> cardList = new ArrayList<>();
+//            if (!cardRepository.findBySetId(set.getContent().get(x).getId(), pageable).hasContent())
+//            {
+//                continue;
+//            }
             Page<Card> card = cardRepository.findBySetId(set.getContent().get(x).getId(), pageable);
-            if (card != null) {
-                if (card.getContent().size() > 0) {
+//            if (card != null) {
+//                if (card.getContent().size() > 0) {
                     cardList.addAll(card.getContent());
-                }
-            }
-            if(!cardList.isEmpty()) {
+//                }
+//            }
+//            if(!cardList.isEmpty()) {
                 set.getContent().get(x).setCard(cardList);
                 setList.add(set.getContent().get(x));
-            }
+//            }
         }
         return setList;
     }

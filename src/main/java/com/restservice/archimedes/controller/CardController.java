@@ -78,6 +78,7 @@ public class CardController {
         Card card = cardRepository.findById(card_id)
                 .orElseThrow(() -> new ResourceNotFoundException("Card:", "id", card_id));
         card.setSet(null);
+
         return cardRepository.save(card);
     }
 
