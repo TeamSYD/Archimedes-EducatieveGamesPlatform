@@ -56,6 +56,7 @@ import { ResourceService} from './resource.service';
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
 import { GamesComponent } from './games/games.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
+import { PuzzleComponent } from './puzzle/puzzle.component';
 
 
 Raven
@@ -117,6 +118,8 @@ export class RavenErrorHandler implements ErrorHandler {
     GamesComponent,
 
     ScoreboardComponent,
+
+    PuzzleComponent,
 
   ],
   imports: [

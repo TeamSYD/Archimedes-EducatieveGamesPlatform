@@ -15,6 +15,7 @@ import {MaintainGameComponent} from "./maintain-game/maintain-game.component";
 import {GamesComponent} from "./games/games.component";
 import {ScoreboardComponent} from "./scoreboard/scoreboard.component";
 import {GameSpelenComponent} from "./game-spelen/game-spelen.component";
+import {PuzzleComponent} from "./puzzle/puzzle.component";
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path: 'add-game', component: AddGameComponent},
   {path: 'maintain-game', component: MaintainGameComponent},
   {path: 'games', component: GamesComponent},
+  {path: 'puzzle', component: PuzzleComponent},
   {path: 'scoreboard', component: ScoreboardComponent},
   {path: 'game-spelen', component: GameSpelenComponent},
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},

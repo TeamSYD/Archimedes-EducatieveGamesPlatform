@@ -1,0 +1,32 @@
+<button mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category"  style="min-width: 70px;" (click)="test()">Start game</button>
+
+<div *ngIf="ready">
+<mat-card class="example-card">
+
+  <mat-card-header><mat-card droppable *ngFor="let card of cardsInput, let i = index" (onDrop)="checkWinCondition($event, i)" style="min-height: 200px; min-width: 100px;">
+    <img  mat-card-image src="data:image/jpeg;base64,{{card.closedface_side.image_data}}" style="margin-top: 5%; margin-bottom: 5%">
+  </mat-card></mat-card-header>
+</mat-card>
+
+<mat-card>
+
+  <mat-card-header style="padding-bottom: 30px">
+    <mat-card draggable *ngFor="let card of cards" [dragData]="card" style="max-height: 8%; max-width: 8%;">
+      <img  mat-card-image src="data:image/jpeg;base64,{{card.closedface_side.image_data}}" style="margin-top: 5%;">
+    </mat-card>
+
+
+
+
+  </mat-card-header>
+
+
+  <mat-card-actions>
+    <button mat-raised-button (click)="reset()">Reset</button>
+  </mat-card-actions>
+
+</mat-card>
+  <button mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category"  style="min-width: 70px;" (click)="test2()">test2</button>
+</div>
+
+
