@@ -1,59 +1,65 @@
-///<reference path="game-spelen/game-spelen.component.ts"/>
-// MODULES
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // TODO: Ngmodule wordt niet gebruikt, dependency checken.
-import {ErrorHandler, NgModule, EventEmitter} from '@angular/core';
-import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from '@angular/common/http';
-import { NgDragDropModule } from 'ng-drag-drop';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { AppRoutingModule } from './app-routing.module';
-import { MatTableModule, MatButtonModule, MatSliderModule, MatCheckboxChange, MatCheckboxModule,  MAT_DIALOG_DEFAULT_OPTIONS,MatSnackBarModule, MatDialogModule, MatInputModule, MatGridListModule,MatSlideToggleModule, MatCardModule, MatSelectModule} from '@angular/material';
-import { ImageCropperComponent, CropperSettings } from "ngx-img-cropper";
+import {ErrorHandler, NgModule} from '@angular/core';
+import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from '@angular/common/http';
+import {NgDragDropModule} from 'ng-drag-drop';
+import {TooltipModule} from 'ngx-bootstrap/tooltip';
+import {AppRoutingModule} from './app-routing.module';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatGridListModule,
+  MatInputModule,
+  MatSelectModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule
+} from '@angular/material';
+import {ImageCropperComponent} from "ngx-img-cropper";
 import * as Raven from 'raven-js';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject'
-
 // MODULES: WEB MOCKUP DATA
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
-
 // COMPONENTS
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { FooterComponent } from './footer/footer.component';
-import { CreateAccountComponent } from './create-account/create-account.component';
-import { ArrangementsComponent } from './arrangements/arrangements.component';
+import {AppComponent} from './app.component';
+import {LoginComponent} from './login/login.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {FooterComponent} from './footer/footer.component';
+import {CreateAccountComponent} from './create-account/create-account.component';
+import {ArrangementsComponent} from './arrangements/arrangements.component';
 
-import { CardsComponent } from './cards/cards.component';
-import { CardEditorComponent } from './card-editor/card-editor.component';
-import { CardEditorDetailComponent } from './card-editor-detail/card-editor-detail.component';
+import {CardsComponent} from './cards/cards.component';
+import {CardEditorComponent} from './card-editor/card-editor.component';
+import {CardEditorDetailComponent} from './card-editor-detail/card-editor-detail.component';
 
-import { GameEditorSetsComponent } from './game-editor-sets/game-editor-sets.component';
-import { CarouselComponent, CarouselItemElement } from './carousel/carousel.component';
-import { ResourcesComponent } from './resources/resources.component';
-import { MessagesComponent } from './messages/messages.component';
-import { SetsComponent } from './sets/sets.component';
-import { SetRowComponent } from './set-row/set-row.component';
-import {MaintainGameComponent} from "./maintain-game/maintain-game.component";
-import {GameSpelenComponent} from "./game-spelen/game-spelen.component";
-
-// COMPONENTS: SEARCH
-import { CategorySearchComponent } from './category-search/category-search.component';
-import { CardSearchComponent } from './card-search/card-search.component';
-
+import {GameEditorSetsComponent} from './game-editor-sets/game-editor-sets.component';
+import {CarouselComponent, CarouselItemElement} from './carousel/carousel.component';
 // COMPONENTS: ADD/UPDATE/ELETE
-import { AddResourceComponent } from "./resources/resources.component";
-import { AddCategoryComponent, UpdateCategoryComponent, ConfirmDeleteComponent } from './resources/resources.component';
-import { SnackbarComponent } from './snackbar.service';
-import { AddGameComponent } from './add-game/add-game.component'
-
+import {
+  AddCategoryComponent,
+  AddResourceComponent,
+  ConfirmDeleteComponent,
+  ResourcesComponent,
+  UpdateCategoryComponent
+} from './resources/resources.component';
+import {MessagesComponent} from './messages/messages.component';
+import {SetsComponent} from './sets/sets.component';
+import {SetRowComponent} from './set-row/set-row.component';
+import {MaintainGameComponent} from "./maintain-game/maintain-game.component";
+import {MemoryComponent} from './memory/memory.component';
+import {ChessboardComponent} from './memory/chessboard/chessboard.component';
+import {StatusComponent} from './memory/status/status.component';
+import {CardComponent} from './memory/chessboard/card.component';
+// COMPONENTS: SEARCH
+import {CategorySearchComponent} from './category-search/category-search.component';
+import {CardSearchComponent} from './card-search/card-search.component';
+import {SnackbarComponent} from './snackbar.service';
+import {AddGameComponent} from './add-game/add-game.component'
 // SERVICES
-import { ResourceService} from './resource.service';
-
 // DIRECTIVES
-import { CarouselItemDirective } from './carousel/carousel-item.directive';
+import {CarouselItemDirective} from './carousel/carousel-item.directive';
 
 
 Raven
@@ -110,7 +116,10 @@ export class RavenErrorHandler implements ErrorHandler {
     SetRowComponent,
 
     MaintainGameComponent,
-    GameSpelenComponent
+    MemoryComponent,
+    ChessboardComponent,
+    StatusComponent,
+    CardComponent
 
   ],
   imports: [
@@ -132,7 +141,6 @@ export class RavenErrorHandler implements ErrorHandler {
     MatButtonModule,
     MatSliderModule,
     MatCheckboxModule,
-
 
 
 

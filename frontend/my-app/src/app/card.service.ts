@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+import {catchError, map, tap} from 'rxjs/operators';
 
-import { Card } from './cards/card';
-import { MessageService } from './message.service';
+import {Card} from './cards/card';
+import {MessageService} from './message.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,16 +14,16 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class CardService {
 
-  private cardsUrl = 'http://localhost:8080/api';  // URL to web api
-
+  private cardsUrl = 'http://localhost:8080/api/';  // URL to web api
+  gameId: string = localStorage.getItem('gameId');
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
 
   /** GET cards from the server */
   getCards (): Observable<Card[]> {
-    return this.http.get<Card[]>(this.cardsUrl+"/games/1/cards")
-      .pipe(map(cards => cards.content), tap(cards => this.log(`fetched cards`)),
+    return this.http.get<Card[]>(this.cardsUrl + "/games/" + this.gameId + "/cards")
+      .pipe(map(cards => cards["content"]), tap(cards => this.log(`fetched cards`)),
         catchError(this.handleError('getCards', []))
       );
   }
