@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SetRepository extends JpaRepository<Set, Long> {
     Page<Set> findByGameId(long gameId, Pageable pageable);
+
 }

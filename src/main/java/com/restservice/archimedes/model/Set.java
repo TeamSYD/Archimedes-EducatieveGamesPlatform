@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
@@ -27,6 +28,17 @@ public class Set extends AuditModel implements Serializable {
     @JoinColumn(name = "game_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Game game;
+
+    @Transient
+    private List<Card> card;
+
+    public List<Card> getCard() {
+        return card;
+    }
+
+    public void setCard(List<Card> card) {
+        this.card = card;
+    }
 
     public boolean isFiller() {
         return filler;

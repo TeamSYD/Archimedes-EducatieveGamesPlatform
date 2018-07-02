@@ -1,5 +1,6 @@
 package com.restservice.archimedes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -19,7 +20,6 @@ public class Card extends AuditModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
 
     private String name;
 
@@ -41,6 +41,7 @@ public class Card extends AuditModel implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "set_id")
     @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @JsonIgnore
     private Set set;
 
     public Set getSet() {

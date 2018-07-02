@@ -21,22 +21,18 @@ export class SetRowComponent implements OnInit {
 
   onDrop(index: number, e: DropEvent){
     console.log(this.cardcontent);
-    this.cardcontent.push(e.dragData);
-    this.setService.updateCard(this.cardcontent[index].id, this.setId);
+    this.setService.updateCard(this.cardcontent[index].id, this.setId).subscribe(a => this.cardcontent.push(e.dragData));
   }
 
   remove(index: number) {
     console.log(this.cardcontent);
-    this.setService.unlinkCard(this.cardcontent[index].id);
-    this.cardcontent.splice(index, 1);
+    this.setService.unlinkCard(this.cardcontent[index].id).subscribe(a => this.cardcontent.splice(index, 1));
   }
 
   replace(index: number, e: DropEvent) {
     console.log(this.cardcontent);
-    this.setService.unlinkCard(this.cardcontent[index].id);
-    this.cardcontent.splice(index, 1, e.dragData);
-    this.setService.updateCard(this.cardcontent[index].id, this.setId);
-
+    this.setService.unlinkCard(this.cardcontent[index].id).subscribe(a => this.cardcontent.splice(index, 1, e.dragData));
+    this.setService.updateCard(this.cardcontent[index].id, this.setId).subscribe();
   }
 
   getCards(){

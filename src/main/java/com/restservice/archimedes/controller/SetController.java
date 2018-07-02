@@ -15,9 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api")
 @CrossOrigin
 public class SetController {
@@ -41,8 +42,29 @@ public class SetController {
 
     // Get a all sets by gameid
     @GetMapping("/games/{id}/sets")
-    public Page<Set> getCardsByGameId(@PathVariable(value = "id") long gameId, Pageable pageable) {
-        return setRepository.findByGameId(gameId, pageable);
+    public List<Set> getCardsByGameId(@PathVariable(value = "id") long gameId, Pageable pageable) {
+        Page<Set> set = setRepository.findByGameId(gameId, pageable);
+        List<Set> setList = new ArrayList<>();
+        int a = set.getContent().size();
+        List<Card> cardList = new ArrayList<>();
+        for (int x = 0; x < a; x++) {
+            if (!cardRepository.findBySetId(set.getContent().get(x).getId(), pageable).hasContent())
+            {
+                continue;
+            }
+            Page<Card> card = cardRepository.findBySetId(set.getContent().get(x).getId(), pageable);
+            if (card != null) {
+                if (card.getContent().size() > 0) {
+                    cardList.addAll(card.getContent());
+                }
+            }
+            if(!cardList.isEmpty()) {
+                set.getContent().get(x).setCard(cardList);
+                setList.add(set.getContent().get(x));
+            }
+
+        }
+        return setList;
     }
 
     // Create a set by gameid

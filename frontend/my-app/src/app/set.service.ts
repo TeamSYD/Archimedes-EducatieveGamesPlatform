@@ -26,8 +26,8 @@ export class SetService {
     private messageService: MessageService) { }
 
   /** GET sets from the server */
-  getSets(): Observable<Set[]> {
-    return this.http.get<Set[]>(this.setUrl+ "/games/22/sets")
+  getSets(gameId: number): Observable<Set[]> {
+    return this.http.get<Set[]>(this.setUrl+ "/games/"+gameId+"/sets")
       .pipe(map(res => <Set[]>res['content']), tap(set => this.log(`fetched sets`)),
         catchError(this.handleError('getSets', []))
       );
@@ -59,7 +59,7 @@ export class SetService {
 
   /** POST: add a new set to the server */
   saveSetNew (cards: Card[], filler: boolean, gameId: number): Observable<Set> {
-    return this.http.post<Set>(this.setUrl+'/games/'+gameId+'/set', new Set(1, filler), httpOptions).pipe(
+    return this.http.post<Set>(this.setUrl+'/games/'+gameId+'/set', httpOptions).pipe(
       tap((set: Set) => this.log(`added set w/ id=${set.id}`)),
       catchError(this.handleError<Set>('addSet'))
     );
@@ -80,9 +80,9 @@ export class SetService {
   }
 
   /** DELETE: delete the set from the server */
-  deleteSet (set: Set): Observable<Set> {
-    return this.http.delete<Set>(this.setUrl+"/set/"+set.id, httpOptions).pipe(
-      tap(_ => this.log(`deleted set id=${set.id}`)),
+  deleteSet (id: number): Observable<Set> {
+    return this.http.delete<Set>(this.setUrl+"/set/"+id, httpOptions).pipe(
+      tap(_ => this.log(`deleted set id=${id}`)),
       catchError(this.handleError<Set>('deleteSet'))
     );
   }
