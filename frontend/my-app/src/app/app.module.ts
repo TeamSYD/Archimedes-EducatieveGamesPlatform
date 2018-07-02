@@ -130,7 +130,7 @@ export class RavenErrorHandler implements ErrorHandler {
     MemoryComponent,
     ChessboardComponent,
     StatusComponent,
-    CardComponent
+    CardComponent,
 
     GameResultaatComponent,
 
