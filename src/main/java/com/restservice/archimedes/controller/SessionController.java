@@ -1,27 +1,33 @@
 package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
+import com.restservice.archimedes.model.Game;
 import com.restservice.archimedes.model.Session;
+import com.restservice.archimedes.repository.GameRepository;
 import com.restservice.archimedes.repository.SessionRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class SessionController {
 
-    private final
-    SessionRepository sessionRepository;
+    private final SessionRepository sessionRepository;
+    private final GameRepository gameRepository;
 
     @Autowired
-    public SessionController(SessionRepository sessionRepository) {
+    public SessionController(SessionRepository sessionRepository, GameRepository gameRepository) {
         this.sessionRepository = sessionRepository;
+        this.gameRepository = gameRepository;
     }
 
     // Get All Sessions
@@ -31,27 +37,30 @@ public class SessionController {
     }
 
     // Create a new Session
-    @PostMapping("/sessions")
-    public Session createSession(@RequestBody String pin) {
+    @PostMapping("/sessions/{game_id}")
+    public Session createSession(
+            @RequestBody String pin,
+            @PathVariable(value = "game_id") long game_id) throws IOException {
 
-        System.out.println(pin);
+        Game game = gameRepository.findById(game_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Game","name" ,game_id ));
 
         JSONObject jsonObject = new JSONObject(pin);
         Session session = new Session();
         session.setPin(jsonObject.getInt("pin"));
+        session.setGame(game);
         return sessionRepository.save(session);
     }
 
-    // Get a Single Session
-    @GetMapping("/sessions/{id}")
-    public Session getSessionById(@PathVariable(value = "id") long sessionId) {
-        return sessionRepository.findById(sessionId)
-                .orElseThrow(() -> new ResourceNotFoundException("Session", "id", sessionId));
+    // Get all sessions by game_id
+    @GetMapping("/sessions/table/{game_id}")
+    public Page<Session> getSessionByGameId(@PathVariable(value = "game_id") long gameId, Pageable pageable) {
+        return sessionRepository.findByGameId(gameId, pageable);
     }
 
-    // Get a Single category by name
+    // Get a Single session by pin
     @GetMapping("/session/pin/{pin}")
-    public Session getCategoryByName(@PathVariable(value = "pin") int sessionPin) {
+    public Session getSessionByPin(@PathVariable(value = "pin") int sessionPin) {
         return sessionRepository.findByPin(sessionPin);
     }
 

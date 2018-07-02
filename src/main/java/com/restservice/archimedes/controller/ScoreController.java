@@ -2,8 +2,10 @@ package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
 import com.restservice.archimedes.model.Score;
+import com.restservice.archimedes.model.Scoreboard;
 import com.restservice.archimedes.repository.ScoreRepository;
 import com.restservice.archimedes.repository.ScoreboardRepository;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,10 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class ScoreController {
 
     private final ScoreRepository scoreRepository;
@@ -39,8 +43,22 @@ public class ScoreController {
     }
 
     // Create a new Score
-    @PostMapping("/scores")
-    public Score createScore(@Valid @RequestBody Score score) {
+    @PostMapping("/scores/{scoreboard_id}")
+    public Score createScore(
+            @RequestBody String json,
+            @PathVariable(value = "scoreboard_id") long scoreboard_id) throws IOException {
+
+        Scoreboard scoreboard = scoreboardRepository.findById(scoreboard_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Scoreboard", "score", scoreboard_id));
+
+        System.out.println(json);
+
+        JSONObject nameJSON = new JSONObject(json);
+
+        Score score = new Score();
+        score.setName(nameJSON.getString("name"));
+        score.setGameScore(nameJSON.getInt("game_score"));
+        score.setScoreboard(scoreboard);
         return scoreRepository.save(score);
     }
 
@@ -63,8 +81,7 @@ public class ScoreController {
         return scoreRepository.findById(scoreId).map(score -> {
             score.setId(scoreDetails.getId());
             score.setName(scoreDetails.getName());
-            score.setScore(scoreDetails.getScore());
-            score.setGame(scoreDetails.getGame());
+            score.setGameScore(scoreDetails.getGameScore());
             return scoreRepository.save(score);
         }).orElseThrow(() -> new ResourceNotFoundException("Score", "id", scoreId));
     }

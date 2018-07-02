@@ -1,11 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import {Observable, of} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
-import {Card} from './cards/card';
-import {MessageService} from './message.service';
+import { Card } from './cards/card';
+import { MessageService } from './message.service';
+import {Category} from "./Category";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,16 +15,17 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class CardService {
 
-  private cardsUrl = 'http://localhost:8080/api/';  // URL to web api
-  gameId: string = localStorage.getItem('gameId');
+  private cardsUrl = 'http://localhost:8080/api';  // URL to web api
+  gameId: number = parseInt(localStorage.getItem("gameId"));
+
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
 
   /** GET cards from the server */
   getCards (): Observable<Card[]> {
-    return this.http.get<Card[]>(this.cardsUrl + "/games/" + this.gameId + "/cards")
-      .pipe(map(cards => cards["content"]), tap(cards => this.log(`fetched cards`)),
+    return this.http.get<Card[]>(this.cardsUrl+"/games/" +this.gameId + "/cards")
+      .pipe(map(res => <Card[]>res['content']), tap(cards => this.log(`fetched cards`)),
         catchError(this.handleError('getCards', []))
       );
   }
@@ -81,7 +83,7 @@ export class CardService {
   }
 
   saveCard (closedface_side_id: number, openface_side_id: number): Observable<Card> {
-    return this.http.post<Card>('http://localhost:8080/api/games/1/cards', "{'closedface_side_id':"+closedface_side_id+",'openface_side_id':"+openface_side_id+"}", httpOptions).pipe(
+    return this.http.post<Card>('http://localhost:8080/api/games/' + this.gameId + '/cards', "{'closedface_side_id':"+closedface_side_id+",'openface_side_id':"+openface_side_id+"}", httpOptions).pipe(
       tap((card: Card) => this.log("added card w/ id=${card.id}")),
       catchError(this.handleError<Card>('saveFrontCard'))
     );

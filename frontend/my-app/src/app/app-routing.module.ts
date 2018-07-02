@@ -12,8 +12,11 @@ import {CarouselComponent} from "./carousel/carousel.component";
 import {GameEditorSetsComponent} from "./game-editor-sets/game-editor-sets.component";
 import {AddGameComponent} from "./add-game/add-game.component";
 import {MaintainGameComponent} from "./maintain-game/maintain-game.component";
+import {GamesComponent} from "./games/games.component";
+import {ScoreboardComponent} from "./scoreboard/scoreboard.component";
+import {GameSpelenComponent} from "./game-spelen/game-spelen.component";
+import {PuzzleComponent} from "./puzzle/puzzle.component";
 import {MemoryComponent} from "./memory/memory.component";
-//import {GameSpelenComponent} from "./game-spelen/game-spelen.component";
 
 
 const routes: Routes = [
@@ -29,7 +32,10 @@ const routes: Routes = [
   {path: 'game-editor-sets', component: GameEditorSetsComponent},
   {path: 'add-game', component: AddGameComponent},
   {path: 'maintain-game', component: MaintainGameComponent},
-  //{path: 'game-spelen', component: GameSpelenComponent},
+  {path: 'games', component: GamesComponent},
+  {path: 'puzzle', component: PuzzleComponent},
+  {path: 'scoreboard', component: ScoreboardComponent},
+  {path: 'game-spelen', component: GameSpelenComponent},
   {path: 'memory', component: MemoryComponent},
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 ];

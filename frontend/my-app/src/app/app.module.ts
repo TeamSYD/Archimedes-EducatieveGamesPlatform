@@ -52,6 +52,7 @@ import {MemoryComponent} from './memory/memory.component';
 import {ChessboardComponent} from './memory/chessboard/chessboard.component';
 import {StatusComponent} from './memory/status/status.component';
 import {CardComponent} from './memory/chessboard/card.component';
+import {GameSpelenComponent} from "./game-spelen/game-spelen.component";
 // COMPONENTS: SEARCH
 import {CategorySearchComponent} from './category-search/category-search.component';
 import {CardSearchComponent} from './card-search/card-search.component';
@@ -59,7 +60,10 @@ import {SnackbarComponent} from './snackbar.service';
 import {AddGameComponent} from './add-game/add-game.component'
 // SERVICES
 // DIRECTIVES
-import {CarouselItemDirective} from './carousel/carousel-item.directive';
+import { CarouselItemDirective } from './carousel/carousel-item.directive';
+import { GamesComponent } from './games/games.component';
+import { ScoreboardComponent } from './scoreboard/scoreboard.component';
+import { PuzzleComponent } from './puzzle/puzzle.component';
 
 
 Raven
@@ -116,6 +120,10 @@ export class RavenErrorHandler implements ErrorHandler {
     SetRowComponent,
 
     MaintainGameComponent,
+    GameSpelenComponent,
+    GamesComponent,
+    ScoreboardComponent,
+    PuzzleComponent,
     MemoryComponent,
     ChessboardComponent,
     StatusComponent,
