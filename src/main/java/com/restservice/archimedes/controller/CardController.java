@@ -1,14 +1,8 @@
 package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
-import com.restservice.archimedes.model.Account;
-import com.restservice.archimedes.model.Card;
-import com.restservice.archimedes.model.Game;
-import com.restservice.archimedes.model.Resource;
-import com.restservice.archimedes.repository.AccountRepository;
-import com.restservice.archimedes.repository.CardRepository;
-import com.restservice.archimedes.repository.GameRepository;
-import com.restservice.archimedes.repository.ResourceRepository;
+import com.restservice.archimedes.model.*;
+import com.restservice.archimedes.repository.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,13 +22,15 @@ public class CardController {
     private final CardRepository cardRepository;
     private final ResourceRepository resourceRepository;
     private final AccountRepository accountRepository;
+    private final SetRepository setRepository;
 
     @Autowired
-    public CardController(GameRepository gameRepository, CardRepository cardRepository, AccountRepository accountRepository, ResourceRepository resourceRepository) {
+    public CardController(GameRepository gameRepository, CardRepository cardRepository, AccountRepository accountRepository, ResourceRepository resourceRepository, SetRepository setRepository) {
         this.gameRepository = gameRepository;
         this.cardRepository = cardRepository;
         this.accountRepository = accountRepository;
         this.resourceRepository = resourceRepository;
+        this.setRepository = setRepository;
     }
     // Get a all cards by gameid
     @GetMapping("/games/{id}/cards")
@@ -64,5 +60,37 @@ public class CardController {
         card.setGame(game);
 
         return cardRepository.save(card);
+    }
+
+    @PutMapping("card/{card_id}/set/{set_id}")
+    public Card updateCardWithSet(@PathVariable(value = "set_id") long set_id,
+                                  @PathVariable(value = "card_id") long card_id){
+        Card card = cardRepository.findById(card_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Card:", "id", card_id));
+        Set set = setRepository.findById(set_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Set:", "id", set_id));
+        card.setSet(set);
+
+        return card;
+    }
+
+    @PutMapping("card/{card_id}/noset")
+    public Card unlinkCardFromSet(@PathVariable(value = "card_id") long card_id){
+        Card card = cardRepository.findById(card_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Card:", "id", card_id));
+        card.setSet(null);
+
+        return card;
+    }
+
+    // Delete a card
+    @DeleteMapping("/card/{id}")
+    public ResponseEntity<?> deleteCard(@PathVariable(value = "id") long cardId) {
+        Card card = cardRepository.findById(cardId)
+                .orElseThrow(() -> new ResourceNotFoundException("Card", "id", cardId));
+
+        cardRepository.delete(card);
+
+        return ResponseEntity.ok().build();
     }
 }

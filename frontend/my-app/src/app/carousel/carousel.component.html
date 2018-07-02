@@ -5,11 +5,19 @@
   <div class="carousel-container" #carouselcontainer>
   <ul class="carousel-list flexbox" #carousel>
 
-    <li *ngFor="let card of cards | async" class="card-list-item" #cardlistitem>
+    <li *ngFor="let card of cards; let i = index" class="card-list-item" #cardlistitem>
       <div [dragScope]="'newcard'" draggable [dragData]="card" class="card">
+        <div class="innercardbutton">
+          <button (click)="removeCard(i)" class="removalbutton"><i class="fa fa-minus-circle removalicon"></i></button>
+        </div>
+        <img *ngIf='card.closedface_side.type == "IMAGE"' src="data:image/jpeg;base64,{{card.closedface_side.image_data}}" class="image_resource">
+        <p *ngIf='card.closedface_side.type == "TEXT"'  class="text_resource">{{card.closedface_side.text_resource}}</p>
+      </div>
+      <div class="cardback">
         <img *ngIf='card.openface_side.type == "IMAGE"' src="data:image/jpeg;base64,{{card.openface_side.image_data}}" class="image_resource">
         <p *ngIf='card.openface_side.type == "TEXT"'  class="text_resource">{{card.openface_side.text_resource}}</p>
       </div>
+
     </li>
 
   </ul>
