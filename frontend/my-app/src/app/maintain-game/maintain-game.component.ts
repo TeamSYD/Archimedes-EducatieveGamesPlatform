@@ -9,6 +9,7 @@ import {Session} from "../session";
 
 import {SnackbarService} from "../snackbar.service";
 import {Router} from "@angular/router";
+import {ScoreService} from "../score.service";
 
 @Component({
   selector: 'app-maintain-game',
@@ -93,13 +94,17 @@ export class MaintainGameComponent implements OnInit {
     this.pin = Math.floor(1000 + Math.random() * 9000);
     this.gameService.addSession(this.pin, this.games[this.selectedIndex].id).subscribe( session => {
       this.sessionArray.push(session);
-      alert('Uw gegenereerde PIN is: ' + session.pin);
+      console.log(session.id);
+      this.scoreService.addScoreboard(session.id).subscribe(scoreboard => {
+        console.log("scoreboard id: " + scoreboard.id);
+      });
     });
   }
 
   constructor(private gameService: GameService,
               private snackBarService: SnackbarService,
-              public router: Router) { }
+              public router: Router,
+              private scoreService: ScoreService) { }
 
   ngOnInit() {
     this.getGames();

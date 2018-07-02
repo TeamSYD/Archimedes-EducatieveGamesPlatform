@@ -67,9 +67,6 @@ export class GameService {
       ));
   }
 
-
-
-
   addSession (pin:number, game_id: number): Observable<Session>{
     return this.http.post<Session>('http://localhost:8080/api/sessions/'+game_id, "{'pin':" + pin + ", 'game_id': " + game_id + "}", httpOptions).pipe(
       tap((session: Session) => console.log(`added session w/ id=${session.id}`)),
@@ -77,14 +74,13 @@ export class GameService {
     );
   }
 
-  getSessionByPin<Data>(pin: number) : Observable<Session[]> {
-    return this.http.get<Session[]>('http://localhost:8080/api/session/pin/'+pin)
-      .pipe(
+  getSessionByPin(pin: number) : Observable<Session> {
+    return this.http.get<Session>('http://localhost:8080/api/session/pin/'+pin).pipe(
         tap(h => {
           const outcome = h ? `fetched` : `did not find`;
           this.log(`${outcome} session pin=${pin}`);
         }),
-        catchError(this.handleError<Session[]>(`getSessionByPin pin=${pin}`))
+        catchError(this.handleError<Session>(`getSessionByPin pin=${pin}`))
       );
   }
 

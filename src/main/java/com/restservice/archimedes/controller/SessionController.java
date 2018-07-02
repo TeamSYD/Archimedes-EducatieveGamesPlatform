@@ -21,11 +21,8 @@ import java.util.List;
 @CrossOrigin
 public class SessionController {
 
-    private final
-    SessionRepository sessionRepository;
-
-    private final
-    GameRepository gameRepository;
+    private final SessionRepository sessionRepository;
+    private final GameRepository gameRepository;
 
     @Autowired
     public SessionController(SessionRepository sessionRepository, GameRepository gameRepository) {
