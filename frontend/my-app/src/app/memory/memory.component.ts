@@ -3,6 +3,8 @@ import {Set} from "../sets/set";
 import {Card} from "../cards/card";
 import {Game} from "../game";
 import {GameService} from "../game.service";
+import {SetService} from "../set.service";
+import {CardService} from "../card.service";
 
 @Component({
   selector: 'app-memory',
@@ -16,22 +18,30 @@ export class MemoryComponent implements OnInit {
   winSet: Set;
   game: Game[];
 
-  constructor(private gameService: GameService) { }
-
-  getSets():void{
-
-  }
+  constructor(private gameService: GameService,
+              private setService: SetService,
+              private cardService: CardService,
+  ) { }
 
   getGame(){
 
   }
-  getCards(){
-
+  getSets(): void {
+    // this.setService.getSets()
+    //   .subscribe(sets => this.sets = sets);
   }
+  flip(e){
+    console.log(e.target.innerHTML);
+  }
+  getCards(): void {
+    this.cardService.getCards()
+      .subscribe(cards => this.cards = cards);
+  }
+
+
 
   ngOnInit() {
     this.getSets();
-    this.getGame();
     this.getCards();
   }
 }
