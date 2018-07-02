@@ -2,19 +2,21 @@ import { Component, OnInit, AfterViewInit, ViewChildren, QueryList } from '@angu
 import { SetRowComponent } from '../set-row/set-row.component'
 import {Observable} from "rxjs/Rx";
 import {SetService} from "../set.service";
+import {Card} from "../cards/card";
+import {typeIsOrHasBaseType} from "tslint/lib/language/typeUtils";
 
 @Component({
   selector: 'app-sets',
   templateUrl: './sets.component.html',
   styleUrls: ['./sets.component.css']
 })
-export class SetsComponent implements AfterViewInit {
+export class SetsComponent implements OnInit {
   @ViewChildren(SetRowComponent) rows: QueryList<SetRowComponent>
 
   //setObservable : Observable<Set[]>;
   set: Set;
-  sets: Set[];
-  setcontent;
+  //sets: Set[];
+  setcontent: Set[];
   setfiller = true;
   duplicate = false;
   invert = false;
@@ -23,18 +25,21 @@ export class SetsComponent implements AfterViewInit {
 
 
   constructor(private setService: SetService) {
-    this.setcontent = [[]];
+    this.setcontent = [];
   }
 
   add(){
-    this.setcontent.push([]);
+    this.setService.addSet(1).subscribe( a => this.setcontent.push(a));
+    console.log(this.setcontent)
   }
 
   remove(index: number) {
-    this.setcontent.splice(index, 1);
+    this.setService.deleteSet(this.setcontent[index].id).subscribe(a => this.setcontent.splice(index, 1))
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.setService.getSets(1).subscribe(a => this.setcontent.map(b => a));
+  }
 
   duplicateToggle(){
     this.duplicateButton();
@@ -64,9 +69,14 @@ export class SetsComponent implements AfterViewInit {
   }
 
   saveButton() {
+    this.setService.getSets(1).subscribe(a => a.forEach(console.log("CANCER"+a)));
     console.log("SAVE BUTTON CLICKED");
-    this.rows.forEach(res => this.setService.saveSet((res.cardcontent, res.filler, res.gameId))
-    );
+    var i = 0;
+    this.rows.forEach(res => {
+      console.log("SetRowCompnent: "+i);
+      let gameId: number[] = res.cardcontent.map(a => a.game.id);
+      this.setService.saveSetNew(res.cardcontent, res.filler, 1).subscribe();
+    });
 
     console.log(this.setcontent);
 

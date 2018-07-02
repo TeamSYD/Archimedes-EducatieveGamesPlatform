@@ -95,7 +95,7 @@ export class CarouselComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cardService.gameID = 1;
+    this.cardService.gameId = 1;
     this.getCards();
     console.log(this.cards);
     this.dataService.currentCard.subscribe(card => this.cards.push(card));

@@ -1,8 +1,11 @@
 import {Card} from "../cards/card";
 export class Set {
-  gameId : number;
+  constructor(id: number, filler: boolean){
+    this.id = id;
+    this.filler = filler;
+  }
+  id: number;
   filler : boolean;
   cards : Card[];
   cardId: number;
-  id : number
 }

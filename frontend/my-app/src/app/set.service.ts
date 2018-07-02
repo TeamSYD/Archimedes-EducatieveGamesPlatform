@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, Input} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
@@ -17,7 +17,6 @@ const httpOptions = {
 })
 @Injectable({ providedIn: 'root' })
 export class SetService {
-
   private setUrl = 'http://localhost:8080/api';  // URL to web api
 
   constructor(
@@ -25,8 +24,8 @@ export class SetService {
     private messageService: MessageService) { }
 
   /** GET sets from the server */
-  getSets (): Observable<Set[]> {
-    return this.http.get<Set[]>(this.setUrl+"?????")
+  getSets (gameId): Observable<Set[]> {
+    return this.http.get<Set[]>(this.setUrl+"/games/"+gameId+"/sets")
       .pipe(map(set => set), tap(set => this.log(`fetched sets`)),
         catchError(this.handleError('getSets', []))
       );
@@ -42,13 +41,46 @@ export class SetService {
     );
   }
 
-  /** DELETE: delete the set from the server */
-  deleteSet (set: Set | number): Observable<Set> {
-    const id = typeof set === 'number' ? set : set.id;
-    const url = `${this.setUrl}/${id}`;
+  addSet (gameId: number): Observable<Set> {
+    return this.http.post<Set>(this.setUrl+"/games/"+gameId+"/set", httpOptions).pipe(
+      tap((set: Set) => this.log(`added set w/ id=${set.id}`)),
+      catchError(this.handleError<Set>('addSet'))
+    );
+  }
 
-    return this.http.delete<Set>(url, httpOptions).pipe(
-      tap(_ => this.log(`deleted set id=${id}`)),
+  addFillerSet (gameId: number): Observable<Set> {
+    return this.http.post<Set>(this.setUrl+"/games/"+gameId+"/fillerset", httpOptions).pipe(
+      tap((set: Set) => this.log(`added set w/ id=${set.id}`)),
+      catchError(this.handleError<Set>('addSet'))
+    );
+  }
+
+  /** POST: add a new set to the server */
+  saveSetNew (cards: Card[], filler: boolean, gameId: number): Observable<Set> {
+    return this.http.post<Set>(this.setUrl+'/games/'+gameId+'/set', new Set(1, filler), httpOptions).pipe(
+      tap((set: Set) => this.log(`added set w/ id=${set.id}`)),
+      catchError(this.handleError<Set>('addSet'))
+    );
+  }
+
+  updateCard(card_id: number, set_id: number){
+    return this.http.put(this.setUrl+"/card/"+card_id+"/set/"+set_id, httpOptions).pipe(
+      tap((set: Set) => this.log(`updated card w/ id=${card_id}`)),
+      catchError(this.handleError<Set>('updateCard'))
+    );
+  }
+
+  unlinkCard(card_id: number){
+    return this.http.put(this.setUrl+"/card/"+card_id+"/noset", httpOptions).pipe(
+      tap((set: Set) => this.log(`updated card w/ id=${card_id}`)),
+      catchError(this.handleError<Set>('unlinkCard'))
+    );
+  }
+
+  /** DELETE: delete the set from the server */
+  deleteSet (set: Set): Observable<Set> {
+    return this.http.delete<Set>(this.setUrl+"/set/"+set.id, httpOptions).pipe(
+      tap(_ => this.log(`deleted set id=${set.id}`)),
       catchError(this.handleError<Set>('deleteSet'))
     );
   }

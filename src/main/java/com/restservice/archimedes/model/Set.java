@@ -20,9 +20,6 @@ public class Set extends AuditModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
-    private int set_id;
-
     @NotNull
     private boolean filler;
 
@@ -45,14 +42,6 @@ public class Set extends AuditModel implements Serializable {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public int getSet_id() {
-        return set_id;
-    }
-
-    public void setSet_id(int set_id) {
-        this.set_id = set_id;
     }
 
     public Game getGame() {

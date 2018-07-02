@@ -11,12 +11,14 @@ import com.restservice.archimedes.repository.SetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class SetController {
 
     private final GameRepository gameRepository;
@@ -42,12 +44,6 @@ public class SetController {
         return setRepository.findByGameId(gameId, pageable);
     }
 
-    // Create a set by cardid
-    @GetMapping("/games/{game_id}/sets/{card_id}")
-    public Page<Set> getSetsByCardId(@PathVariable(value = "id") long gameId,@PathVariable(value = "card_id") long cardId, Pageable pageable) {
-
-        return setRepository.findByCardId(gameId,cardId, pageable);
-    }
     // Create a set by gameid
     @PostMapping("/games/{game_id}/set")
     public Set createSetByGameId(@Valid @RequestBody Set set,
@@ -56,7 +52,32 @@ public class SetController {
                 .orElseThrow(() -> new ResourceNotFoundException("Game", "id", gameId));
 
         set.setGame(game);
+        set.setFiller(true);
 
         return setRepository.save(set);
+    }
+
+    // Create a fillerset by gameid
+    @PostMapping("/games/{game_id}/fillerset")
+    public Set createFillerSetByGameId(@Valid @RequestBody Set set,
+                                 @PathVariable(value = "game_id") long gameId) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new ResourceNotFoundException("Game", "id", gameId));
+
+        set.setGame(game);
+        set.setFiller(false);
+
+        return setRepository.save(set);
+    }
+
+    // Delete a category
+    @DeleteMapping("/set/{id}")
+    public ResponseEntity<?> deleteSet(@PathVariable(value = "id") long setId) {
+        Set set = setRepository.findById(setId)
+                .orElseThrow(() -> new ResourceNotFoundException("Set", "id", setId));
+
+        setRepository.delete(set);
+
+        return ResponseEntity.ok().build();
     }
 }

@@ -15,7 +15,15 @@ const httpOptions = {
 export class CardService {
 
   private cardsUrl = 'http://localhost:8080/api';  // URL to web api
-  gameId: number = parseInt(localStorage.getItem("gameId"));
+  private _gameId: number = parseInt(localStorage.getItem("_gameId"));
+
+  get gameId(): number {
+    return this._gameId;
+  }
+
+  set gameId(value: number) {
+    this._gameId = value;
+  }
 
   constructor(
     private http: HttpClient,
@@ -23,7 +31,7 @@ export class CardService {
 
   /** GET cards from the server */
   getCards (): Observable<Card[]> {
-    return this.http.get<Card[]>(this.cardsUrl+"/games/"+this._gameID+"/cards")
+    return this.http.get<Card[]>(this.cardsUrl+"/games/"+this._gameId+"/cards")
       .pipe(map(cards => <Card[]>cards['content']), tap(cards => this.log(`fetched cards`)),
         catchError(this.handleError('getCards', []))
       );
@@ -82,20 +90,9 @@ export class CardService {
   }
 
   saveCard (closedface_side_id: number, openface_side_id: number): Observable<Card> {
-    return this.http.post<Card>('http://localhost:8080/api/games/'+this._gameID+'/cards', "{'closedface_side_id':"+closedface_side_id+",'openface_side_id':"+openface_side_id+"}", httpOptions).pipe(
+    return this.http.post<Card>('http://localhost:8080/api/games/'+this._gameId+'/cards', "{'closedface_side_id':"+closedface_side_id+",'openface_side_id':"+openface_side_id+"}", httpOptions).pipe(
       tap((card: Card) => this.log("added card w/ id=${card.id}")),
       catchError(this.handleError<Card>('saveFrontCard'))
-    );
-  }
-
-  /** DELETE: delete the card from the server */
-  deleteCard (card: Card | number): Observable<Card> {
-    const id = typeof card === 'number' ? card : card.id;
-    const url = `${this.cardsUrl}/${id}`;
-
-    return this.http.delete<Card>(url, httpOptions).pipe(
-      tap(_ => this.log(`deleted card id=${id}`)),
-      catchError(this.handleError<Card>('deleteCard'))
     );
   }
 
