@@ -26,7 +26,7 @@ export class SetService {
 
   /** GET sets from the server */
   getSets(): Observable<Set[]> {
-    return this.http.get<Set[]>(this.setUrl+ "/games/22/sets")
+    return this.http.get<Set[]>(this.setUrl+ "/games/2/sets")
       .pipe(map(res => <Set[]>res['content']), tap(set => this.log(`fetched sets`)),
         catchError(this.handleError('getSets', []))
       );

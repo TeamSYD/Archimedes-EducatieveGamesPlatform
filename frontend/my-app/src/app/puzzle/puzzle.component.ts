@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Set} from '../sets/set'
 import {Card} from "../cards/card";
 import {MatInputModule, MatSlideToggleModule, MatCardModule, MatSelectModule, MatButtonModule, MatSliderModule, } from '@angular/material/';
@@ -7,23 +7,41 @@ import {GameService} from "../game.service";
 import {SetService} from "../set.service";
 import {CardService} from "../card.service";
 import { DropEvent } from 'ng-drag-drop';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import {DataService} from "../data-service.service";
 
 @Component({
   selector: 'app-puzzle',
   templateUrl: './puzzle.component.html',
   styleUrls: ['./puzzle.component.css']
 })
-export class PuzzleComponent implements OnInit {
+export class PuzzleComponent implements OnInit, OnChanges {
 
   ready: boolean = false;
+  readyButton: boolean = true;
   sets: Set[];
   cardsInput: Card[] = [];
   winCondition: Card[] = [];
-  // filler: Card[];
-  cards: Card[];
-  game: Game;
+  cards: Card[] = [];
+  @Input() game: number;
   emptyCard: Card;
   gameStatus: boolean = false;
+  @Output() gameEvent = new EventEmitter<number>();
+
+
+  sendGameEvent(){
+    this.gameEvent.emit(this.game + 1);
+  }
+
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes.game);
+    this.getSets();
+    this.readyButton = true;
+    this.ready = false;
+  }
+
 
   checkWinCondition(e: DropEvent, index:number){
     console.log('checkwinconditie:');
@@ -40,6 +58,14 @@ export class PuzzleComponent implements OnInit {
     console.log(this.winCondition);
     console.log(this.cardsInput);
 
+    for(let card of this.winCondition){
+      if(this.cardsInput.includes(card)){
+        console.log('xD');
+      } else {
+        console.log('sadFace');
+      }
+    }
+
 
 
     for (let i = 0; i < this.winCondition.length; i++) {
@@ -53,7 +79,7 @@ export class PuzzleComponent implements OnInit {
     if(this.gameStatus){
       console.log('ding ding ding winner!')
     } else {
-      console.log('ding ding ding loser!')
+      console.log('ding ding dingloser!')
     }
   }
 
@@ -69,7 +95,14 @@ export class PuzzleComponent implements OnInit {
 
     this.configureGameRules();
     console.log('winconditie length: '+ this.winCondition.length);
+
+    console.log(this.cards);
+    console.log(this.sets);
+    console.log(this.winCondition);
+    console.log(this.cardsInput);
     this.ready = true;
+    this.readyButton = false;
+    this.cards = this.shuffle(this.cards);
   }
 
   test2(): void{
@@ -85,16 +118,12 @@ export class PuzzleComponent implements OnInit {
     console.log('card input length: ' + this.cardsInput.length)
 
     console.log(this.gameStatus);
+    console.log(this.game);
+    this.sendGameEvent();
+
 
   }
 
-  // fillFillers(id: number): void{
-  //   for(let card of this.cards){
-  //     if (card.id == id ){
-  //       this.filler.push(card);
-  //     }
-  //   }
-  // }
 
   configureGameRules(): void{
     for(let set of this.sets){
@@ -102,10 +131,30 @@ export class PuzzleComponent implements OnInit {
       if (set.filler == false){
         console.log(set.card);
         this.winCondition.push(set.card);
+        this.cards.push(set.card);
         this.cardsInput.push(this.emptyCard)
+      } else {
+        this.cards.push(set.card);
       }
     }
   }
+
+  reset(){
+    this.cardsInput = [];
+    for (let i = 0; i < this.winCondition.length; i++) {
+      this.cardsInput.push(this.emptyCard);
+    }
+  }
+
+
+  shuffle(arr: any[]) {
+    const newArr = arr.slice();
+    for (let i = newArr.length; i; i -= 1) {
+      const j = Math.floor(Math.random() * i);
+      const x = newArr[i - 1];
+      newArr[i - 1] = newArr[j];
+      newArr[j] = x;
+    } return newArr;}
 
   getSets(): void {
     this.setService.getSets()
@@ -120,11 +169,14 @@ export class PuzzleComponent implements OnInit {
   constructor(private gameService: GameService,
               private setService: SetService,
               private cardService: CardService,
+              private route: ActivatedRoute,
+              private location: Location,
+              private dataService: DataService,
   ) { }
 
   ngOnInit() {
     this.getSets();
-    this.getCards();
+
   }
 
 }
