@@ -16,6 +16,9 @@ import {GamesComponent} from "./games/games.component";
 import {ScoreboardComponent} from "./scoreboard/scoreboard.component";
 import {GameSpelenComponent} from "./game-spelen/game-spelen.component";
 import {PuzzleComponent} from "./puzzle/puzzle.component";
+import {GameResultaatComponent} from "./game-resultaat/game-resultaat.component";
+import {AddArrangementComponent} from "./add-arrangement/add-arrangement.component";
+import {ManageArrangementComponent} from "./manage-arrangement/manage-arrangement.component";
 
 
 const routes: Routes = [
@@ -35,6 +38,10 @@ const routes: Routes = [
   {path: 'puzzle', component: PuzzleComponent},
   {path: 'scoreboard', component: ScoreboardComponent},
   {path: 'game-spelen', component: GameSpelenComponent},
+  {path: 'game-resultaat', component: GameResultaatComponent},
+  {path: 'arrangements', component: ArrangementsComponent},
+  {path: 'add-arrangement', component: AddArrangementComponent},
+  {path: 'maintain-arrangement', component: ManageArrangementComponent},
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 ];
 

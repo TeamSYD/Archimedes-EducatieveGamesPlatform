@@ -30,7 +30,7 @@ public class ArrangementController {
 
     // Create a new Arrangement
     @PostMapping("/arrangements")
-    public Arrangement createArrangement(@Valid @RequestBody Arrangement arrangement) {
+    public Arrangement createArrangement(@RequestBody Arrangement arrangement) {
         return arrangementRepository.save(arrangement);
     }
 

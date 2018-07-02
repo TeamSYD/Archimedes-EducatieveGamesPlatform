@@ -1,0 +1,17 @@
+.example-card {
+  max-width: 400px;
+}
+
+.category-bar-height {
+  height:35px;
+}
+
+.button-category{
+  padding-right: 20px;
+  padding-left: 15px;
+  margin: 1px;
+}
+
+table {
+  width: 100%;
+}
