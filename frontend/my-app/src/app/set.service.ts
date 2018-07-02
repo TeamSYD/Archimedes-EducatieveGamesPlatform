@@ -1,4 +1,4 @@
-import {Injectable, Input} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Set } from './sets/set';
 import { MessageService } from './message.service';
+import {Game} from "./game";
 import {Card} from "./cards/card";
 
 const httpOptions = {
@@ -17,6 +18,7 @@ const httpOptions = {
 })
 @Injectable({ providedIn: 'root' })
 export class SetService {
+
   private setUrl = 'http://localhost:8080/api';  // URL to web api
 
   constructor(
@@ -24,9 +26,9 @@ export class SetService {
     private messageService: MessageService) { }
 
   /** GET sets from the server */
-  getSets (gameId): Observable<Set[]> {
-    return this.http.get<Set[]>(this.setUrl+"/games/"+gameId+"/sets")
-      .pipe(map(set => set), tap(set => this.log(`fetched sets`)),
+  getSets(): Observable<Set[]> {
+    return this.http.get<Set[]>(this.setUrl+ "/games/22/sets")
+      .pipe(map(res => <Set[]>res['content']), tap(set => this.log(`fetched sets`)),
         catchError(this.handleError('getSets', []))
       );
   }

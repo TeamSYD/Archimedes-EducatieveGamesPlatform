@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Card } from './cards/card';
 import { MessageService } from './message.service';
+import {Category} from "./Category";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,15 +16,7 @@ const httpOptions = {
 export class CardService {
 
   private cardsUrl = 'http://localhost:8080/api';  // URL to web api
-  private _gameId: number = parseInt(localStorage.getItem("_gameId"));
-
-  get gameId(): number {
-    return this._gameId;
-  }
-
-  set gameId(value: number) {
-    this._gameId = value;
-  }
+  gameId: number = parseInt(localStorage.getItem("gameId"));
 
   constructor(
     private http: HttpClient,
@@ -31,8 +24,8 @@ export class CardService {
 
   /** GET cards from the server */
   getCards (): Observable<Card[]> {
-    return this.http.get<Card[]>(this.cardsUrl+"/games/"+this._gameId+"/cards")
-      .pipe(map(cards => <Card[]>cards['content']), tap(cards => this.log(`fetched cards`)),
+    return this.http.get<Card[]>(this.cardsUrl+"/games/" +this.gameId + "/cards")
+      .pipe(map(res => <Card[]>res['content']), tap(cards => this.log(`fetched cards`)),
         catchError(this.handleError('getCards', []))
       );
   }
@@ -90,9 +83,20 @@ export class CardService {
   }
 
   saveCard (closedface_side_id: number, openface_side_id: number): Observable<Card> {
-    return this.http.post<Card>('http://localhost:8080/api/games/'+this._gameId+'/cards', "{'closedface_side_id':"+closedface_side_id+",'openface_side_id':"+openface_side_id+"}", httpOptions).pipe(
+    return this.http.post<Card>('http://localhost:8080/api/games/' + this.gameId + '/cards', "{'closedface_side_id':"+closedface_side_id+",'openface_side_id':"+openface_side_id+"}", httpOptions).pipe(
       tap((card: Card) => this.log("added card w/ id=${card.id}")),
       catchError(this.handleError<Card>('saveFrontCard'))
+    );
+  }
+
+  /** DELETE: delete the card from the server */
+  deleteCard (card: Card | number): Observable<Card> {
+    const id = typeof card === 'number' ? card : card.id;
+    const url = `${this.cardsUrl}/${id}`;
+
+    return this.http.delete<Card>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted card id=${id}`)),
+      catchError(this.handleError<Card>('deleteCard'))
     );
   }
 
@@ -101,15 +105,6 @@ export class CardService {
     return this.http.put(this.cardsUrl, card, httpOptions).pipe(
       tap(_ => this.log(`updated card id=${card.id}`)),
       catchError(this.handleError<any>('updateCard'))
-    );
-  }
-
-  deleteCard (card: Card | number): Observable<Card> {
-    const id = typeof card === 'number' ? card : card.id;
-
-    return this.http.delete<Card>('http://localhost:8080/api/card/' + id, httpOptions).pipe(
-      tap(_ => this.log(`deleted card id=${id}`)),
-      catchError(this.handleError<Card>('deleteCard'))
     );
   }
 
