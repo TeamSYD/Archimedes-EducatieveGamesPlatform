@@ -18,7 +18,7 @@ import { Card } from '../cards/card'
 import { CardService } from "../card.service";
 import { Renderer2} from "@angular/core";
 import {Observable} from "rxjs/Rx";
-import {DataService} from "../data-service.service";
+import {DataService} from "../data-service";
 
 @Directive({
   selector: '.carousel-item'

@@ -5,7 +5,7 @@ import {SnackbarService} from "../snackbar.service";
 import { ResourceService } from '../resource.service';
 import { CardService } from '../card.service';
 import {Card} from "../cards/card";
-import {DataService} from "../data-service.service";
+import {DataService} from "../data-service";
 
 @Component({
   selector: 'app-card-editor-detail',
