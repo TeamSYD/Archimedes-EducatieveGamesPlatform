@@ -1,9 +1,12 @@
 package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
+import com.restservice.archimedes.model.Game;
 import com.restservice.archimedes.model.Scoreboard;
+import com.restservice.archimedes.model.Session;
 import com.restservice.archimedes.repository.ScoreboardRepository;
 import com.restservice.archimedes.repository.SessionRepository;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,10 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class ScoreboardController {
 
     private final
@@ -35,14 +40,20 @@ public class ScoreboardController {
     }
 
     // Get Scoreboard with {sessionId}
-    @GetMapping("/session/{sessionId}/scoreboard")
-    public Page<Scoreboard> getScoreboardBySession(@PathVariable(value = "sessionId") long sessionId, Pageable pageable) {
-        return scoreboardRepository.findBySessionId(sessionId, pageable);
+    @GetMapping("/session/{session_id}/scoreboard")
+    public Page<Scoreboard> getScoreboardBySession(@PathVariable(value = "sessionId") long session_id, Pageable pageable) {
+        return scoreboardRepository.findBySessionId(session_id, pageable);
     }
 
     // Create a new Scoreboard
-    @PostMapping("/scoreboards")
-    public Scoreboard createScoreboard(@Valid @RequestBody Scoreboard scoreboard) {
+    @PostMapping("/scoreboards/{session_id}")
+    public Scoreboard createScoreboard(
+            @PathVariable(value = "session_id") long session_id) throws IOException {
+        Session session = sessionRepository.findById(session_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Session","session_id",session_id ));
+
+        Scoreboard scoreboard = new Scoreboard();
+        scoreboard.setSession(session);
         return scoreboardRepository.save(scoreboard);
     }
 

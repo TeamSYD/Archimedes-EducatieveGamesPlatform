@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -15,14 +16,20 @@ import java.io.Serializable;
 public class Scoreboard extends AuditModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private long id;
 
     @OneToOne
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "session_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private Session session;
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
 
     public long getId() {
         return id;
@@ -32,12 +39,6 @@ public class Scoreboard extends AuditModel implements Serializable {
         this.id = id;
     }
 
-    public Session getSession() {
-        return session;
-    }
 
-    public void setSession(Session session) {
-        this.session = session;
-    }
 
 }
