@@ -14,10 +14,10 @@ const httpOptions = {
 })
 export class ArrangementenService {
 
-  addArrangement(pin:number, game_id: number): Observable<Arrangementen>{
-    return this.http.post<Arrangementen>('http://localhost:8080/api/sessions/'+game_id, "{'pin':" + pin + ", 'game_id': " + game_id + "}", httpOptions).pipe(
-      tap((arrangement: Arrangementen) => console.log(`added session w/ id=${arrangement.id}`)),
-      catchError(this.handleError<Arrangementen>('addSession'))
+  addArrangement(): Observable<Arrangementen>{
+    return this.http.post<Arrangementen>('http://localhost:8080/api/arrangements/', httpOptions).pipe(
+      tap((arrangement: Arrangementen) => console.log(`added arrangement w/ id=${arrangement.id}`)),
+      catchError(this.handleError<Arrangementen>('addArrangement'))
     );
   }
 

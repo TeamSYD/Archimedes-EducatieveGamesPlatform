@@ -33,8 +33,6 @@ public class Game extends AuditModel implements Serializable {
     @Nullable
     private String description;
 
-    private Set<Category> categories = new HashSet<Category>(0);
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -45,18 +43,13 @@ public class Game extends AuditModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Rule rule;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "game_arrangement", joinColumns = {
-            @JoinColumn(name = "game_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "arrangementen_id",
-                    nullable = false, updatable = false) })
-    public Set<Category> getCategories() {
-        return this.categories;
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
-    }
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "games")
+    private Set<Arrangement> arrangements = new HashSet<>();
 
     public Rule getRule() {
         return rule;
@@ -110,5 +103,11 @@ public class Game extends AuditModel implements Serializable {
 
     public void setDescription(String description) { this.description = description; }
 
+    public Set<Arrangement> getArrangements() {
+        return arrangements;
+    }
 
+    public void setArrangements(Set<Arrangement> arrangements) {
+        this.arrangements = arrangements;
+    }
 }
