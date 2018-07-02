@@ -1,7 +1,8 @@
 /* width */
 ::-webkit-scrollbar {
+  height: 10px;
   width: 10px;
-  display: none;
+  visibility: hidden;
 }
 
 /* Track */
@@ -21,7 +22,7 @@
 }
 
 .carousel-wrapper:hover ::-webkit-scrollbar{
-  display: inline-block;
+  visibility: visible;
 }
 
 img {
@@ -48,7 +49,7 @@ p{
   margin: auto;
   width: 96%;
   height:100%;
-  background-color: #95BCD0;
+  background-color: #b1cce4;
   padding: 0;
   border-radius: 0px;
   border-left: 2px;
@@ -85,21 +86,23 @@ p{
   padding: 0 0 0 0;
   height: 100%;
   width: 100%;
-  background-color: #aeb4b0;
+  background-color: #C3D5F9;
   margin: auto;
 }
 
 .card-list-item{
   display: inline-flex;
+  justify-content: center;
   flex: 0 0 auto;
-  padding: 0px 0px 0px 0px;
+  padding: 0em 0.5em 0em 0.5em;
   width: 7em;
   height: 100%;
-  background-color: #6EA4BF;
+  background-color: #C3D5F9;
 }
 
+
+
 .card{
-  margin: auto;
   height: 100%;
   width: 6em;
   background-color: #D7E6ED;
@@ -119,3 +122,51 @@ p{
   height: 100%;
   background-color: #f4f1ed;
 }
+
+li .removalbutton {
+  display: none;
+}
+
+li:hover .removalbutton {
+  display: block;
+}
+
+.card-list-item:hover .cardback{
+   display: block;
+}
+
+.card-list-item:hover{
+  width: 13em;
+}
+
+.cardback{
+  opacity: 0.3;
+  height: 100%;
+  width: 6em;
+  background-color: #e5f9f9;
+  border-radius: 0;
+  border: 2px solid #ac3b34;
+  display: none;
+}
+
+.removalicon {
+  width: 1em;
+  height: 1em;
+}
+
+.innercardbutton{
+  display: inline-flex;
+  justify-content: flex-end;
+  width: 100%;
+  position:absolute;
+}
+
+.removalbutton{
+  width: 2em;
+  height: 2em;
+  background-color: grey;
+  border: none;
+  color: white;
+}
+
+

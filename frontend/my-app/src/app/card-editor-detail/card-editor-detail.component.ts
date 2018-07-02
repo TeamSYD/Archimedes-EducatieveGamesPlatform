@@ -4,6 +4,8 @@ import { DropEvent } from 'ng-drag-drop';
 import {SnackbarService} from "../snackbar.service";
 import { ResourceService } from '../resource.service';
 import { CardService } from '../card.service';
+import {Card} from "../cards/card";
+import {DataService} from "../data-service.service";
 
 @Component({
   selector: 'app-card-editor-detail',
@@ -13,7 +15,7 @@ import { CardService } from '../card.service';
 
 export class CardEditorDetailComponent implements OnInit {
 
-  cards = [];
+  cards: Card[] = [];
   droppedBackcard = [];
   droppedFrontcard = [];
   frontText: String;
@@ -28,10 +30,12 @@ export class CardEditorDetailComponent implements OnInit {
   constructor(private resourceService: ResourceService,
               private cardService: CardService,
               private location: Location,
-              private snackbarService: SnackbarService)
+              private snackbarService: SnackbarService,
+              private dataService: DataService)
   {}
 
   ngOnInit(): void {
+    this.cardService.gameId = 1;
   }
 
   saveNewText() : void {
@@ -58,11 +62,11 @@ export class CardEditorDetailComponent implements OnInit {
   }
 
   saveNewCard(): void {
-
     this.saveNewText();
 
     this.cardService.saveCard(this.finalFrontId, this.finalBackId).subscribe(card => {
       this.cards.push(card);
+      this.dataService.changeCard(card);
     });
 
     this.showFront = false;

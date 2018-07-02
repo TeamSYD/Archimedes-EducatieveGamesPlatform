@@ -1,38 +1,45 @@
 import { Component, OnInit, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { SetRowComponent } from '../set-row/set-row.component'
 import {Observable} from "rxjs/Rx";
+import {SetService} from "../set.service";
+import {Card} from "../cards/card";
+import {typeIsOrHasBaseType} from "tslint/lib/language/typeUtils";
 
 @Component({
   selector: 'app-sets',
   templateUrl: './sets.component.html',
   styleUrls: ['./sets.component.css']
 })
-export class SetsComponent implements AfterViewInit {
+export class SetsComponent implements OnInit {
   @ViewChildren(SetRowComponent) rows: QueryList<SetRowComponent>
 
   //setObservable : Observable<Set[]>;
-  setcontent = [];
+  set: Set;
+  //sets: Set[];
+  setcontent: Set[];
   setfiller = true;
-
   duplicate = false;
   invert = false;
   inverted: String = 'Cards open';
   duplicates: String = 'Duplicates on';
 
 
-  constructor() {
-    this.setcontent = [[], []];
+  constructor(private setService: SetService) {
+    this.setcontent = [];
   }
 
   add(){
-    this.setcontent.push([]);
+    this.setService.addSet(1).subscribe( a => this.setcontent.push(a));
+    console.log(this.setcontent)
   }
 
   remove(index: number) {
-    this.setcontent.splice(index, 1);
+    this.setService.deleteSet(this.setcontent[0].id).subscribe(a => this.setcontent.splice(index, 1))
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.setService.getSets(1).subscribe(a => console.log(a));
+  }
 
   duplicateToggle(){
     this.duplicateButton();
@@ -62,8 +69,17 @@ export class SetsComponent implements AfterViewInit {
   }
 
   saveButton() {
+    this.setService.getSets(1).subscribe(a => a.forEach(this.setcontent.concat(a)));
     console.log("SAVE BUTTON CLICKED");
-    this.rows.forEach(rowInstance => console.log(rowInstance));
+    var i = 0;
+    this.rows.forEach(res => {
+      console.log("SetRowCompnent: "+i);
+      let gameId: number[] = res.cardcontent.map(a => a.game.id);
+      this.setService.saveSetNew(res.cardcontent, res.filler, 1).subscribe();
+    });
+
+    console.log(this.setcontent);
+
   }
 
   ngAfterViewInit() {
