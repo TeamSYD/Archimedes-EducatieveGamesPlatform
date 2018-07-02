@@ -73,6 +73,7 @@ export class SetService {
   }
 
   unlinkCard(card_id: number){
+    console.log(this.setUrl+"/card/"+card_id+"/noset");
     return this.http.put(this.setUrl+"/card/"+card_id+"/noset", httpOptions).pipe(
       tap((set: Set) => this.log(`updated card w/ id=${card_id}`)),
       catchError(this.handleError<Set>('unlinkCard'))

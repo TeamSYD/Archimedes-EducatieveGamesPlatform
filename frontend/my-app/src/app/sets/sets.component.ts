@@ -5,6 +5,7 @@ import {SetService} from "../set.service";
 import {Card} from "../cards/card";
 import {typeIsOrHasBaseType} from "tslint/lib/language/typeUtils";
 import {Set} from "./set";
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-sets',
@@ -33,7 +34,11 @@ export class SetsComponent implements OnInit {
   }
 
   remove(index: number) {
-    this.setService.deleteSet(this.setcontent[index].id).subscribe(a => this.setcontent.splice(index, 1))
+    for (let i in this.setcontent[index].card) {
+      this.setService.unlinkCard(this.setcontent[index].card[i].id).subscribe();
+    }
+    this.setService.deleteSet(this.setcontent[index].id).subscribe(a => this.setcontent.splice(index, 1));
+
   }
 
   ngOnInit() {
