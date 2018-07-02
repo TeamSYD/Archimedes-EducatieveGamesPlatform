@@ -62,7 +62,6 @@ public class SetController {
                 set.getContent().get(x).setCard(cardList);
                 setList.add(set.getContent().get(x));
             }
-
         }
         return setList;
     }

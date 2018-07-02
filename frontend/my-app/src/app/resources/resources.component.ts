@@ -7,7 +7,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {Bounds, CropperSettings} from 'ngx-img-cropper';
 import {SnackbarService} from "../snackbar.service";
 import {collectExternalReferences} from "@angular/compiler";
-import { DataService } from "../data-service.service";
+import { DataService } from "../data-service";
 import {Game} from "../game";
 
 @Component({

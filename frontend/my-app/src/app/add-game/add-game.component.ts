@@ -3,7 +3,7 @@ import {MatInputModule, MatSlideToggleModule, MatCardModule, MatSelectModule, Ma
 import {GameService} from '../game.service';
 import {Memory} from "../Memory";
 import {Puzzle} from "../Puzzle";
-import { DataService } from "../data-service.service";
+import { DataService } from "../data-service";
 import {Router} from "@angular/router";
 
 @Component({
