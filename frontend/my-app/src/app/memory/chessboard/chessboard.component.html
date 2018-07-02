@@ -1,0 +1,1 @@
+<app-card *ngFor="let card of cards$ | async; trackBy:trackByCards" (flipped)="flipCard($event)"></app-card>

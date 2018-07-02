@@ -1,0 +1,18 @@
+<ul>
+  <li *ngFor="let card of cards | async;">
+    <div class="card" id="{{card.id}}" (click)="flip(card)">
+
+      <img class="front" *ngIf='card.openface_side.type == "IMAGE"'
+           src="data:image/jpeg;base64,{{card.openface_side.image_data}}">
+
+      <img class="front" *ngIf='card.closedface_side.type == "IMAGE"'
+           src="data:image/jpeg;base64,{{card.closedface_side.image_data}}">
+
+      <p *ngIf='card.openface_side.type == "TEXT"'  class="text_resource">{{card.openface_side.text_resource}}</p>
+      <p *ngIf='card.closedface_side.type == "TEXT"'  class="text_resource">{{card.closedface_side.text_resource}}</p>
+
+
+    </div>
+  </li>
+</ul>
+
