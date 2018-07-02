@@ -1,0 +1,15 @@
+input[type="text"] {
+  display: block;
+  margin : 0 auto;
+  text-align: center;
+}
+
+button {
+  display: block;
+  margin : 5px auto;
+}
+
+.container {
+  display: block;
+  margin : 40vh auto;
+}

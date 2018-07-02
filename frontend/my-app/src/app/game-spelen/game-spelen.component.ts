@@ -1,0 +1,39 @@
+import {Component, OnInit} from '@angular/core';
+import {GameService} from "../game.service";
+
+@Component({
+  selector: 'app-game-spelen',
+  templateUrl: './game-spelen.component.html',
+  styleUrls: ['./game-spelen.component.css']
+})
+
+export class GameSpelenComponent implements OnInit {
+
+  pin: number;
+
+  constructor(private gameService: GameService) { }
+
+  ngOnInit() {
+  }
+
+  keyPress(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  onKey(e){
+    this.pin = e.target.value;
+  }
+
+  gameStarten(){
+    console.log(this.pin);
+    this.gameService.getSessionByPin(this.pin).subscribe( result => {
+      console.log(result.game.id);
+    });
+  }
+
+}
