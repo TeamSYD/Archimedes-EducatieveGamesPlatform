@@ -1,3 +1,4 @@
+
 <mat-card>
   <mat-card-title><p>Add a new game</p></mat-card-title>
   <mat-card-content>
@@ -16,13 +17,13 @@
       <option value="Puzzle">Puzzle</option>
 
     </select>
-
+    <br>
   </mat-card-content>
 </mat-card>
 
 
 
-  <mat-card class="result">
+  <mat-card>
     <mat-card-content *ngIf="checkIfMemory()">
       <section class="example-section">
         <mat-slide-toggle [(ngModel)]="classicMemory"
@@ -37,7 +38,7 @@
           Open cards
         </mat-slide-toggle>
       </section>
-      <button mat-raised-button (click)="saveGame()">Save</button>
+      <button class="btn btn-primary" (click)="saveGame()">Save</button>
     </mat-card-content>
 
 
@@ -50,8 +51,7 @@
           Cards by order
         </mat-slide-toggle>
       </section>
-
-      <button mat-raised-button (click)="saveGame()">Save</button>
+      <button class="btn btn-primary" (click)="saveGame()">Save</button>
     </mat-card-content>
 
   </mat-card>

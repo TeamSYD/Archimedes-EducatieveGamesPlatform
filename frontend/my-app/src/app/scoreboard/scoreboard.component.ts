@@ -10,9 +10,10 @@ import {Score} from "../score";
 export class ScoreboardComponent implements OnInit {
 
   scoresArray: Score[];
+  localSessionId = parseInt(localStorage.getItem("sessionId"));
 
   getScoreboard(){
-    this.scoreService.getScoreboardBySession(1).subscribe( scoreboard => {
+    this.scoreService.getScoreboardBySession(this.localSessionId).subscribe( scoreboard => {
       console.log("Scoreboard id: " + scoreboard.id)
     });
   }

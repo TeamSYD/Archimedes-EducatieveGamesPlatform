@@ -78,7 +78,8 @@ export class MaintainGameComponent implements OnInit {
 
   constructor(private gameService: GameService,
               private snackBarService: SnackbarService,
-              public router: Router) { }
+              public router: Router,
+) { }
 
   ngOnInit() {
     this.getGames();

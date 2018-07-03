@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="#">Dashboard</a>
+    <a class="navbar-brand" routerLink="#" (click)="showHomepage()">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,10 +8,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" routerLinkActive="active current">
-          <a class="nav-link" routerLink="/arrangements"><b>Arrangementen beheren</b></a>
+          <a class="nav-link" routerLink="#" (click)="showArrangementBeheer()"><b>Arrangementen beheren</b></a>
         </li>
         <li class="nav-item" routerLinkActive="active current">
-          <a class="nav-link" routerLink="/card-editor"><b>Kaart editor</b></a>
+          <a class="nav-link" routerLink="/#" (click)="showGameBeheer()"><b>Minigames beheren</b></a>
         </li>
         <li class="nav-item" routerLinkActive="active current">
           <a class="nav-link" routerLink="/login"><b>Uitloggen</b></a>
@@ -22,22 +22,36 @@
 </nav>
 
 <div class="container main-margin-container">
-  <p style="margin-top: 15px;"><b>Welkom USERNAME</b></p>
 
   <div class="container-fluid">
-    <div class="row">
+    <div class="row" *ngIf="showHome">
       <div class="col-md-6" style="text-align: center">
-       <video controls>
-        <source src="#">
-       </video>
-        <p><b>Volg de tutorial</b></p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
       </div>
       <div class="col-md-6" style="text-align: center">
-       <img src="#">
-       <p><b>Ga verder met uw laatste arrangement</b></p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
+        <p>CONTENT</p>
        </div>
    </div>
+      <div class="row"><app-arrangements *ngIf="showArrangements"></app-arrangements></div>
+      <div class="row"><app-games *ngIf="showGames"></app-games></div>
   </div>
 </div>
 
-<app-footer></app-footer>

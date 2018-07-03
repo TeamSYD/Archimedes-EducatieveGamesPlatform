@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GameService} from "../game.service";
 import {ArrangementenService} from "../arrangementen.service";
+import {Game} from "../game";
 
 @Component({
   selector: 'app-game-spelen',
@@ -11,8 +12,10 @@ import {ArrangementenService} from "../arrangementen.service";
 export class GameSpelenComponent implements OnInit {
 
   pin: number;
+  gamesArray: Game[];
 
-  constructor(private arrangementService: ArrangementenService) { }
+  constructor(private arrangementService: ArrangementenService,
+              private gameService: GameService) { }
 
   ngOnInit() {
   }
@@ -33,8 +36,10 @@ export class GameSpelenComponent implements OnInit {
   gameStarten(){
     console.log(this.pin);
     this.arrangementService.getSessionByPin(this.pin).subscribe( result => {
-      console.log(result.arrangement.id);
+      console.log(result);
     });
   }
+
+
 
 }

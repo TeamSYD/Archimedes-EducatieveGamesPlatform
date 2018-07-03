@@ -42,7 +42,7 @@ public class Game extends AuditModel implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "arrangement_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Arrangement arrangement;
 
     public Rule getRule() {
@@ -93,9 +93,7 @@ public class Game extends AuditModel implements Serializable {
         this.account = account;
     }
 
-    public Arrangement getArrangement() {
-        return arrangement;
-    }
+    public Arrangement getArrangement() { return arrangement; }
 
     public void setArrangement(Arrangement arrangement) {
         this.arrangement = arrangement;

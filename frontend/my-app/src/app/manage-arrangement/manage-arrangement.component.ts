@@ -89,7 +89,6 @@ export class ManageArrangementComponent implements OnInit {
         session.remainingTime = dateResult;
       }
     });
-    this.getGamesByArrId();
   }
 
   change() {
