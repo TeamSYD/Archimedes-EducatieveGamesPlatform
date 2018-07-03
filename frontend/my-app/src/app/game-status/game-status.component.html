@@ -24,3 +24,4 @@
 
 
 <app-puzzle *ngIf='puzzle' (gameEvent)="receiveMessage($event)" [game]="currentGame"></app-puzzle>
+<app-memory *ngIf='memory' (gameEvent)="receiveMessage($event)" [game]="currentGame"></app-memory>

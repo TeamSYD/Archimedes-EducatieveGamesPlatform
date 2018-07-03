@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Set} from "../sets/set";
 import {Card} from "../cards/card";
 import {Game} from "../game";
@@ -21,6 +21,9 @@ export class MemoryComponent implements OnInit {
   private ready: boolean= false;
   private readyButton: boolean = true;
   private endgame: boolean = false;
+  @Input() game: Game;
+  @Output() gameEvent = new EventEmitter<number>();
+  counter: number = 0;
 
   constructor(private gameService: GameService,
               private setService: SetService,
@@ -28,9 +31,20 @@ export class MemoryComponent implements OnInit {
   ) {
   }
 
+  sendGameEvent(){
+    this.gameEvent.emit(this.counter + 1);
+  }
+
+
   static Toggle(card: Card): void {
     card.flipped = !card.flipped
 
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.getSets();
+    this.readyButton = true;
+    this.ready = false;
   }
 
   addToSelectedSet(card: Card) {
@@ -59,9 +73,9 @@ export class MemoryComponent implements OnInit {
           }
           this.selectedSet.splice(0, this.selectedSet.length);
 
-          if (this.cards.length<=0) {
-            this.ready = false;
-            this.endgame = true
+          if (this.cards.length===0) {
+            console.log('hij komt hier niet');
+            this.sendGameEvent();
           }
           return
         }
@@ -122,9 +136,10 @@ export class MemoryComponent implements OnInit {
     this.ready = true;
     this.readyButton = false;
     this.cards = shuffle(this.cards);
+    this.sendGameEvent();
   }
   ngOnInit() {
-    this.getSets();
+    //this.getSets();
     //this.getCards();
   }
 

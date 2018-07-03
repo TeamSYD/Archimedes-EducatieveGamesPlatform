@@ -43,6 +43,7 @@ export class GameStatusComponent implements OnInit {
   }
 
   receiveMessage($event){
+    console.log('message received');
     if(this.playerIsReady){
       this.start();
       this.playerIsReady = false;
@@ -93,7 +94,8 @@ export class GameStatusComponent implements OnInit {
       this.seconds = this.currentGame.time;
 
     } else {
-      console.log('toon scoreboard!!');
+      localStorage.setItem('score',this.totalScore.toString());
+      this.router.navigate(['scoreboard'])
     }
   }
 
