@@ -13,15 +13,24 @@
           <div class="col-md-12 set-container">
             <div class="setrow" *ngFor="let set of setcontent; let i = index">
               <i (click)="remove(i)" class="far fa-2x fa-times-circle removesetbutton"></i>
-              <label>Set {{(i+1)}}:</label>
+              <label *ngIf='set.filler == true'>Filler Set {{(i+1)}}:</label>
+              <label *ngIf='set.filler == false'>Set {{(i+1)}}:</label>
               <app-set-row [cardcontent]="setcontent[i].card" [setcontent]="setcontent" [setId]="setcontent[i].id"></app-set-row>
             </div>
-              <button (click)="add()" class="addsetbutton">
+            <div style="display: flex">
+              <button style="display: inline-flex" (click)="add()" class="addsetbutton">
                 <p style="margin: 0 0 0 0;">Add new set</p>
                 <i class="fas fa-7x fa-plus addseticon"></i>
               </button>
+              <button *ngIf="addFillerButton" style="display: inline-flex" (click)="addFiller()" class="addsetbutton">
+                <p style="margin: 0 0 0 0;">Add new filler</p>
+                <i class="fas fa-7x fa-plus addseticon"></i>
+              </button>
+            </div>
+            <!--
             <p style="margin: 50px 0 0 0; text-align: center;">Add your filler cards here:</p>
-            <app-set-row [ngStyle]="{'color': 'white', 'font-size': '12px', 'background-color': 'blue'}" [setcontent]="setcontent" [filler]="setfiller"></app-set-row>
+            <app-set-row [ngStyle]="{'color': 'white', 'font-size': '12px', 'background-color': 'blue'}" [setId]="" [setcontent]="setcontent" [filler]="123"></app-set-row>
+            -->
           </div>
         </div>
       </div>
@@ -30,27 +39,36 @@
        <div class="row cornerdiv color1" style=" height: 15%;">
          <h4 style="color: white;">Settings:</h4>
        </div>
-       <div class="row color1 emptydiv" style="height: 35%;"></div>
+       <div class="row color1 emptydiv" style="height: 25%;"></div>
           <div class="row color1 rulediv" style="height: 30%; padding-top: 20%">
-            <div class="col-md-12">
+            <div *ngIf="this.gameType == 'Memory'" class="col-md-12">
               <label id="invert">{{inverted}}</label>
               <label class="switch">
                 <input type="checkbox" (click)="invertToggle()">
                 <span class="slider round"></span>
               </label>
             </div>
-            <div class="col-md-12">
+            <div *ngIf="this.gameType == 'Memory'" class="col-md-12">
               <label id="duplicates">{{duplicates}}</label>
               <label class="switch">
                 <input type="checkbox" (click)="duplicateToggle()">
                 <span class="slider round"></span>
               </label>
-
+            </div>
+            <div *ngIf="this.gameType == 'Puzzle'" class="col-md-12">
+              <label id="orders">{{orders}}</label>
+              <label class="switch">
+                <input type="checkbox" (click)="orderToggle()">
+                <span class="slider round"></span>
+              </label>
             </div>
            </div>
-       <div class="row color1 savediv" style="height: 20%;">
-        <input class="btn btn-primary" type="button" (click)="saveButton()" value="Save game" style="margin-top: 20%; width: 100%; height: 40%; margin-left: 5px; margin-right: 5px;">
+       <div class="row color1 savediv" style="height: 15%;">
+        <input class="btn btn-primary" type="button" (click)="saveButton()" value="Save settings" style="margin-top: 20%; width: 100%; height: 50%; margin-left: 8px; margin-right: 8px;">
         </div>
+       <div class="row color1 savediv" style="height: 15%;">
+         <input class="btn btn-primary" type="button" value="Home" routerLink="/dashboard" style="margin-top: 20%; width: 100%; height: 50%; margin-left: 8px; margin-right: 8px;">
+       </div>
       </div>
     </div>
 </div>

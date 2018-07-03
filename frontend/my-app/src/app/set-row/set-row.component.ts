@@ -1,7 +1,7 @@
-import {Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DropEvent } from "ng-drag-drop";
 import { Card } from '../cards/card';
-import {SetService} from "../set.service";
+import { SetService } from "../set.service";
 import { Set } from "../sets/set";
 
 @Component({
@@ -12,7 +12,7 @@ import { Set } from "../sets/set";
 export class SetRowComponent implements OnInit {
   @Input() cardcontent: Card[];
   @Input() filler: boolean = false;
-  gameId: number;
+  gameId: number = parseInt(localStorage.getItem("gameId"));
   @Input() setId: number;
   @Input() setcontent: Set[];
 
@@ -22,6 +22,7 @@ export class SetRowComponent implements OnInit {
 
   onDrop(index: number, e: DropEvent){
     this.setService.updateCard(e.dragData.id, this.setId).subscribe(a => this.cardcontent.push(e.dragData));
+    this.setService.getSets(this.gameId).subscribe();
   }
 
   remove(index: number) {
@@ -36,7 +37,9 @@ export class SetRowComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.log(this.gameId);
+    console.log(this.setId);
+    console.log(this.setcontent);
   }
 
 }
