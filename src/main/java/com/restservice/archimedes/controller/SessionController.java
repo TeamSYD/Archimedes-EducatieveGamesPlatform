@@ -1,8 +1,10 @@
 package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
+import com.restservice.archimedes.model.Arrangement;
 import com.restservice.archimedes.model.Game;
 import com.restservice.archimedes.model.Session;
+import com.restservice.archimedes.repository.ArrangementRepository;
 import com.restservice.archimedes.repository.GameRepository;
 import com.restservice.archimedes.repository.SessionRepository;
 import org.json.JSONObject;
@@ -22,12 +24,12 @@ import java.util.List;
 public class SessionController {
 
     private final SessionRepository sessionRepository;
-    private final GameRepository gameRepository;
+    private final ArrangementRepository arrangementRepository;
 
     @Autowired
-    public SessionController(SessionRepository sessionRepository, GameRepository gameRepository) {
+    public SessionController(SessionRepository sessionRepository, ArrangementRepository arrangementRepository) {
         this.sessionRepository = sessionRepository;
-        this.gameRepository = gameRepository;
+        this.arrangementRepository = arrangementRepository;
     }
 
     // Get All Sessions
@@ -37,25 +39,25 @@ public class SessionController {
     }
 
     // Create a new Session
-    @PostMapping("/sessions/{game_id}")
+    @PostMapping("/sessions/{arrangement_id}")
     public Session createSession(
             @RequestBody String pin,
-            @PathVariable(value = "game_id") long game_id) throws IOException {
+            @PathVariable(value = "arrangement_id") long arrangement_id) throws IOException {
 
-        Game game = gameRepository.findById(game_id)
-                .orElseThrow(() -> new ResourceNotFoundException("Game","name" ,game_id ));
+        Arrangement arrangement = arrangementRepository.findById(arrangement_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Arrangement","name",arrangement_id ));
 
         JSONObject jsonObject = new JSONObject(pin);
         Session session = new Session();
         session.setPin(jsonObject.getInt("pin"));
-        session.setGame(game);
+        session.setArrangement(arrangement);
         return sessionRepository.save(session);
     }
 
-    // Get all sessions by game_id
-    @GetMapping("/sessions/table/{game_id}")
-    public Page<Session> getSessionByGameId(@PathVariable(value = "game_id") long gameId, Pageable pageable) {
-        return sessionRepository.findByGameId(gameId, pageable);
+    // Get all sessions by arrangement_id
+    @GetMapping("/sessions/table/{arrangement_id}")
+    public Page<Session> getSessionByArrangementId(@PathVariable(value = "arrangement_id") long arrangementId, Pageable pageable) {
+        return sessionRepository.findByArrangementId(arrangementId, pageable);
     }
 
     // Get a Single session by pin

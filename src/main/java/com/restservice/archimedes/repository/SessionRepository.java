@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SessionRepository extends JpaRepository<Session, Long> {
     Session findByPin(int pin);
-    Page<Session> findByGameId(long gameId, Pageable pageable);
+    Page<Session> findByArrangementId(long ArrangementId, Pageable pageable);
 }

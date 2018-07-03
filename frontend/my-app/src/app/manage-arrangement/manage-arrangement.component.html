@@ -6,25 +6,40 @@
 
     <select class="form-control" id="arrangement" (change)="selectArrangement($event)" style="width:110px;">
       <option value="" selected disabled>Arrangementen</option>
-      <option *ngFor="let game of games, let i = index" [value]='i'>{{game.name}}</option>
+      <option *ngFor="let arrangement of arrangementen, let i = index" [value]='i'>{{arrangement.name}}</option>
     </select>
 
-    <button mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category"  style="min-width: 70px; margin-left: 20px; margin-right: 5px;" (click)="updateGame()">Delete</button>
-    <mat-checkbox (change)="change()" class="example-margin" *ngIf="confirm" [(ngModel)]="deleteGame" style="padding: 5px;">Delete</mat-checkbox>
+    <button mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category"  style="min-width: 70px; margin-left: 20px; margin-right: 5px;" (click)="deleteArrangements()">Delete Arrangement</button>
+    <mat-checkbox (change)="change()" class="example-margin" *ngIf="confirm" [(ngModel)]="deleteArrangement" style="padding: 5px;">Delete</mat-checkbox>
   </mat-card-header>
 
-  <mat-card-header>
+  <mat-card-header style="padding-bottom: 30px">
 
-    <select class="form-control" id="game" (change)="selectGame($event)" style="width:110px;">
+    <select class="form-control" id="games" (change)="selectGame($event)" style="width:110px;">
       <option value="" selected disabled>Games</option>
       <option *ngFor="let game of games, let i = index" [value]='i'>{{game.name}}</option>
     </select>
 
-    <button mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category"  style="min-width: 70px; margin-left: 20px; margin-right: 5px;" (click)="updateGame()">Toevoegen aan arrangement</button>
-    <mat-checkbox (change)="change()" class="example-margin" *ngIf="confirm" [(ngModel)]="deleteGame" style="padding: 5px;">Delete</mat-checkbox>
-
-
+    <button mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category"  style="min-width: 70px; margin-left: 20px; margin-right: 5px;" (click)="updateGameArrangementId()">Toevoegen aan arrangement</button>
   </mat-card-header>
+
+  <mat-card-content>
+    <br>
+    <br>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Games in Arrangement</th>
+      </tr>
+      <tr *ngFor="let game of gamesArray">
+        <td>{{game.name}}</td>
+      </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </mat-card-content>
 
   <mat-card-content>
     <br>
