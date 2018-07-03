@@ -1,4 +1,6 @@
+<button *ngIf="readyButton" mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category"  style="min-width: 70px;" (click)="readyUp()">Start game</button>
 
+<div *ngIf="ready">
 <mat-card class="memory-body">
   <mat-card-header>
 
@@ -18,3 +20,7 @@
   </mat-card-header>
 
 </mat-card>
+</div>
+<div *ngIf="endGame">
+
+</div>

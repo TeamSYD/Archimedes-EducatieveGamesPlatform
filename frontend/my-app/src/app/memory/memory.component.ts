@@ -5,7 +5,7 @@ import {Game} from "../game";
 import {GameService} from "../game.service";
 import {SetService} from "../set.service";
 import {CardService} from "../card.service";
-
+import {shuffle} from '../helper/array'
 @Component({
   selector: 'app-memory',
   templateUrl: './memory.component.html',
@@ -18,6 +18,9 @@ export class MemoryComponent implements OnInit {
   game: Game;
   selectedSet: Card[] = [];
   gameId: number = parseInt(localStorage.getItem("gameId"));
+  private ready: boolean= false;
+  private readyButton: boolean = true;
+  private endgame: boolean = false;
 
   constructor(private gameService: GameService,
               private setService: SetService,
@@ -52,11 +55,14 @@ export class MemoryComponent implements OnInit {
           this.showBack(card);
           for (let i =0;i < this.selectedSet.length; i++){
             let index = this.cards.findIndex(x => x.id === this.selectedSet[i].id);
-            this.log(index)
             this.cards.splice(index, 1);
           }
           this.selectedSet.splice(0, this.selectedSet.length);
-          this.log(this.cards);
+
+          if (this.cards.length<=0) {
+            this.ready = false;
+            this.endgame = true
+          }
           return
         }
         return
@@ -100,7 +106,9 @@ export class MemoryComponent implements OnInit {
       this.getCards()
     });
   }
+  getGame():void{
 
+  }
   getCards(): void {
     for (let i = 0; i < this.setcontent.length; i++) {
       for (let y = 0; y < this.setcontent[i].card.length; y++) {
@@ -110,7 +118,11 @@ export class MemoryComponent implements OnInit {
       }
     }
   }
-
+  readyUp():void{
+    this.ready = true;
+    this.readyButton = false;
+    this.cards = shuffle(this.cards);
+  }
   ngOnInit() {
     this.getSets();
     //this.getCards();

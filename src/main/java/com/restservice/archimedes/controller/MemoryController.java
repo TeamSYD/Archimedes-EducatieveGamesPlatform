@@ -53,7 +53,7 @@ public class MemoryController {
     }
     // Get a Single Memory
     @GetMapping("/memory/{id}/rule")
-    public Memory getMemoryByRulId(@PathVariable(value = "id") long gameId) {
+    public Memory getMemoryByRuleId(@PathVariable(value = "id") long gameId) {
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new ResourceNotFoundException("Game", "id", gameId));
         Rule rule = ruleRepository.findById(game.getRule().getId())
