@@ -15,7 +15,6 @@ export class MemoryComponent implements OnInit {
 
   setcontent: Set[] = [];
   cards: Card[] = [];
-  game: Game;
   selectedSet: Card[] = [];
   gameId: number = parseInt(localStorage.getItem("gameId"));
   private ready: boolean= false;

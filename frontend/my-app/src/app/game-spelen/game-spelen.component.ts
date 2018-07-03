@@ -41,11 +41,11 @@ export class GameSpelenComponent implements OnInit {
     console.log(this.pin);
     this.arrangementService.getSessionByPin(this.pin).subscribe( result => {
       if(result != null){
-        localStorage.setItem('sessionId', result.id.toString());
         console.log(result);
         this.arrangement = result;
         this.pinInput = false;
         this.pinCorrect = true;
+        localStorage.setItem('sessionId', result.id.toString());
       } else {
         console.log('incorrect pin');
       }
