@@ -1,0 +1,20 @@
+
+<mat-card class="memory-body">
+<button (click)="flip($event)">YEET!</button>
+  <mat-card-header>
+    <mat-card class="memory-card"
+              *ngFor="let card of cards"
+              (click)="addToSelectedSet(card)">
+      <div class="innercardtext">
+        <img *ngIf='card.openface_side.type == "IMAGE"' src="data:image/jpeg;base64,{{card.openface_side.image_data}}" class="image_resource">
+        <p *ngIf='card.openface_side.type == "TEXT"' class="text_resource">{{card.openface_side.text_resource}}</p>
+      </div>
+      <p>{{card.set_id}}</p>
+      <div hidden class="innercardtext">
+        <img *ngIf='card.closedface_side.type == "IMAGE"' src="data:image/jpeg;base64,{{card.closedface_side.image_data}}" class="image_resource">
+        <p *ngIf='card.closedface_side.type == "TEXT"' class="text_resource">{{card.closedface_side.text_resource}}</p>
+      </div>
+    </mat-card>
+  </mat-card-header>
+
+</mat-card>
