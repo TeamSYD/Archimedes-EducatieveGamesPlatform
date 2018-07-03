@@ -1,0 +1,53 @@
+.innercardtext{
+  display: inline-flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin: auto;
+  min-width: 100px;
+  min-height: 150px;
+}
+.image_resource_Input{
+  width:100%;
+  height:100%;
+  margin-bottom: 5%;
+
+  margin-top: 5% !important;
+}
+
+.image_resource{
+  max-width: 100px;
+  max-height: 150px;
+  margin-bottom: 5%;
+
+  margin-top: 5% !important;
+}
+
+.drag-hint-scale {
+// border: #ffc100 dashed 2px;
+  transition: all .1s ease-in-out;
+  transform: scale(1.1);
+}
+
+.bg-input{
+background-color: #f0ffef;
+}
+
+.container{
+  /*overflow-x: scroll;*/
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+
+li {
+  display: inline-flex;
+  width: 8em;
+  height: 12em;
+  background-color: #FFFFFF;
+  margin: 5px 5px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  border: 1px solid grey;
+}

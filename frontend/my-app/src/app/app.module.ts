@@ -60,6 +60,7 @@ import {AddGameComponent} from './add-game/add-game.component'
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
 import { GamesComponent } from './games/games.component';
 import { PuzzleComponent } from './puzzle/puzzle.component';
+import { GameStatusComponent } from './game-status/game-status.component';
 import { GameResultaatComponent } from './game-resultaat/game-resultaat.component';
 import { AddArrangementComponent } from './add-arrangement/add-arrangement.component';
 import { ManageArrangementComponent } from './manage-arrangement/manage-arrangement.component';
@@ -126,6 +127,7 @@ export class RavenErrorHandler implements ErrorHandler {
     ScoreboardComponent,
     PuzzleComponent,
     MemoryComponent,
+    GameStatusComponent,
     GameResultaatComponent,
 
     AddArrangementComponent,

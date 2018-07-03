@@ -6,6 +6,7 @@ import {Card} from "../cards/card";
 import {typeIsOrHasBaseType} from "tslint/lib/language/typeUtils";
 import {Set} from "./set";
 import {forEach} from "@angular/router/src/utils/collection";
+import {GameService} from "../game.service";
 
 @Component({
   selector: 'app-sets',
@@ -13,18 +14,21 @@ import {forEach} from "@angular/router/src/utils/collection";
   styleUrls: ['./sets.component.css']
 })
 export class SetsComponent implements OnInit {
-  @ViewChildren(SetRowComponent) rows: QueryList<SetRowComponent>
+  @ViewChildren(SetRowComponent) rows: QueryList<SetRowComponent>;
+
 
   //setObservable : Observable<Set[]>;
   set: Set;
   setcontent: Set[];
   setfiller = true;
+  findSetId: number;
   duplicate = false;
   invert = false;
   inverted: String = 'Cards open';
   duplicates: String = 'Duplicates on';
+  gameId: number = parseInt(localStorage.getItem("gameId"));
 
-  constructor(private setService: SetService) {
+  constructor(private setService: SetService, private  gameService: GameService) {
     this.setcontent = [];
   }
 
@@ -76,5 +80,6 @@ export class SetsComponent implements OnInit {
   saveButton() {
     console.log("SAVE BUTTON CLICKED");
     console.log(this.setcontent);
+    this.gameService.updateMemory(this.gameId, this.duplicate, this.invert).subscribe();
   }
 }
