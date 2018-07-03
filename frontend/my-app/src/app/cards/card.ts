@@ -10,4 +10,5 @@ export class Card {
   game: Game;
   openface_side: Resource;
   closedface_side: Resource;
+  set_length:number;
 }
