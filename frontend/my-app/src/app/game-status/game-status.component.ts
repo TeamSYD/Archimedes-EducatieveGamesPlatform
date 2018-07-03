@@ -83,7 +83,6 @@ export class GameStatusComponent implements OnInit {
 
 
   play(){
-
     if(this.gameIndex < this.games.length){
       if(this.games[this.gameIndex].game == "Memory"){
         this.memory = true;
@@ -93,7 +92,7 @@ export class GameStatusComponent implements OnInit {
       this.currentGame = this.games[this.gameIndex];
       this.seconds = this.currentGame.time;
 
-    } else {
+    } else if(this.totalScore != 0) {
       localStorage.setItem('score',this.totalScore.toString());
       this.router.navigate(['scoreboard'])
     }
