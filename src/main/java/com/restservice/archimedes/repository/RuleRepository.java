@@ -11,5 +11,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RuleRepository extends JpaRepository<Rule, Long> {
     Page<Rule> findByRuleId(long ruleId, Pageable pageable);
-
 }

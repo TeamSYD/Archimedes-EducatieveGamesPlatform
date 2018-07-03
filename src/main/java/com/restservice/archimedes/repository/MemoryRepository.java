@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MemoryRepository extends JpaRepository<Memory, Long> {
-
+    Memory findByRuleId(long ruleId);
 }

@@ -1,8 +1,12 @@
 package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
+import com.restservice.archimedes.model.Game;
 import com.restservice.archimedes.model.Memory;
+import com.restservice.archimedes.model.Rule;
+import com.restservice.archimedes.repository.GameRepository;
 import com.restservice.archimedes.repository.MemoryRepository;
+import com.restservice.archimedes.repository.RuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +21,16 @@ public class MemoryController {
 
     private final
     MemoryRepository memoryRepository;
+    private final
+    GameRepository gameRepository;
+    private final
+    RuleRepository ruleRepository;
 
     @Autowired
-    public MemoryController(MemoryRepository memoryRepository) {
+    public MemoryController(MemoryRepository memoryRepository, GameRepository gameRepository, RuleRepository ruleRepository) {
         this.memoryRepository = memoryRepository;
+        this.gameRepository = gameRepository;
+        this.ruleRepository = ruleRepository;
     }
 
     // Get All Memory
@@ -55,6 +65,24 @@ public class MemoryController {
         memory.setInverted(memoryDetails.getInverted());
         memory.setMaxCards(memoryDetails.getMaxCards());
         memory.setMinCards(memoryDetails.getMinCards());
+
+        return memoryRepository.save(memory);
+    }
+
+    // Update a Memory
+    @PutMapping("/memory/{game_id}/update")
+    public Memory updateMemoryByGameId(@PathVariable(value = "game_id") long gameId,
+                               @Valid @RequestBody Memory memoryDetails) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new ResourceNotFoundException("Game", "id", gameId));
+
+        Rule rule = ruleRepository.findById(game.getRule().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Rule", "id", game.getRule().getId()));
+
+        Memory memory = memoryRepository.findByRuleId(rule.getId());
+
+        memory.setDuplicates(memoryDetails.getDuplicates());
+        memory.setInverted(memoryDetails.getInverted());
 
         return memoryRepository.save(memory);
     }

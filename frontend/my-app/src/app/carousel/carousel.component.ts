@@ -98,5 +98,6 @@ export class CarouselComponent implements OnInit {
     this.getCards();
     console.log(this.cards);
     this.dataService.currentCard.subscribe(card => this.cards.push(card));
+
   }
 }
