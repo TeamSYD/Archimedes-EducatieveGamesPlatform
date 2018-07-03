@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
+import {GameService} from "../game.service";
+import {ArrangementenService} from "../arrangementen.service";
 
 @Component({
   selector: 'app-add-arrangement',
@@ -7,7 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddArrangementComponent implements OnInit {
 
-  constructor() { }
+  name: String;
+
+
+  onKey(e){
+    this.name = e.target.value;
+  }
+
+  addArrangement(){
+    this.arrangementenService.addArrangement(this.name).subscribe( arrangement => {
+      console.log('Arrangementen id: ' + arrangement.id);
+    });
+  }
+
+  constructor(private arrangementenService: ArrangementenService,
+              public router: Router) { }
 
   ngOnInit() {
   }
