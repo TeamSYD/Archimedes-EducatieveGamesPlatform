@@ -18,6 +18,8 @@ import {DataService} from "../data-service";
 })
 export class PuzzleComponent implements OnInit, OnChanges {
 
+
+  cardOrder: boolean;
   ready: boolean = false;
   readyButton: boolean = true;
   sets: Set[] = [];
@@ -58,23 +60,29 @@ export class PuzzleComponent implements OnInit, OnChanges {
     console.log(this.winCondition);
     console.log(this.cardsInput);
 
-    for(let card of this.winCondition){
-      if(this.cardsInput.includes(card)){
-        console.log('xD');
-      } else {
-        console.log('sadFace');
+  console.log('cardorder: ' + this.cardOrder);
+
+    if(this.cardOrder == false){
+      for(let card of this.winCondition){
+        if(this.cardsInput.includes(card)){
+          this.gameStatus = true
+        } else {
+          return false;
+        }
+      }
+    } else {
+      for (let i = 0; i < this.winCondition.length; i++) {
+        if(this.winCondition[i].id == this.cardsInput[i].id){
+          this.gameStatus = true;
+        } else {
+          return this.gameStatus = false;
+        }
       }
     }
 
 
 
-    for (let i = 0; i < this.winCondition.length; i++) {
-      if(this.winCondition[i].id == this.cardsInput[i].id){
-        this.gameStatus = true;
-      } else {
-        return this.gameStatus = false;
-      }
-    }
+
 
     if(this.gameStatus){
       this.sendGameEvent();
@@ -103,6 +111,10 @@ export class PuzzleComponent implements OnInit, OnChanges {
     this.ready = true;
     this.readyButton = false;
     this.cards = this.shuffle(this.cards);
+
+    this.gameService.getPuzzleByGameId(this.game.id).subscribe(result => {this.cardOrder = result.cardOrder;
+    console.log(result);});
+    console.log('ik kom zoiezo bij sendgameEvent')
     this.sendGameEvent();
   }
 

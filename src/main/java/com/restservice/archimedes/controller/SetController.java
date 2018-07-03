@@ -74,7 +74,7 @@ public class SetController {
                 .orElseThrow(() -> new ResourceNotFoundException("Game", "id", gameId));
 
         set.setGame(game);
-        set.setFiller(true);
+        set.setFiller(false);
 
         return setRepository.save(set);
     }
@@ -87,7 +87,7 @@ public class SetController {
                 .orElseThrow(() -> new ResourceNotFoundException("Game", "id", gameId));
 
         set.setGame(game);
-        set.setFiller(false);
+        set.setFiller(true);
 
         return setRepository.save(set);
     }
