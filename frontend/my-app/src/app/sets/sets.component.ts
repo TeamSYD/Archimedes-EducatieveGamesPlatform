@@ -18,7 +18,7 @@ import {SnackbarService} from "../snackbar.service";
 export class SetsComponent implements OnInit {
   @ViewChildren(SetRowComponent) rows: QueryList<SetRowComponent>;
   set: Set;
-  gameType;
+  gameType: String;
   setcontent: Set[];
   addFillerButton = true;
   setfiller = false;
@@ -37,7 +37,6 @@ export class SetsComponent implements OnInit {
   add(){
     this.checkFiller();
     this.setService.addSet(this.gameId).subscribe( a => this.setcontent.push(a));
-    this.setService.getSets(this.gameId).subscribe();
   }
 
   addFiller(){
@@ -113,6 +112,11 @@ export class SetsComponent implements OnInit {
   }
 
   saveButton() {
-    this.gameService.updateMemory(this.gameId, this.duplicate, this.invert).subscribe(a => this.snackbarService.SuccesSnackBar("Settings saved!"));
+    if(this.gameType == "Memory"){
+      this.gameService.updateMemory(this.gameId, this.duplicate, this.invert).subscribe(a => this.snackbarService.SuccesSnackBar("Settings saved!"));
+    }
+    if(this.gameType == "Puzzle") {
+      this.gameService.updatePuzzle(this.gameId, this.order).subscribe(a => this.snackbarService.SuccesSnackBar("Settings saved!"));
+    }
   }
 }

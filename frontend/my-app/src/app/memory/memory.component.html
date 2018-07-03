@@ -1,4 +1,7 @@
-<button *ngIf="readyButton" mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category"  style="min-width: 70px;" (click)="readyUp()">Start game</button>
+<div *ngIf='readyButton' class="scoreCard" style="align-content: center;">
+  <button mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category"  style="min-width: 70px; margin: 0 auto auto;" (click)="readyUp()">Start game</button>
+
+</div>
 
 <div *ngIf="ready">
 <mat-card class="memory-body">

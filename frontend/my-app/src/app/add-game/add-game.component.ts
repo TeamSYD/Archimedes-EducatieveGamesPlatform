@@ -52,9 +52,8 @@ checkIfMemory(): boolean{
     }
   }
 
-
   saveGame(){
-  console.log(this.value)
+  console.log(this.value);
   if(this.name != '' && this.name != undefined){
 
     if(this.selectedGame == "Memory"){
