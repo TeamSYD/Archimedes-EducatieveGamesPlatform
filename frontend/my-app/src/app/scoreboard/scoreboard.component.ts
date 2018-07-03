@@ -10,23 +10,41 @@ import {Score} from "../score";
 export class ScoreboardComponent implements OnInit {
 
   scoresArray: Score[];
+  localSession = localStorage.getItem("sessionId");
+  score: number = parseInt(localStorage.getItem('score'));
+  scoreboardid: number;
+  localSessionId: number;
+  name: String;
+
 
   getScoreboard(){
-    this.scoreService.getScoreboardBySession(1).subscribe( scoreboard => {
-      console.log("Scoreboard id: " + scoreboard.id)
+    this.localSessionId = parseInt(this.localSession);
+    this.scoreService.getScoreboardBySession(this.localSessionId).subscribe( scoreboard => {
+      this.scoreboardid = scoreboard.id;
     });
   }
 
   getScores(){
-    this.scoreService.getScoresByScoreboard(6).subscribe( scores => {
+    this.scoreService.getScoresByScoreboard(this.scoreboardid).subscribe( scores => {
       this.scoresArray = scores;
     });
+  }
+
+  onKey(e){
+    this.name = e.target.value;
+  }
+
+  postScore(){
+    this.scoreService.addScore(this.name, this.score, this.scoreboardid).subscribe( score => {
+      console.log(score);
+    })
   }
 
   constructor(private scoreService: ScoreService) { }
 
 
   ngOnInit() {
+    this.getScoreboard();
     this.getScores();
   }
 

@@ -6,6 +6,7 @@ import { ResourceService } from '../resource.service';
 import { CardService } from '../card.service';
 import {Card} from "../cards/card";
 import {DataService} from "../data-service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-card-editor-detail',
@@ -24,18 +25,18 @@ export class CardEditorDetailComponent implements OnInit {
   showFront = false;
   frontValue: string = 'Text';
   backValue: string = 'Text';
-  finalFrontId: number;
-  finalBackId: number;
+  finalFrontId: number = 2;
+  finalBackId: number = 1;
 
   constructor(private resourceService: ResourceService,
               private cardService: CardService,
               private location: Location,
               private snackbarService: SnackbarService,
-              private dataService: DataService)
+              private dataService: DataService,
+              private router: Router)
   {}
 
   ngOnInit(): void {
-    this.cardService.gameId = 1;
   }
 
   saveNewText() : void {
@@ -76,8 +77,9 @@ export class CardEditorDetailComponent implements OnInit {
     this.droppedFrontcard.splice(0,1);
     this.droppedBackcard.splice(0,1);
 
-    this.finalFrontId = 0;
-    this.finalBackId = 0;
+    this.finalFrontId = 2;
+    this.finalBackId = 1;
+
   }
 
   onKeyf(e){
@@ -89,7 +91,7 @@ export class CardEditorDetailComponent implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['game-editor-sets']);
   }
 
   onBackDrop(e: DropEvent) {

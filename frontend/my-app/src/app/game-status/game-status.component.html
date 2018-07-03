@@ -2,26 +2,26 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-6">
-        <mat-card-title>title</mat-card-title>
+        <mat-card-title>{{currentGame.name}}</mat-card-title>
         <mat-card-subtitle>descritpin askd lksd ksaj djasldj asdkjl asjdk </mat-card-subtitle>
-      <p>{{currentGame}}</p>
-
 
     </div>
-    <div class="col-md-3" style="background-color: #95BCD0">Time:<p>{{seconds}}</p></div>
-    <div class="col-md-3" style="background-color:azure">Total Score:<P>{{totalScore}}</P></div>
+    <div class="col-md-3" >Time:<p>{{seconds}}</p></div>
+    <div class="col-md-3" >Total Score:<P>{{totalScore}}</P></div>
 
   </div>
 
 </div>
 </mat-card>
 
-<div class="scoreCard">
+<div *ngIf='gameScore' class="scoreCard">
 <mat-card style="width: 400px">
   <mat-card-title>Congrats, you finished the game!</mat-card-title>
   <mat-card-header>Score: <p>{{score}}</p></mat-card-header>
-  <mat-card-actions> <button mat-raised-button type="button" class="btn-sm category-bar-height button-category"  style="min-width: 70px;">Continue</button></mat-card-actions>
+  <mat-card-actions> <button mat-raised-button type="button" class="btn-sm category-bar-height button-category" (click)="continue()" style="min-width: 70px;">Continue</button></mat-card-actions>
 </mat-card>
 </div>
-<button mat-raised-button type="button" class="btn btn-priary btn-sm category-bar-height button-category"  style="min-width: 70px;" (click)="test2()">test2</button>
+
+
 <app-puzzle *ngIf='puzzle' (gameEvent)="receiveMessage($event)" [game]="currentGame"></app-puzzle>
+<app-memory *ngIf='memory' (gameEvent)="receiveMessage($event)" [game]="currentGame"></app-memory>

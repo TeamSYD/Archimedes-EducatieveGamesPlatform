@@ -20,12 +20,12 @@ export class MaintainGameComponent implements OnInit {
 
   selectedIndex: number;
   games: Game[];
-  game_id: number;
   selected: Game;
   deleteGame: false;
   confirm: boolean = false;
-  pin: number;
   sessionArray: Session[];
+  game_id: number;
+
 
   change() {
     if (this.deleteGame) {
@@ -58,24 +58,8 @@ export class MaintainGameComponent implements OnInit {
     }
   }
 
-
   selectGame(e){
     this.selectedIndex = e.target.value;
-    console.log(this.games[this.selectedIndex].id);
-    this.gameService.getSessionByGameId(this.games[this.selectedIndex].id).subscribe(sessions => {
-      this.sessionArray = sessions;
-      for(let session of this.sessionArray){
-        var date = new Date(session.createdAt);     //create date from createdAt attribute.
-        var date2 = date.getTime()/1000;            //get epoch from createdAt attribute
-        var local = new Date().getTime()/1000;      //get epoch from current date
-        var difference = local - date2;             //difference between createdAt and current date
-        var fourHoursDifference = 14400 - difference;
-        var date3 = new Date(null);
-        date3.setSeconds(fourHoursDifference);
-        var dateResult = date3.toISOString().substr(11, 8);
-        session.remainingTime = dateResult;
-      }
-    });
   }
 
   getGames(){
@@ -92,21 +76,10 @@ export class MaintainGameComponent implements OnInit {
       this.snackBarService.ErrorSnackBar('Select a game first!')
     }}
 
-  generatePin(){
-    this.pin = Math.floor(1000 + Math.random() * 9000);
-    this.gameService.addSession(this.pin, this.games[this.selectedIndex].id).subscribe( session => {
-      this.sessionArray.push(session);
-      console.log(session.id);
-      this.scoreService.addScoreboard(session.id).subscribe(scoreboard => {
-        console.log("scoreboard id: " + scoreboard.id);
-      });
-    });
-  }
-
   constructor(private gameService: GameService,
               private snackBarService: SnackbarService,
               public router: Router,
-              private scoreService: ScoreService) { }
+) { }
 
   ngOnInit() {
     this.getGames();

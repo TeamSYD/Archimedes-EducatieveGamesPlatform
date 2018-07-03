@@ -4,7 +4,10 @@
 <mat-card>
   <mat-card-title><p style="text-align: center">
     Scoreboard
-  </p></mat-card-title>
+  </p>
+  </mat-card-title>
+  <input type="text" placeholder="vul je naam in" (keyup)="onKey($event)">
+  <button class="btn btn-primary" (click)="postScore()">Bekijk je score!</button>
   <mat-card-content>
     <table class="table table-hover">
       <thead>

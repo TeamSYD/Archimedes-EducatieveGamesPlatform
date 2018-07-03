@@ -5,6 +5,7 @@ import {Memory} from "../Memory";
 import {Puzzle} from "../Puzzle";
 import { DataService } from "../data-service";
 import {Router} from "@angular/router";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-game',
@@ -13,18 +14,12 @@ import {Router} from "@angular/router";
 })
 export class AddGameComponent implements OnInit {
 
-
-
-
-
   selectedGame: string;
   order: boolean = false;
   classicMemory: boolean = false;
   openCards: boolean = false;
   name: string;
   value: 0;
-
-
 
   onKey(e){
     this.name = e.target.value;
@@ -89,7 +84,7 @@ checkIfMemory(): boolean{
     }
 
 
-    console.log('in saveGame if statement')
+    console.log('in saveGame if statement');
     console.log(this.order, this.classicMemory, this.openCards)
   }
 
@@ -97,7 +92,8 @@ checkIfMemory(): boolean{
 
 
   constructor(private gameService: GameService,
-              public router: Router) { }
+              public router: Router,
+              public location: Location) { }
 
   ngOnInit() {
   }

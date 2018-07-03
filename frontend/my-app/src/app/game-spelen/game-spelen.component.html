@@ -1,5 +1,6 @@
-<div class="container-fluid container-fluid-styles">
+<div *ngIf="pinInput" class="container-fluid container-fluid-styles">
   <input id="pin" maxlength="4"  placeholder="Vul hier de pincode in" (keypress)="keyPress($event)" (keyup)="onKey($event)">
   <input type="submit" class="btn btn-primary" value="Game spelen" (click)="gameStarten()">
 </div>
 
+<app-game-status *ngIf='pinCorrect' [arrangement]="arrangement"></app-game-status>

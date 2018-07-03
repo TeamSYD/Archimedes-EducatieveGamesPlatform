@@ -1,6 +1,8 @@
 package com.restservice.archimedes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -20,34 +22,26 @@ public class Arrangement extends AuditModel implements Serializable {
     @NotBlank
     private String name;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Account account;
+
     public long getId() { return id; }
 
     public void setId(long id) {
         this.id = id;
     }
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(
-            name = "arrangement_game",
-            joinColumns = { @JoinColumn(name = "arrangement_id") },
-            inverseJoinColumns = { @JoinColumn(name = "game_id") }
-    )
-    public Set<Game> games = new HashSet<>();
-
-    public Set<Game> getGames() {
-        return games;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setGames(Set<Game> games) {
-        this.games = games;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
     public void setName(String name) {
         this.name = name;

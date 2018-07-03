@@ -21,13 +21,13 @@ public class Session extends AuditModel implements Serializable {
     private int pin ;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id", nullable = false)
+    @JoinColumn(name = "arrangement_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Game game;
+    private Arrangement arrangement;
 
-    public Game getGame() { return game; }
+    public Arrangement getArrangement() { return arrangement; }
 
-    public void setGame(Game game) { this.game = game; }
+    public void setArrangement(Arrangement arrangement) { this.arrangement = arrangement; }
 
     public long getId() {
         return id;

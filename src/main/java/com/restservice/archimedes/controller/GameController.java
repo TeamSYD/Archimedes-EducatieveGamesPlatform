@@ -1,14 +1,8 @@
 package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
-import com.restservice.archimedes.model.Account;
-import com.restservice.archimedes.model.Card;
-import com.restservice.archimedes.model.Game;
-import com.restservice.archimedes.model.Rule;
-import com.restservice.archimedes.repository.AccountRepository;
-import com.restservice.archimedes.repository.CardRepository;
-import com.restservice.archimedes.repository.GameRepository;
-import com.restservice.archimedes.repository.RuleRepository;
+import com.restservice.archimedes.model.*;
+import com.restservice.archimedes.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,13 +21,15 @@ public class GameController {
     private final CardRepository cardRepository;
     private final AccountRepository accountRepository;
     private final RuleRepository ruleRepository;
+    private final ArrangementRepository arrangementRepository;
 
     @Autowired
-    public GameController(GameRepository gameRepository, CardRepository cardRepository, AccountRepository accountRepository, RuleRepository ruleRepository) {
+    public GameController(GameRepository gameRepository, CardRepository cardRepository, AccountRepository accountRepository, RuleRepository ruleRepository, ArrangementRepository arrangementRepository) {
         this.gameRepository = gameRepository;
         this.cardRepository = cardRepository;
         this.accountRepository = accountRepository;
         this.ruleRepository = ruleRepository;
+        this.arrangementRepository = arrangementRepository;
     }
 
 
@@ -41,6 +37,12 @@ public class GameController {
     @GetMapping("/account/{accountId}/games")
     public Page<Game> getAllCategoriesByAccountId(@PathVariable(value = "accountId") long accountId, Pageable pageable) {
         return gameRepository.findByAccountId(accountId, pageable);
+    }
+
+    //Get all games by arrangementid
+    @GetMapping("/arrangement/{arrangementId}/games")
+    public Page<Game> getAllGamesByArrangementId(@PathVariable(value = "arrangementId") long arrangementId, Pageable pageable) {
+        return gameRepository.findByArrangementId(arrangementId, pageable);
     }
 
     // Get All Games
@@ -75,6 +77,19 @@ public class GameController {
     public Game getGameById(@PathVariable(value = "id") long gameId) {
         return gameRepository.findById(gameId)
                 .orElseThrow(() -> new ResourceNotFoundException("Game", "id", gameId));
+    }
+
+    // Insert arrangement id
+    @PutMapping("/games/{id}/arrangement/{arrangement_id}")
+    public Game insertArrangementIdIntoGame(@PathVariable(value = "id") long game_id,
+                                   @PathVariable(value = "arrangement_id") long arrangement_id) {
+        Game game = gameRepository.findById(game_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Game:", "id", game_id));
+        Arrangement arrangement = arrangementRepository.findById(arrangement_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Arrangement:", "id", arrangement_id));
+
+        game.setArrangement(arrangement);
+        return gameRepository.save(game);
     }
 
     // Update a Game
