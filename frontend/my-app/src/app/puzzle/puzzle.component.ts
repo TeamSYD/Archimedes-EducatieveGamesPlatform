@@ -9,7 +9,7 @@ import {CardService} from "../card.service";
 import { DropEvent } from 'ng-drag-drop';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import {DataService} from "../data-service.service";
+import {DataService} from "../data-service";
 
 @Component({
   selector: 'app-puzzle',
@@ -90,7 +90,6 @@ export class PuzzleComponent implements OnInit, OnChanges {
     for(let set of this.sets){
       console.log('set id: ' + set.id);
       console.log('filler: ' + set.filler);
-      console.log('card: ' + set.card.id);
     }
 
     this.configureGameRules();
@@ -126,15 +125,14 @@ export class PuzzleComponent implements OnInit, OnChanges {
 
 
   configureGameRules(): void{
-    for(let set of this.sets){
+
+    for(let i = 0; i < this.sets.length; i++){
       console.log('in forloop');
-      if (set.filler == false){
-        console.log(set.card);
-        this.winCondition.push(set.card);
-        this.cards.push(set.card);
-        this.cardsInput.push(this.emptyCard)
-      } else {
-        this.cards.push(set.card);
+      if (this.sets[i].filler == false){
+        for (let y = 0; y < this.sets[i].card.length; y++) {
+          this.winCondition.push(this.sets[i].card[y]);
+          this.cardsInput.push(this.emptyCard)
+        }
       }
     }
   }
@@ -157,13 +155,21 @@ export class PuzzleComponent implements OnInit, OnChanges {
     } return newArr;}
 
   getSets(): void {
-    this.setService.getSets()
-      .subscribe(sets => this.sets = sets);
+    this.setService.getSets(1).subscribe(x => {
+      this.sets = x;
+      this.getCards();
+      console.log(x);
+    });
   }
 
   getCards(): void {
-    this.cardService.getCards()
-      .subscribe(cards => this.cards = cards);
+    for (let i = 0; i < this.sets.length; i++) {
+      for (let y = 0; y < this.sets[i].card.length; y++) {
+        this.sets[i].card[y].set_length = this.sets[i].card.length;
+        this.sets[i].card[y].set_id = this.sets[i].id;
+        this.cards.push(this.sets[i].card[y])
+      }
+    }
   }
 
   constructor(private gameService: GameService,

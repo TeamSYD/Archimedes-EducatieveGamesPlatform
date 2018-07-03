@@ -1,7 +1,7 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {MatInputModule, MatSlideToggleModule, MatCardModule, MatSelectModule, MatButtonModule, MatSliderModule, } from '@angular/material/';
 import {Game} from "../game";
-import {DataService} from "../data-service.service";
+import {DataService} from "../data-service";
 import {Router} from "@angular/router";
 import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
