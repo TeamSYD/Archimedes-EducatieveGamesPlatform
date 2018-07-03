@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
@@ -20,21 +21,24 @@ public class Set extends AuditModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
-    private int set_id;
-
     @NotNull
     private boolean filler;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "card_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Card card;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Game game;
+
+    @Transient
+    private List<Card> card;
+
+    public List<Card> getCard() {
+        return card;
+    }
+
+    public void setCard(List<Card> card) {
+        this.card = card;
+    }
 
     public boolean isFiller() {
         return filler;
@@ -50,22 +54,6 @@ public class Set extends AuditModel implements Serializable {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public int getSet_id() {
-        return set_id;
-    }
-
-    public void setSet_id(int set_id) {
-        this.set_id = set_id;
-    }
-
-    public Card getCard() {
-        return card;
-    }
-
-    public void setCard(Card card) {
-        this.card = card;
     }
 
     public Game getGame() {

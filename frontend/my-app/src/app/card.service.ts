@@ -23,6 +23,14 @@ export class CardService {
     private messageService: MessageService) { }
 
   /** GET cards from the server */
+  getUnassignedCards (): Observable<Card[]> {
+    return this.http.get<Card[]>(this.cardsUrl+"/games/" +this.gameId + "/cards")
+      .pipe(map(res => <Card[]>res['content']), tap(cards => this.log(`fetched cards`)),
+        catchError(this.handleError('getCards', []))
+      );
+  }
+
+  /** GET cards from the server */
   getCards (): Observable<Card[]> {
     return this.http.get<Card[]>(this.cardsUrl+"/games/" +this.gameId + "/cards")
       .pipe(map(res => <Card[]>res['content']), tap(cards => this.log(`fetched cards`)),
@@ -92,7 +100,7 @@ export class CardService {
   /** DELETE: delete the card from the server */
   deleteCard (card: Card | number): Observable<Card> {
     const id = typeof card === 'number' ? card : card.id;
-    const url = `${this.cardsUrl}/${id}`;
+    const url = this.cardsUrl+"/card/"+id;
 
     return this.http.delete<Card>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted card id=${id}`)),

@@ -3,11 +3,14 @@ package com.restservice.archimedes.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "games")
@@ -27,6 +30,9 @@ public class Game extends AuditModel implements Serializable {
     @NotBlank
     private String game;
 
+    @Nullable
+    private String description;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -36,6 +42,14 @@ public class Game extends AuditModel implements Serializable {
     @JoinColumn(name = "rule_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Rule rule;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "games")
+    private Set<Arrangement> arrangements = new HashSet<>();
 
     public Rule getRule() {
         return rule;
@@ -85,5 +99,15 @@ public class Game extends AuditModel implements Serializable {
         this.account = account;
     }
 
+    public String getDescription() { return description; }
 
+    public void setDescription(String description) { this.description = description; }
+
+    public Set<Arrangement> getArrangements() {
+        return arrangements;
+    }
+
+    public void setArrangements(Set<Arrangement> arrangements) {
+        this.arrangements = arrangements;
+    }
 }

@@ -2,7 +2,9 @@ package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
 import com.restservice.archimedes.model.Arrangement;
+import com.restservice.archimedes.model.Game;
 import com.restservice.archimedes.repository.ArrangementRepository;
+import com.restservice.archimedes.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +18,14 @@ public class ArrangementController {
 
     private final
     ArrangementRepository arrangementRepository;
+    private final
+    GameRepository gameRepository;
+
 
     @Autowired
-    public ArrangementController(ArrangementRepository arrangementRepository) {
+    public ArrangementController(ArrangementRepository arrangementRepository,GameRepository gameRepository) {
         this.arrangementRepository = arrangementRepository;
+        this.gameRepository = gameRepository;
     }
 
     // Get All Arrangements
@@ -30,7 +36,11 @@ public class ArrangementController {
 
     // Create a new Arrangement
     @PostMapping("/arrangements")
-    public Arrangement createArrangement(@Valid @RequestBody Arrangement arrangement) {
+    public Arrangement createArrangement(@RequestBody Arrangement arrangement, @RequestBody long gameId) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new ResourceNotFoundException("Game", "id", gameId));
+        arrangement.getGames().add(game);
+        game.getArrangements().add(arrangement);
         return arrangementRepository.save(arrangement);
     }
 

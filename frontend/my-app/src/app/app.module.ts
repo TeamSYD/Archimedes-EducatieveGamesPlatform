@@ -1,8 +1,7 @@
-
+///<reference path="game-spelen/game-spelen.component.ts"/>
 // MODULES
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// TODO: Ngmodule wordt niet gebruikt, dependency checken.
 import {ErrorHandler, NgModule, EventEmitter} from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
@@ -56,6 +55,11 @@ import { CarouselItemDirective } from './carousel/carousel-item.directive';
 import { GamesComponent } from './games/games.component';
 import { PuzzleComponent } from './puzzle/puzzle.component';
 import { GameStatusComponent } from './game-status/game-status.component';
+import { GameResultaatComponent } from './game-resultaat/game-resultaat.component';
+import { AddArrangementComponent } from './add-arrangement/add-arrangement.component';
+import { ManageArrangementComponent } from './manage-arrangement/manage-arrangement.component';
+import {ScoreboardComponent} from "./scoreboard/scoreboard.component";
+import {GameSpelenComponent} from "./game-spelen/game-spelen.component";
 
 
 Raven
@@ -112,13 +116,22 @@ export class RavenErrorHandler implements ErrorHandler {
     SetRowComponent,
 
     MaintainGameComponent,
+    GameSpelenComponent,
 
     GamesComponent,
+
+    ScoreboardComponent,
 
     PuzzleComponent,
 
     GameStatusComponent,
 
+
+    GameResultaatComponent,
+
+    AddArrangementComponent,
+
+    ManageArrangementComponent,
 
   ],
   imports: [
