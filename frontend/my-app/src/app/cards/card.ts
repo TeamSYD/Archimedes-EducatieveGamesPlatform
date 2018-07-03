@@ -11,4 +11,5 @@ export class Card {
   openface_side: Resource;
   closedface_side: Resource;
   set_length:number;
+  flipped:boolean;
 }

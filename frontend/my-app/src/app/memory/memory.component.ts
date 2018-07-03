@@ -25,27 +25,42 @@ export class MemoryComponent implements OnInit {
   ) {
   }
 
+  static Toggle(card: Card): void {
+    card.flipped = !card.flipped
+
+  }
+
   addToSelectedSet(card: Card) {
 
+    let exist: boolean = this.selectedSet.some(x =>
+      x.id === card.id
+    );
 
     if (this.selectedSet.length <= 0) {
-      this.selectedSet.push(card)
-      this.log("eerste IF: " + card.set_id)
+      this.selectedSet.push(card);
+      this.showBack(card);
       return
     }
 
-    if (this.selectedSet.length >= 1 && this.selectedSet[0].set_id == card.set_id) {
+    if (!exist && this.selectedSet[0].set_id == card.set_id) {
       if (this.selectedSet.length < this.selectedSet[0].set_length) {
-        this.selectedSet.push(card)
-        this.log(this.selectedSet)
-        this.log("tweede IF: " + card.set_id)
+        this.selectedSet.push(card);
+
 
         if ((this.selectedSet.length === this.selectedSet[0].set_length)) {
-          this.log("PogChamp")
-          this.selectedSet.splice(0, this.selectedSet.length)
+          this.log("PogChamp");
+          this.showBack(card);
+          for (let i =0;i < this.selectedSet.length; i++){
+            let index = this.cards.findIndex(x => x.id === this.selectedSet[i].id);
+            this.log(index)
+            this.cards.splice(index, 1);
+          }
+          this.selectedSet.splice(0, this.selectedSet.length);
+          this.log(this.cards);
           return
         }
         return
+
       }
       else {
         //this.log("PogChamp")
@@ -53,18 +68,30 @@ export class MemoryComponent implements OnInit {
       }
     }
     else {
-      this.log("F, try again")
-      this.selectedSet.splice(0, this.selectedSet.length)
+      this.log("F, try again");
+      for (let i =0;i < this.selectedSet.length; i++) {
+      this.showFront(this.selectedSet[i])
+
+      }
+      this.selectedSet.splice(0, this.selectedSet.length);
       return
     }
   }
 
+  checkSelectedSet(card: Card): void {
+    this.addToSelectedSet(card);
 
-  checkSelectedSet(): void {
+  }
 
-    for (let i in this.selectedSet) {
-
-    }
+  toggle(card: Card): void {
+    if (!card.flipped)
+    card.flipped = !card.flipped;
+  }
+  showFront(card: Card):void{
+    card.flipped = false;
+  }
+  showBack(card: Card):void{
+    card.flipped = true;
   }
 
   getSets(): void {
@@ -72,12 +99,6 @@ export class MemoryComponent implements OnInit {
       this.setcontent = x;
       this.getCards()
     });
-  }
-
-  flip(e) {
-    console.log(e.target.innerHTML);
-    this.log("YEET!");
-    this.log(this.cards);
   }
 
   getCards(): void {
