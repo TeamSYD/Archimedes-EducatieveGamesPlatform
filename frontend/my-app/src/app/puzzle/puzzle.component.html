@@ -1,4 +1,10 @@
-<button *ngIf="readyButton" mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category"  style="min-width: 70px;" (click)="test()">Start game</button>
+
+<div *ngIf='readyButton' class="scoreCard" style="align-content: center;">
+    <button mat-raised-button type="button" class="btn btn-primary btn-sm category-bar-height button-category"  style="min-width: 70px; margin: 0 auto auto;" (click)="test()">Start game</button>
+
+</div>
+
+
 
 <div *ngIf="ready">
 
@@ -6,7 +12,7 @@
     <div class="container" style="padding: 0; margin: 10px auto 10px auto;">
         <li droppable *ngFor="let card of cardsInput, let i = index" (onDrop)="checkWinCondition($event, i)" [dragHintClass]="'drag-hint-scale'" [dragOverClass]="'bg-input'">
           <div class="innercardtext" *ngIf="card != undefined">
-           <img *ngIf='card.openface_side.type == "IMAGE"' mat-card-image src="data:image/jpeg;base64,{{card.closedface_side.image_data}}" class="image_resource">
+           <img *ngIf='card.openface_side.type == "IMAGE"' mat-card-image src="data:image/jpeg;base64,{{card.openface_side.image_data}}" class="image_resource">
             <p *ngIf='card.openface_side.type == "TEXT"' class="text_resource">{{card.openface_side.text_resource}}</p>
       </div>
     </li>
@@ -30,7 +36,7 @@
   </mat-card-actions>
 
 </mat-card>
-  <button mat-raised-button type="button" class="btn btn-priary btn-sm category-bar-height button-category"  style="min-width: 70px;" (click)="test2()">test2</button>
+
 </div>
 
 

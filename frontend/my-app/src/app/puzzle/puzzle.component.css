@@ -51,3 +51,10 @@ li {
   flex-wrap: wrap;
   border: 1px solid grey;
 }
+.scoreCard{
+  width: 500px;
+  height: 500px;
+  padding-right: 25%;
+  padding-left: 45%;
+  padding-top: 15%;
+}

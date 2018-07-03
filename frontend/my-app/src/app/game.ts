@@ -6,5 +6,5 @@ export class Game {
   time: number;
   ruleId: number;
   arrangement: Arrangementen;
-
+  game: string;
 }

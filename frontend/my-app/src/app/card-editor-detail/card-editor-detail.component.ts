@@ -35,7 +35,6 @@ export class CardEditorDetailComponent implements OnInit {
   {}
 
   ngOnInit(): void {
-    this.cardService.gameId = 1;
   }
 
   saveNewText() : void {
