@@ -96,6 +96,7 @@ checkIfMemory(): boolean{
               public location: Location) { }
 
   ngOnInit() {
+    localStorage.clear();
   }
 
 }

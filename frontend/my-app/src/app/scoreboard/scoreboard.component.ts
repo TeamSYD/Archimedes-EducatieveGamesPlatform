@@ -19,8 +19,10 @@ export class ScoreboardComponent implements OnInit {
 
   getScoreboard(){
     this.localSessionId = parseInt(this.localSession);
+    console.log(this.localSessionId)
     this.scoreService.getScoreboardBySession(this.localSessionId).subscribe( scoreboard => {
       this.scoreboardid = scoreboard.id;
+      console.log('scoreboard: ' + scoreboard.id);
     });
   }
 

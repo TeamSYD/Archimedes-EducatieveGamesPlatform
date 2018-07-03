@@ -83,6 +83,7 @@ export class MaintainGameComponent implements OnInit {
 
   ngOnInit() {
     this.getGames();
+    localStorage.clear();
   }
 
 }

@@ -24,6 +24,7 @@ export class ScoreService {
   }
 
   addScore(name: String, score: number, scoreboard_id: number): Observable<Score>{
+    console.log('http://localhost:8080/api/scores/'+scoreboard_id,"{'name': '"+name+"','game_score':"+score+"}");
     return this.http.post<Score>('http://localhost:8080/api/scores/'+scoreboard_id,"{'name': '"+name+"','game_score':"+score+"}", httpOptions).pipe(
       tap((score: Score) => console.log(`added score w/ id=${score.id}`)),
       catchError(this.handleError<Score>('addScore'))
@@ -39,12 +40,13 @@ export class ScoreService {
   }
 
   getScoreboardBySession(session_id: number): Observable<Scoreboard> {
-    return this.http.get<Scoreboard>('http://localhost:8080/api/scoreboard/1'+session_id+'/scores').pipe(
+    console.log('http://localhost:8080/api/scoreboard/'+session_id+'/scores');
+    return this.http.get<Scoreboard>('http://localhost:8080/api/scoreboard/'+session_id+'/scores').pipe(
       tap(h => {
         const outcome = h ? `fetched` : `did not find`;
         this.log(`${outcome} session id=${session_id}`);
       }),
-      catchError(this.handleError<Scoreboard>(`getScoreboardBySession id=${session_id}`))
+      catchError(this.handleError<Scoreboard>(`getScoreboardBySessin id=${session_id}`))
     );
   }
 

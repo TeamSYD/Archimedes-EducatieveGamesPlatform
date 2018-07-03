@@ -93,7 +93,7 @@ export class ManageArrangementComponent implements OnInit {
 
   change() {
     if (this.deleteArrangement) {
-      this.arrangementenService.deleteArrangement(this.arrangementen[this.selectedIndexGame]).subscribe((response) => {
+      this.arrangementenService.deleteArrangement(this.arrangementen[this.selectedIndexArrangement]).subscribe((response) => {
         this.getArrangementen();
         this.deleteArrangement = false;
         this.confirm = false;
