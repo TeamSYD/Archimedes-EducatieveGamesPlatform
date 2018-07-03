@@ -33,7 +33,7 @@ export class SetsComponent implements OnInit {
   }
 
   add(){
-    this.setService.addSet(1).subscribe( a => this.setcontent.push(a));
+    this.setService.addSet(this.gameId).subscribe( a => this.setcontent.push(a));
     console.log(this.setcontent)
   }
 
@@ -47,7 +47,7 @@ export class SetsComponent implements OnInit {
 
   ngOnInit() {
     console.log("START FILLING SETCONTENT");
-    this.setService.getSets(1).subscribe(a => this.setcontent = a);
+    this.setService.getSets(this.gameId).subscribe(a => this.setcontent = a);
   }
 
   duplicateToggle(){

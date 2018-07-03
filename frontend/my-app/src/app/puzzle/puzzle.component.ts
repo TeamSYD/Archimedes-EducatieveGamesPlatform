@@ -20,23 +20,23 @@ export class PuzzleComponent implements OnInit, OnChanges {
 
   ready: boolean = false;
   readyButton: boolean = true;
-  sets: Set[];
+  sets: Set[] = [];
   cardsInput: Card[] = [];
   winCondition: Card[] = [];
   cards: Card[] = [];
-  @Input() game: number;
+  @Input() game: Game;
   emptyCard: Card;
   gameStatus: boolean = false;
+  counter: number;
   @Output() gameEvent = new EventEmitter<number>();
 
 
   sendGameEvent(){
-    this.gameEvent.emit(this.game + 1);
+    this.gameEvent.emit(this.counter + 1);
   }
 
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes.game);
     this.getSets();
     this.readyButton = true;
     this.ready = false;
@@ -77,14 +77,15 @@ export class PuzzleComponent implements OnInit, OnChanges {
     }
 
     if(this.gameStatus){
-      console.log('ding ding ding winner!')
+      this.sendGameEvent();
     } else {
-      console.log('ding ding dingloser!')
+      console.log('wrong combination!')
     }
   }
 
   test():void{
-    console.log('in test met Sets.length: ' + this.sets.length);
+    console.log(this.game);
+    console.log('in test met Sets.length:'  );
     console.log('in test met Cards.length: ' + this.cards.length);
 
     for(let set of this.sets){
@@ -102,6 +103,7 @@ export class PuzzleComponent implements OnInit, OnChanges {
     this.ready = true;
     this.readyButton = false;
     this.cards = this.shuffle(this.cards);
+    this.sendGameEvent();
   }
 
   test2(): void{
@@ -119,8 +121,6 @@ export class PuzzleComponent implements OnInit, OnChanges {
     console.log(this.gameStatus);
     console.log(this.game);
     this.sendGameEvent();
-
-
   }
 
 
@@ -155,7 +155,8 @@ export class PuzzleComponent implements OnInit, OnChanges {
     } return newArr;}
 
   getSets(): void {
-    this.setService.getSets(1).subscribe(x => {
+    console.log(this.game);
+    this.setService.getSets(this.game.id).subscribe(x => {
       this.sets = x;
       this.getCards();
       console.log(x);
@@ -181,8 +182,6 @@ export class PuzzleComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    this.getSets();
-
   }
 
 }

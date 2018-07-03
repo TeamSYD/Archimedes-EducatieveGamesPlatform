@@ -11,6 +11,7 @@ export class ScoreboardComponent implements OnInit {
 
   scoresArray: Score[];
   localSessionId = parseInt(localStorage.getItem("sessionId"));
+  score: number = localStorage.getItem('score');
 
   getScoreboard(){
     this.scoreService.getScoreboardBySession(this.localSessionId).subscribe( scoreboard => {

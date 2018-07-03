@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Set} from "../sets/set";
 import {Card} from "../cards/card";
 import {Game} from "../game";
 import {GameService} from "../game.service";
 import {SetService} from "../set.service";
 import {CardService} from "../card.service";
-
+import {shuffle} from '../helper/array'
 @Component({
   selector: 'app-memory',
   templateUrl: './memory.component.html',
@@ -18,6 +18,12 @@ export class MemoryComponent implements OnInit {
   game: Game;
   selectedSet: Card[] = [];
   gameId: number = parseInt(localStorage.getItem("gameId"));
+  private ready: boolean= false;
+  private readyButton: boolean = true;
+  private endgame: boolean = false;
+  @Input() game: Game;
+  @Output() gameEvent = new EventEmitter<number>();
+  counter: number = 0;
 
   constructor(private gameService: GameService,
               private setService: SetService,
@@ -25,27 +31,56 @@ export class MemoryComponent implements OnInit {
   ) {
   }
 
+  sendGameEvent(){
+    this.gameEvent.emit(this.counter + 1);
+  }
+
+
+  static Toggle(card: Card): void {
+    card.flipped = !card.flipped
+
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.getSets();
+    this.readyButton = true;
+    this.ready = false;
+  }
+
   addToSelectedSet(card: Card) {
 
+    let exist: boolean = this.selectedSet.some(x =>
+      x.id === card.id
+    );
 
     if (this.selectedSet.length <= 0) {
-      this.selectedSet.push(card)
-      this.log("eerste IF: " + card.set_id)
+      this.selectedSet.push(card);
+      this.showBack(card);
       return
     }
 
-    if (this.selectedSet.length >= 1 && this.selectedSet[0].set_id == card.set_id) {
+    if (!exist && this.selectedSet[0].set_id == card.set_id) {
       if (this.selectedSet.length < this.selectedSet[0].set_length) {
-        this.selectedSet.push(card)
-        this.log(this.selectedSet)
-        this.log("tweede IF: " + card.set_id)
+        this.selectedSet.push(card);
+
 
         if ((this.selectedSet.length === this.selectedSet[0].set_length)) {
-          this.log("PogChamp")
-          this.selectedSet.splice(0, this.selectedSet.length)
+          this.log("PogChamp");
+          this.showBack(card);
+          for (let i =0;i < this.selectedSet.length; i++){
+            let index = this.cards.findIndex(x => x.id === this.selectedSet[i].id);
+            this.cards.splice(index, 1);
+          }
+          this.selectedSet.splice(0, this.selectedSet.length);
+
+          if (this.cards.length===0) {
+            console.log('hij komt hier niet');
+            this.sendGameEvent();
+          }
           return
         }
         return
+
       }
       else {
         //this.log("PogChamp")
@@ -53,18 +88,30 @@ export class MemoryComponent implements OnInit {
       }
     }
     else {
-      this.log("F, try again")
-      this.selectedSet.splice(0, this.selectedSet.length)
+      this.log("F, try again");
+      for (let i =0;i < this.selectedSet.length; i++) {
+      this.showFront(this.selectedSet[i])
+
+      }
+      this.selectedSet.splice(0, this.selectedSet.length);
       return
     }
   }
 
+  checkSelectedSet(card: Card): void {
+    this.addToSelectedSet(card);
 
-  checkSelectedSet(): void {
+  }
 
-    for (let i in this.selectedSet) {
-
-    }
+  toggle(card: Card): void {
+    if (!card.flipped)
+    card.flipped = !card.flipped;
+  }
+  showFront(card: Card):void{
+    card.flipped = false;
+  }
+  showBack(card: Card):void{
+    card.flipped = true;
   }
 
   getSets(): void {
@@ -73,13 +120,9 @@ export class MemoryComponent implements OnInit {
       this.getCards()
     });
   }
+  getGame():void{
 
-  flip(e) {
-    console.log(e.target.innerHTML);
-    this.log("YEET!");
-    this.log(this.cards);
   }
-
   getCards(): void {
     for (let i = 0; i < this.setcontent.length; i++) {
       for (let y = 0; y < this.setcontent[i].card.length; y++) {
@@ -89,9 +132,14 @@ export class MemoryComponent implements OnInit {
       }
     }
   }
-
+  readyUp():void{
+    this.ready = true;
+    this.readyButton = false;
+    this.cards = shuffle(this.cards);
+    this.sendGameEvent();
+  }
   ngOnInit() {
-    this.getSets();
+    //this.getSets();
     //this.getCards();
   }
 

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GameService} from "../game.service";
 import {ArrangementenService} from "../arrangementen.service";
 import {Game} from "../game";
+import {Arrangementen} from "../arrangementen";
 
 @Component({
   selector: 'app-game-spelen',
@@ -13,6 +14,9 @@ export class GameSpelenComponent implements OnInit {
 
   pin: number;
   gamesArray: Game[];
+  arrangement: Arrangementen;
+  pinCorrect: boolean = false;
+  pinInput: boolean = true;
 
   constructor(private arrangementService: ArrangementenService,
               private gameService: GameService) { }
@@ -36,7 +40,17 @@ export class GameSpelenComponent implements OnInit {
   gameStarten(){
     console.log(this.pin);
     this.arrangementService.getSessionByPin(this.pin).subscribe( result => {
-      console.log(result);
+      if(result != null){
+        localStorage.setItem('sessionId', result.id.toString());
+        console.log(result);
+        this.arrangement = result;
+        this.pinInput = false;
+        this.pinCorrect = true;
+      } else {
+        console.log('incorrect pin');
+      }
+
+
     });
   }
 
