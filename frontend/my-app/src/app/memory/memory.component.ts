@@ -16,6 +16,8 @@ export class MemoryComponent implements OnInit {
   setcontent: Set[] = [];
   cards: Card[] = [];
   selectedSet: Card[] = [];
+  duplicates: boolean;
+  inverted: boolean;
   gameId: number = parseInt(localStorage.getItem("gameId"));
   private ready: boolean= false;
   private readyButton: boolean = true;
@@ -61,11 +63,13 @@ export class MemoryComponent implements OnInit {
     if (!exist && this.selectedSet[0].set_id == card.set_id) {
       if (this.selectedSet.length < this.selectedSet[0].set_length) {
         this.selectedSet.push(card);
+        this.showBack(card);
 
 
         if ((this.selectedSet.length === this.selectedSet[0].set_length)) {
           this.log("PogChamp");
           this.showBack(card);
+          setTimeout( () => { this.log("wvhten")
           for (let i =0;i < this.selectedSet.length; i++){
             let index = this.cards.findIndex(x => x.id === this.selectedSet[i].id);
             this.cards.splice(index, 1);
@@ -75,7 +79,7 @@ export class MemoryComponent implements OnInit {
           if (this.cards.length===0) {
             console.log('hij komt hier niet');
             this.sendGameEvent();
-          }
+          }}, 1000 );
           return
         }
         return
@@ -120,11 +124,15 @@ export class MemoryComponent implements OnInit {
     });
   }
   getGame():void{
-
+    this.gameService.getMemory(this.gameId).subscribe(
+      x=> {
+        this.duplicates = x.duplicates;
+        this.inverted =x.inverted})
   }
   getCards(): void {
     for (let i = 0; i < this.setcontent.length; i++) {
       for (let y = 0; y < this.setcontent[i].card.length; y++) {
+        if (this.inverted){ this.setcontent[i].card[y].flipped = true; }
         this.setcontent[i].card[y].set_length = this.setcontent[i].card.length;
         this.setcontent[i].card[y].set_id = this.setcontent[i].id;
         this.cards.push(this.setcontent[i].card[y])
@@ -149,4 +157,5 @@ export class MemoryComponent implements OnInit {
   private log(x) {
     console.log(x);
   }
+
 }

@@ -76,6 +76,12 @@ export class GameService {
     catchError(this.handleError<Memory>('updateCard')))
   );
   }
+  getMemory(id:number){
+    return this.http.get("http://localhost:8080/api/memory/"+id+"/rules", httpOptions).pipe(
+      tap((memory: Memory) => this.log("Memory w/"+id),
+        catchError(this.handleError<Memory>('updateCard')))
+    );
+  }
 
   private log(message: string) {
     this.messageService.add('CategoryService: ' + message);
