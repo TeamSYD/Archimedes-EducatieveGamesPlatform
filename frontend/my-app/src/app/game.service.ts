@@ -122,8 +122,15 @@ export class GameService {
     return this.http.put("http://localhost:8080/api/memory/"+id+"/update", {"duplicates": duplicate, "inverted": inverted}, httpOptions).pipe(
       tap((memory: Memory) => this.log("Memory w/"+id),
     catchError(this.handleError<Memory>('updateCard')))
-  );
-  }
+  )};
+
+  updatePuzzle(id: number, order: boolean){
+    return this.http.put("http://localhost:8080/api/puzzle/"+id+"/update", {"cardOrder": order}, httpOptions).pipe(
+      tap((puzzle: Puzzle) => this.log("Puzzle w/"+id),
+        catchError(this.handleError<Puzzle>('updateCard')))
+    )};
+
+
   getMemory(id:number){
     return this.http.get("http://localhost:8080/api/memory/"+id+"/rules", httpOptions).pipe(
       tap((memory: Memory) => this.log("Memory w/"+id),

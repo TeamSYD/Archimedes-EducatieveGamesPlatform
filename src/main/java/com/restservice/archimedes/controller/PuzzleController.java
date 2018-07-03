@@ -77,6 +77,23 @@ public class PuzzleController {
         return puzzleRepository.save(puzzle);
     }
 
+    // Update a puzzle
+    @PutMapping("/puzzle/{game_id}/update")
+    public Puzzle updatePuzzleByGameId(@PathVariable(value = "game_id") long gameId,
+                                       @Valid @RequestBody Puzzle puzzleDetails) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new ResourceNotFoundException("Game", "id", gameId));
+
+        Rule rule = ruleRepository.findById(game.getRule().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Rule", "id", game.getRule().getId()));
+
+        Puzzle puzzle = puzzleRepository.findByRuleId(rule.getId());
+
+        puzzle.setCardOrder(puzzleDetails.getCardOrder());
+
+        return puzzleRepository.save(puzzle);
+    }
+
     // Delete a Puzzle
     @DeleteMapping("/puzzle/{id}")
     public ResponseEntity<?> deletePuzzle(@PathVariable(value = "id") long puzzleId) {

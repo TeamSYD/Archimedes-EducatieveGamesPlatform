@@ -19,7 +19,7 @@ import {DataService} from "../data-service";
 export class PuzzleComponent implements OnInit, OnChanges {
 
 
-  cardOrder: boolean;
+  card_order: boolean;
   ready: boolean = false;
   readyButton: boolean = true;
   sets: Set[] = [];
@@ -60,9 +60,9 @@ export class PuzzleComponent implements OnInit, OnChanges {
     console.log(this.winCondition);
     console.log(this.cardsInput);
 
-  console.log('cardorder: ' + this.cardOrder);
+  console.log('cardorder: ' + this.card_order);
 
-    if(this.cardOrder == false){
+    if(this.card_order == false){
       for(let card of this.winCondition){
         if(this.cardsInput.includes(card)){
           this.gameStatus = true
@@ -112,7 +112,7 @@ export class PuzzleComponent implements OnInit, OnChanges {
     this.readyButton = false;
     this.cards = this.shuffle(this.cards);
 
-    this.gameService.getPuzzleByGameId(this.game.id).subscribe(result => {this.cardOrder = result.cardOrder;
+    this.gameService.getPuzzleByGameId(this.game.id).subscribe(result => {this.card_order = result.cardOrder;
     console.log(result);});
     console.log('ik kom zoiezo bij sendgameEvent')
     this.sendGameEvent();
