@@ -51,6 +51,16 @@ public class MemoryController {
         return memoryRepository.findById(memoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Memory", "id", memoryId));
     }
+    // Get a Single Memory
+    @GetMapping("/memory/{id}/rule")
+    public Memory getMemoryByRuleId(@PathVariable(value = "id") long gameId) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new ResourceNotFoundException("Game", "id", gameId));
+        Rule rule = ruleRepository.findById(game.getRule().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Rule", "id", game.getRule().getId()));
+
+        return memoryRepository.findByRuleId(rule.getId());
+    }
 
     // Update a Memory
     @PutMapping("/memory/{id}")

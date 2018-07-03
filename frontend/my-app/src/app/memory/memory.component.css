@@ -1,5 +1,6 @@
 .memory-card{
   margin:0;
+  padding: 0;
   height: 150px; width: 100px;
 }
 .memory-body{
@@ -15,3 +16,4 @@
   width: 100%;
   margin: 0;
 }
+
