@@ -14,14 +14,14 @@
             <div class="setrow" *ngFor="let set of setcontent; let i = index">
               <i (click)="remove(i)" class="far fa-2x fa-times-circle removesetbutton"></i>
               <label>Set {{(i+1)}}:</label>
-              <app-set-row ></app-set-row>
+              <app-set-row [cardcontent]="setcontent[i].card" [setcontent]="setcontent" [setId]="setcontent[i].id"></app-set-row>
             </div>
               <button (click)="add()" class="addsetbutton">
                 <p style="margin: 0 0 0 0;">Add new set</p>
                 <i class="fas fa-7x fa-plus addseticon"></i>
               </button>
             <p style="margin: 50px 0 0 0; text-align: center;">Add your filler cards here:</p>
-            <app-set-row [ngStyle]="{'color': 'white', 'font-size': '12px', 'background-color': 'blue'}" [filler]="setfiller"></app-set-row>
+            <app-set-row [ngStyle]="{'color': 'white', 'font-size': '12px', 'background-color': 'blue'}" [setcontent]="setcontent" [filler]="setfiller"></app-set-row>
           </div>
         </div>
       </div>

@@ -21,9 +21,4 @@ export class DataService {
     console.log(this.currentCard);
     this.cardSource.next(card);
   }
-
-  // changeGame(game: Game){
-  //   console.log('logged in dataservice:' + game.id);
-  //   this.gameSource.next(game);
-  // }
 }

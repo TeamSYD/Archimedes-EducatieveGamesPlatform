@@ -2,7 +2,6 @@
 // MODULES
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// TODO: Ngmodule wordt niet gebruikt, dependency checken.
 import {ErrorHandler, NgModule, EventEmitter} from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
@@ -37,7 +36,6 @@ import { MessagesComponent } from './messages/messages.component';
 import { SetsComponent } from './sets/sets.component';
 import { SetRowComponent } from './set-row/set-row.component';
 import {MaintainGameComponent} from "./maintain-game/maintain-game.component";
-import {GameSpelenComponent} from "./game-spelen/game-spelen.component";
 
 // COMPONENTS: SEARCH
 import { CategorySearchComponent } from './category-search/category-search.component';
@@ -55,11 +53,13 @@ import { ResourceService} from './resource.service';
 // DIRECTIVES
 import { CarouselItemDirective } from './carousel/carousel-item.directive';
 import { GamesComponent } from './games/games.component';
-import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { PuzzleComponent } from './puzzle/puzzle.component';
+import { GameStatusComponent } from './game-status/game-status.component';
 import { GameResultaatComponent } from './game-resultaat/game-resultaat.component';
 import { AddArrangementComponent } from './add-arrangement/add-arrangement.component';
 import { ManageArrangementComponent } from './manage-arrangement/manage-arrangement.component';
+import {ScoreboardComponent} from "./scoreboard/scoreboard.component";
+import {GameSpelenComponent} from "./game-spelen/game-spelen.component";
 
 
 Raven
@@ -123,6 +123,9 @@ export class RavenErrorHandler implements ErrorHandler {
     ScoreboardComponent,
 
     PuzzleComponent,
+
+    GameStatusComponent,
+
 
     GameResultaatComponent,
 

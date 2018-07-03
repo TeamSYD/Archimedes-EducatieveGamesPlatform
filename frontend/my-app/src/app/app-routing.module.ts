@@ -16,6 +16,7 @@ import {GamesComponent} from "./games/games.component";
 import {ScoreboardComponent} from "./scoreboard/scoreboard.component";
 import {GameSpelenComponent} from "./game-spelen/game-spelen.component";
 import {PuzzleComponent} from "./puzzle/puzzle.component";
+import {GameStatusComponent} from "./game-status/game-status.component";
 import {GameResultaatComponent} from "./game-resultaat/game-resultaat.component";
 import {AddArrangementComponent} from "./add-arrangement/add-arrangement.component";
 import {ManageArrangementComponent} from "./manage-arrangement/manage-arrangement.component";
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path: 'maintain-game', component: MaintainGameComponent},
   {path: 'games', component: GamesComponent},
   {path: 'puzzle', component: PuzzleComponent},
+  {path: 'game-status', component: GameStatusComponent},
   {path: 'scoreboard', component: ScoreboardComponent},
   {path: 'game-spelen', component: GameSpelenComponent},
   {path: 'game-resultaat', component: GameResultaatComponent},

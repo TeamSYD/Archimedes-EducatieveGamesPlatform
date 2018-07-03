@@ -3,10 +3,10 @@ import {Observable, of} from "rxjs/index";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Memory } from './Memory'
-import {MessageService} from "./message.service";
-import {Game} from "./game";
-import {Puzzle} from "./Puzzle";
-import {Session} from "./session";
+import { MessageService } from "./message.service";
+import { Game } from "./game";
+import { Puzzle } from "./Puzzle";
+import { Session } from "./session";
 
 
 const httpOptions = {
@@ -34,7 +34,6 @@ export class GameService {
     );
   }
 
-
   /** POST: add a new game game to the server */
   //TODO: add accountId to save Game with correct account
   addGame (name:string, time:number, game:string, ruleId:number): Observable<Game> {
@@ -43,8 +42,6 @@ export class GameService {
       catchError(this.handleError<Game>('addGame'))
     );
   }
-
-
 
   /** DELETE: delete the game from the server */
   deleteGame (game: Game | number): Observable<Game> {
@@ -55,7 +52,6 @@ export class GameService {
       catchError(this.handleError<Game>('deleteGame'))
     );
   }
-
 
   getGames(): Observable<Game[]> {
   // TODO: send the message _after_ fetching the games
@@ -74,10 +70,16 @@ export class GameService {
     );
   }
 
+  updateMemory(id: number, duplicate: boolean, inverted: boolean){
+    return this.http.put("http://localhost:8080/api/memory/"+id+"/update", {"duplicates": duplicate, "inverted": inverted}, httpOptions).pipe(
+      tap((memory: Memory) => this.log("Memory w/"+id),
+    catchError(this.handleError<Memory>('updateCard')))
+  );
+  }
+
   private log(message: string) {
     this.messageService.add('CategoryService: ' + message);
   }
-
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -92,7 +94,6 @@ export class GameService {
       return of(result as T);
     };
   }
-
 
   constructor(private messageService: MessageService,
               private http: HttpClient

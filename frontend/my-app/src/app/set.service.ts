@@ -28,7 +28,7 @@ export class SetService {
   /** GET sets from the server */
   getSets(gameId: number): Observable<Set[]> {
     return this.http.get<Set[]>(this.setUrl+ "/games/"+gameId+"/sets")
-      .pipe(map(res => <Set[]>res['content']), tap(set => this.log(`fetched sets`)),
+      .pipe(tap(set => this.log(`fetched sets`)),
         catchError(this.handleError('getSets', []))
       );
   }
@@ -73,6 +73,7 @@ export class SetService {
   }
 
   unlinkCard(card_id: number){
+    console.log(this.setUrl+"/card/"+card_id+"/noset");
     return this.http.put(this.setUrl+"/card/"+card_id+"/noset", httpOptions).pipe(
       tap((set: Set) => this.log(`updated card w/ id=${card_id}`)),
       catchError(this.handleError<Set>('unlinkCard'))

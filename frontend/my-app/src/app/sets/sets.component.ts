@@ -4,6 +4,9 @@ import {Observable} from "rxjs/Rx";
 import {SetService} from "../set.service";
 import {Card} from "../cards/card";
 import {typeIsOrHasBaseType} from "tslint/lib/language/typeUtils";
+import {Set} from "./set";
+import {forEach} from "@angular/router/src/utils/collection";
+import {GameService} from "../game.service";
 
 @Component({
   selector: 'app-sets',
@@ -11,20 +14,21 @@ import {typeIsOrHasBaseType} from "tslint/lib/language/typeUtils";
   styleUrls: ['./sets.component.css']
 })
 export class SetsComponent implements OnInit {
-  @ViewChildren(SetRowComponent) rows: QueryList<SetRowComponent>
+  @ViewChildren(SetRowComponent) rows: QueryList<SetRowComponent>;
+
 
   //setObservable : Observable<Set[]>;
   set: Set;
-  //sets: Set[];
   setcontent: Set[];
   setfiller = true;
+  findSetId: number;
   duplicate = false;
   invert = false;
   inverted: String = 'Cards open';
   duplicates: String = 'Duplicates on';
+  gameId: number = parseInt(localStorage.getItem("gameId"));
 
-
-  constructor(private setService: SetService) {
+  constructor(private setService: SetService, private  gameService: GameService) {
     this.setcontent = [];
   }
 
@@ -34,11 +38,16 @@ export class SetsComponent implements OnInit {
   }
 
   remove(index: number) {
-    this.setService.deleteSet(this.setcontent[0].id).subscribe(a => this.setcontent.splice(index, 1))
+    for (let i in this.setcontent[index].card) {
+      this.setService.unlinkCard(this.setcontent[index].card[i].id).subscribe();
+    }
+    this.setService.deleteSet(this.setcontent[index].id).subscribe(a => this.setcontent.splice(index, 1));
+
   }
 
   ngOnInit() {
-    this.setService.getSets(1).subscribe(a => console.log(a));
+    console.log("START FILLING SETCONTENT");
+    this.setService.getSets(1).subscribe(a => this.setcontent = a);
   }
 
   duplicateToggle(){
@@ -69,20 +78,8 @@ export class SetsComponent implements OnInit {
   }
 
   saveButton() {
-    this.setService.getSets(1).subscribe(a => a.forEach(this.setcontent.concat(a)));
     console.log("SAVE BUTTON CLICKED");
-    var i = 0;
-    this.rows.forEach(res => {
-      console.log("SetRowCompnent: "+i);
-      let gameId: number[] = res.cardcontent.map(a => a.game.id);
-      this.setService.saveSetNew(res.cardcontent, res.filler, 1).subscribe();
-    });
-
     console.log(this.setcontent);
-
-  }
-
-  ngAfterViewInit() {
-    this.rows.forEach(rowInstance => console.log(rowInstance));
+    this.gameService.updateMemory(this.gameId, this.duplicate, this.invert).subscribe();
   }
 }

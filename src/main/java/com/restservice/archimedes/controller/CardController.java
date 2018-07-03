@@ -70,8 +70,7 @@ public class CardController {
         Set set = setRepository.findById(set_id)
                 .orElseThrow(() -> new ResourceNotFoundException("Set:", "id", set_id));
         card.setSet(set);
-
-        return card;
+        return cardRepository.save(card);
     }
 
     @PutMapping("card/{card_id}/noset")
@@ -80,7 +79,7 @@ public class CardController {
                 .orElseThrow(() -> new ResourceNotFoundException("Card:", "id", card_id));
         card.setSet(null);
 
-        return card;
+        return cardRepository.save(card);
     }
 
     // Delete a card

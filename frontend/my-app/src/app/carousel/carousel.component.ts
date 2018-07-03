@@ -18,7 +18,7 @@ import { Card } from '../cards/card'
 import { CardService } from "../card.service";
 import { Renderer2} from "@angular/core";
 import {Observable} from "rxjs/Rx";
-import {DataService} from "../data-service.service";
+import {DataService} from "../data-service";
 
 @Directive({
   selector: '.carousel-item'
@@ -47,11 +47,10 @@ export class CarouselComponent implements OnInit {
   private carouselWidth;
   private arraySize = null;
   private itemWidth : number;
+  gameId: number = parseInt(localStorage.getItem("gameId"));
 
   constructor(private cardService : CardService, private renderer: Renderer2, private dataService: DataService) {
-
   }
-
 
   /*
   @HostListener('window:resize', ['$event'])
@@ -86,18 +85,19 @@ export class CarouselComponent implements OnInit {
   }
 
   private getCards(){
-    this.cardService.getCards().subscribe(cards => this.cards = cards)
+    this.cardService.getCards().subscribe(cards => this.cards = cards);
   }
 
   public removeCard(i){
     this.cardService.deleteCard(this.cards[i]).subscribe();
-    this.cards.splice(i, 1)
+    this.cards.splice(i, 1);
   }
 
   ngOnInit() {
-    this.cardService.gameId = 1;
+    this.cardService.gameId = this.gameId;
     this.getCards();
     console.log(this.cards);
     this.dataService.currentCard.subscribe(card => this.cards.push(card));
+
   }
 }
