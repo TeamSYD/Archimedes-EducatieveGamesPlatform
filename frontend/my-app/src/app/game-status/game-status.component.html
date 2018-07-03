@@ -16,7 +16,7 @@
 </div>
 </mat-card>
 
-<div class="scoreCard">
+<div *ngIf='gameScore' class="scoreCard">
 <mat-card style="width: 400px">
   <mat-card-title>Congrats, you finished the game!</mat-card-title>
   <mat-card-header>Score: <p>{{score}}</p></mat-card-header>
