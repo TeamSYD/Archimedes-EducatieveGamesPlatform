@@ -80,6 +80,16 @@ export class GameService {
     );
   }
 
+  getGameTypeById(id: number) : Observable<Game> {
+    return this.http.get<Game>('http://localhost:8080/api/games/'+id).pipe(
+      tap(h => {
+        const outcome = h ? `fetched` : `did not find`;
+        this.log(`${outcome} Game =${id}`);
+      }),
+      catchError(this.handleError<Game>(`getMemoryByGameId id=${id}`))
+    );
+  }
+
   getSessionByPin(pin: number) : Observable<Session> {
     return this.http.get<Session>('http://localhost:8080/api/session/pin/'+pin).pipe(
         tap(h => {

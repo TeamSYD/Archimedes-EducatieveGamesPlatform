@@ -42,6 +42,7 @@ public class GameController {
     public Page<Game> getAllCategoriesByAccountId(@PathVariable(value = "accountId") long accountId, Pageable pageable) {
         return gameRepository.findByAccountId(accountId, pageable);
     }
+
     // Get All Games
     @GetMapping("/games")
     public List<Game> getAllGames() {

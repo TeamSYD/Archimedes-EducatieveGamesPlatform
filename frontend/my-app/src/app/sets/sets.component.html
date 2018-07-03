@@ -39,27 +39,36 @@
        <div class="row cornerdiv color1" style=" height: 15%;">
          <h4 style="color: white;">Settings:</h4>
        </div>
-       <div class="row color1 emptydiv" style="height: 35%;"></div>
+       <div class="row color1 emptydiv" style="height: 25%;"></div>
           <div class="row color1 rulediv" style="height: 30%; padding-top: 20%">
-            <div class="col-md-12">
+            <div *ngIf="this.gameType == 'Memory'" class="col-md-12">
               <label id="invert">{{inverted}}</label>
               <label class="switch">
                 <input type="checkbox" (click)="invertToggle()">
                 <span class="slider round"></span>
               </label>
             </div>
-            <div class="col-md-12">
+            <div *ngIf="this.gameType == 'Memory'" class="col-md-12">
               <label id="duplicates">{{duplicates}}</label>
               <label class="switch">
                 <input type="checkbox" (click)="duplicateToggle()">
                 <span class="slider round"></span>
               </label>
-
+            </div>
+            <div *ngIf="this.gameType == 'Puzzle'" class="col-md-12">
+              <label id="orders">{{orders}}</label>
+              <label class="switch">
+                <input type="checkbox" (click)="orderToggle()">
+                <span class="slider round"></span>
+              </label>
             </div>
            </div>
-       <div class="row color1 savediv" style="height: 20%;">
-        <input class="btn btn-primary" type="button" (click)="saveButton()" value="Save game" style="margin-top: 20%; width: 100%; height: 40%; margin-left: 5px; margin-right: 5px;">
+       <div class="row color1 savediv" style="height: 15%;">
+        <input class="btn btn-primary" type="button" (click)="saveButton()" value="Save settings" style="margin-top: 20%; width: 100%; height: 50%; margin-left: 8px; margin-right: 8px;">
         </div>
+       <div class="row color1 savediv" style="height: 15%;">
+         <input class="btn btn-primary" type="button" value="Home" routerLink="/dashboard" style="margin-top: 20%; width: 100%; height: 50%; margin-left: 8px; margin-right: 8px;">
+       </div>
       </div>
     </div>
 </div>

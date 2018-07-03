@@ -3,4 +3,5 @@ export class Game {
   name: String;
   time: number;
   ruleId: number;
+  game: string;
 }

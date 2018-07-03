@@ -89,6 +89,10 @@ img {
   width:150px;
 }
 
+#orders{
+  width:150px;
+}
+
 /* The switch - the box around the slider */
 .switch {
   position: relative;

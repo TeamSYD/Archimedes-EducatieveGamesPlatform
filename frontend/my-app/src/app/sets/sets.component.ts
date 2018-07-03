@@ -7,6 +7,8 @@ import {typeIsOrHasBaseType} from "tslint/lib/language/typeUtils";
 import {Set} from "./set";
 import {forEach} from "@angular/router/src/utils/collection";
 import {GameService} from "../game.service";
+import {SnackbarService} from "../snackbar.service";
+
 
 @Component({
   selector: 'app-sets',
@@ -16,16 +18,19 @@ import {GameService} from "../game.service";
 export class SetsComponent implements OnInit {
   @ViewChildren(SetRowComponent) rows: QueryList<SetRowComponent>;
   set: Set;
+  gameType;
   setcontent: Set[];
   addFillerButton = true;
   setfiller = false;
   duplicate = false;
   invert = false;
+  order = false;
+  orders: String = "Ordered";
   inverted: String = 'Cards open';
   duplicates: String = 'Duplicates on';
   gameId: number = parseInt(localStorage.getItem("gameId"));
 
-  constructor(private setService: SetService, private  gameService: GameService) {
+  constructor(private setService: SetService, private gameService: GameService, private snackbarService: SnackbarService) {
     this.setcontent = [];
   }
 
@@ -64,6 +69,7 @@ export class SetsComponent implements OnInit {
   ngOnInit() {
     //this.gameService.getMemoryByGameId(this.gameId).subscribe(a => console.log(a));
     this.setService.getSets(this.gameId).subscribe(a => {this.setcontent = a;  this.checkFiller()});
+    this.gameService.getGameTypeById(this.gameId).subscribe(a => this.gameType = a.game);
   }
 
   duplicateToggle(){
@@ -72,6 +78,10 @@ export class SetsComponent implements OnInit {
 
   invertToggle(){
     this.invertButton();
+  }
+
+  orderToggle(){
+    this.orderButton();
   }
 
   duplicateButton(){
@@ -93,7 +103,16 @@ export class SetsComponent implements OnInit {
     }
   }
 
+  orderButton(){
+    this.order = !this.order;
+    if (this.order == false){
+      this.orders = 'Ordered';
+    } else {
+      this.orders = 'Unordered';
+    }
+  }
+
   saveButton() {
-    this.gameService.updateMemory(this.gameId, this.duplicate, this.invert).subscribe();
+    this.gameService.updateMemory(this.gameId, this.duplicate, this.invert).subscribe(a => this.snackbarService.SuccesSnackBar("Settings saved!"));
   }
 }
