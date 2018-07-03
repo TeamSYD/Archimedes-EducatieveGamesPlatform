@@ -1,8 +1,12 @@
 package com.restservice.archimedes.controller;
 
 import com.restservice.archimedes.exception.ResourceNotFoundException;
+import com.restservice.archimedes.model.Game;
 import com.restservice.archimedes.model.Puzzle;
+import com.restservice.archimedes.model.Rule;
+import com.restservice.archimedes.repository.GameRepository;
 import com.restservice.archimedes.repository.PuzzleRepository;
+import com.restservice.archimedes.repository.RuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +21,14 @@ import java.util.List;
 public class PuzzleController {
 
     private final PuzzleRepository puzzleRepository;
+    private final GameRepository gameRepository;
+    private final RuleRepository ruleRepository;
 
     @Autowired
-    public PuzzleController(PuzzleRepository puzzleRepository) {
+    public PuzzleController(PuzzleRepository puzzleRepository, RuleRepository ruleRepository, GameRepository gameRepository) {
         this.puzzleRepository = puzzleRepository;
+        this.ruleRepository = ruleRepository;
+        this.gameRepository = gameRepository;
     }
 
     // Get All Puzzle
@@ -40,6 +48,18 @@ public class PuzzleController {
     public Puzzle getPuzzleById(@PathVariable(value = "id") long puzzleId) {
         return puzzleRepository.findById(puzzleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Puzzle", "id", puzzleId));
+    }
+
+
+    // Get a Single puzzle
+    @GetMapping("/puzzle/{id}/rule")
+    public Puzzle getPuzzleByRuleId(@PathVariable(value = "id") long gameId) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new ResourceNotFoundException("Game", "id", gameId));
+        Rule rule = ruleRepository.findById(game.getRule().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Rule", "id", game.getRule().getId()));
+
+        return puzzleRepository.findByRuleId(rule.getId());
     }
 
     // Update a puzzle

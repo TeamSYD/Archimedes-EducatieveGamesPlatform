@@ -77,6 +77,15 @@ export class GameService {
   );
   }
 
+  getPuzzleByGameId(id: number): Observable<Puzzle> {
+    // TODO: send the message _after_ fetching the games
+    console.log("Fetched games.");
+    return this.http.get<Puzzle>('http://localhost:8080/api/puzzle/' + id + '/rule')
+      .pipe(tap(game => console.log(game),
+          catchError(this.handleError('getPuzzle'))
+        ));
+  }
+
   private log(message: string) {
     this.messageService.add('CategoryService: ' + message);
   }
