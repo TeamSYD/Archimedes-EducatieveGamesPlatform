@@ -70,6 +70,16 @@ export class GameService {
     );
   }
 
+  getMemoryByGameId(id: number) : Observable<Memory> {
+    return this.http.get<Memory>('http://localhost:8080/api/memory/'+id+"/rule").pipe(
+      tap(h => {
+        const outcome = h ? `fetched` : `did not find`;
+        this.log(`${outcome} Memory =${id}`);
+      }),
+      catchError(this.handleError<Memory>(`getMemoryByGameId id=${id}`))
+    );
+  }
+
   getSessionByPin(pin: number) : Observable<Session> {
     return this.http.get<Session>('http://localhost:8080/api/session/pin/'+pin).pipe(
         tap(h => {

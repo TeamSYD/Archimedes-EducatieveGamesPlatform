@@ -105,7 +105,7 @@ p{
 .card{
   height: 100%;
   width: 6em;
-  background-color: #D7E6ED;
+  background-color: whitesmoke;
   border-radius: 0;
   border: 2px solid #525e70;
 }
@@ -143,9 +143,9 @@ li:hover .removalbutton {
   opacity: 0.3;
   height: 100%;
   width: 6em;
-  background-color: #e5f9f9;
+  background-color: whitesmoke;
   border-radius: 0;
-  border: 2px solid #ac3b34;
+  border: 2px solid black;
   display: none;
 }
 

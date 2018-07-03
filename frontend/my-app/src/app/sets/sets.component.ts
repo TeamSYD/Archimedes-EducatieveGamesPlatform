@@ -15,13 +15,10 @@ import {GameService} from "../game.service";
 })
 export class SetsComponent implements OnInit {
   @ViewChildren(SetRowComponent) rows: QueryList<SetRowComponent>;
-
-
-  //setObservable : Observable<Set[]>;
   set: Set;
   setcontent: Set[];
-  setfiller = true;
-  findSetId: number;
+  addFillerButton = true;
+  setfiller = false;
   duplicate = false;
   invert = false;
   inverted: String = 'Cards open';
@@ -33,21 +30,40 @@ export class SetsComponent implements OnInit {
   }
 
   add(){
-    this.setService.addSet(1).subscribe( a => this.setcontent.push(a));
-    console.log(this.setcontent)
+    this.checkFiller();
+    this.setService.addSet(this.gameId).subscribe( a => this.setcontent.push(a));
+    this.setService.getSets(this.gameId).subscribe();
+  }
+
+  addFiller(){
+    this.addFillerButton = false;
+    this.setService.addFillerSet(this.gameId).subscribe( a => this.setcontent.push(a));
+  }
+
+  checkFiller(){
+    for (let i in this.setcontent){
+      if (this.setcontent[i].filler == true){
+        this.addFillerButton = false;
+        return;
+      }
+      this.addFillerButton = true;
+    }
   }
 
   remove(index: number) {
+    if (this.setcontent[index].filler == true){
+      this.addFillerButton = true;
+    }
+
     for (let i in this.setcontent[index].card) {
       this.setService.unlinkCard(this.setcontent[index].card[i].id).subscribe();
     }
     this.setService.deleteSet(this.setcontent[index].id).subscribe(a => this.setcontent.splice(index, 1));
-
   }
 
   ngOnInit() {
-    console.log("START FILLING SETCONTENT");
-    this.setService.getSets(1).subscribe(a => this.setcontent = a);
+    //this.gameService.getMemoryByGameId(this.gameId).subscribe(a => console.log(a));
+    this.setService.getSets(this.gameId).subscribe(a => {this.setcontent = a;  this.checkFiller()});
   }
 
   duplicateToggle(){
@@ -78,8 +94,6 @@ export class SetsComponent implements OnInit {
   }
 
   saveButton() {
-    console.log("SAVE BUTTON CLICKED");
-    console.log(this.setcontent);
     this.gameService.updateMemory(this.gameId, this.duplicate, this.invert).subscribe();
   }
 }

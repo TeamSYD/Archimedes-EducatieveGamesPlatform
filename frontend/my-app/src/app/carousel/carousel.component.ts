@@ -1,23 +1,18 @@
 import {
-  AfterViewInit,
   Component,
   ContentChildren,
   Directive,
   ElementRef,
-  HostListener,
   Input,
   OnInit,
   QueryList,
-  TemplateRef,
   ViewChild,
   ViewChildren
 } from '@angular/core';
 import { CarouselItemDirective } from './carousel-item.directive';
-import { animate, AnimationBuilder, AnimationFactory, AnimationPlayer, style } from '@angular/animations';
 import { Card } from '../cards/card'
 import { CardService } from "../card.service";
 import { Renderer2} from "@angular/core";
-import {Observable} from "rxjs/Rx";
 import {DataService} from "../data-service";
 
 @Directive({
@@ -51,29 +46,6 @@ export class CarouselComponent implements OnInit {
 
   constructor(private cardService : CardService, private renderer: Renderer2, private dataService: DataService) {
   }
-
-  /*
-  @HostListener('window:resize', ['$event'])
-  resizeColumns() {
-    this.updateCarouselWidth();
-    this.updateItemWidth();
-    this.cardListItem.forEach((cc) => {
-      this.renderer.setStyle(
-        cc.nativeElement,
-        'width',
-        `${this.itemWidth}px`
-      );
-    });
-  }
-  */
-
-  /*
-  updateItemWidth(){
-    this.itemWidth = this.cardListItem.nativeElement.attributes['width'].value();
-  }
-  */
-  // Handig voor later
-  //let widths = this.cardListItem.map(cc => cc.nativeElement.offsetWidth);
 
   log(){
     // Log all variables for debug purposes
