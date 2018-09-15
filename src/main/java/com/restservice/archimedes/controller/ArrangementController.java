@@ -69,7 +69,7 @@ public class ArrangementController {
     }
 
     // Get all games by Arrangement ID
-    @GetMapping("/arrangement/{arrangement_id}/games")
+    @GetMapping("/arrangements/{arrangement_id}/games")
     public Page<Game> getGamesByArrangementId(@PathVariable(value = "arrangement_id") long arrangementId, Pageable pageable) {
         return gameRepository.findByArrangementId(arrangementId, pageable);
     }

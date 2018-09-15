@@ -68,7 +68,7 @@ export class ArrangementenService {
   }
 
   getGamesByArrangementId(arrangement_id: number) : Observable<Game[]> {
-    return this.http.get<Game[]>('http://localhost:8080/api/arrangement/'+arrangement_id+'/games').pipe(
+    return this.http.get<Game[]>('http://localhost:8080/api/arrangements/'+arrangement_id+'/games').pipe(
       map(res => <Game[]>res['content']),
       tap(h => {
         const outcome = h ? `fetched` : `did not find`;
